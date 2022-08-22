@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/CrossHair/CrossHair.gd" type="Script" id=1]
+[ext_resource path="res://Assets/CrossHair/crosshair7.png" type="Texture" id=2]
+[ext_resource path="res://Assets/CrossHair/crosshair7part1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/CrossHair/new folder/crosshair7part4.png" type="Texture" id=4]
+[ext_resource path="res://Assets/CrossHair/crosshair7part3.png" type="Texture" id=5]
+
+[node name="CrossHair" type="Node2D"]
+modulate = Color( 1, 1, 1, 0.478431 )
+scale = Vector2( 0.70343, 0.70343 )
+z_index = -1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 222.0 ],
+"_edit_vertical_guides_": [ 211.0 ]
+}
+
+[node name="MainPart" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="MainPart"]
+texture = ExtResource( 2 )
+
+[node name="Part1" type="Node2D" parent="."]
+visible = false
+scale = Vector2( 0.727614, 0.727614 )
+
+[node name="crosshair7part1" type="Sprite" parent="Part1"]
+visible = false
+position = Vector2( 60.3704, -0.25946 )
+scale = Vector2( 0.409174, 0.409174 )
+texture = ExtResource( 5 )
+
+[node name="Part2" type="Node2D" parent="."]
+visible = false
+
+[node name="crosshair7part1" type="Sprite" parent="Part2"]
+visible = false
+position = Vector2( -31.7232, 25.6639 )
+scale = Vector2( 0.732, 0.732 )
+texture = ExtResource( 4 )
+
+[node name="Part3" type="Node2D" parent="."]
+visible = false
+rotation = -0.785397
+
+[node name="crosshair7part1" type="Sprite" parent="Part3"]
+visible = false
+position = Vector2( 1.39839, -56.5973 )
+scale = Vector2( 0.477337, 0.487707 )
+texture = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.4
+autostart = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]

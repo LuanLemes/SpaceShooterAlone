@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/Particles/Sakura/BulletParticle.gd" type="Script" id=1]
+[ext_resource path="res://objects/Particles/Sakura/BulletExplosionParticle.tres" type="Material" id=2]
+
+[node name="ExplosionParticle" type="Particles2D"]
+modulate = Color( 1.2, 1.2, 1.2, 1 )
+position = Vector2( -1, 0 )
+emitting = false
+amount = 7
+lifetime = 0.43
+one_shot = true
+speed_scale = 1.2
+explosiveness = 0.91
+randomness = 1.0
+fract_delta = false
+process_material = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/weapons/hero_weapon.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[node name="HeroWeapon" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="FrontCannons" type="Node2D" parent="."]
+visible = false
+rotation = 1.57079
+
+[node name="Position2D9" type="Position2D" parent="FrontCannons"]
+modulate = Color( 1, 0, 0, 1 )
+rotation = -1.57079
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="FrontCannons/Position2D9"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )
+
+[node name="DiagonalCannons" type="Node2D" parent="."]
+visible = false
+rotation = 1.57079
+
+[node name="Position2D7" type="Position2D" parent="DiagonalCannons"]
+modulate = Color( 1, 0, 0, 1 )
+rotation = -2.09439
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="DiagonalCannons/Position2D7"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )
+
+[node name="Position2D8" type="Position2D" parent="DiagonalCannons"]
+modulate = Color( 1, 0, 0, 1 )
+rotation = -1.0472
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="DiagonalCannons/Position2D8"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )
+
+[node name="DiagonalCannons2" type="Node2D" parent="."]
+visible = false
+rotation = 1.57079
+
+[node name="Position2D5" type="Position2D" parent="DiagonalCannons2"]
+modulate = Color( 1, 0, 0, 1 )
+rotation = -0.523598
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="DiagonalCannons2/Position2D5"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )
+
+[node name="Position2D6" type="Position2D" parent="DiagonalCannons2"]
+modulate = Color( 1, 0, 0, 1 )
+rotation = -2.61799
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="DiagonalCannons2/Position2D6"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )
+
+[node name="RearCannon" type="Node2D" parent="."]
+visible = false
+rotation = 1.57079
+
+[node name="Position2D5" type="Position2D" parent="RearCannon"]
+modulate = Color( 1, 0, 0, 1 )
+rotation = 1.57079
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="RearCannon/Position2D5"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )
+
+[node name="SideCannons" type="Node2D" parent="."]
+visible = false
+rotation = 1.57079
+
+[node name="Position2D5" type="Position2D" parent="SideCannons"]
+modulate = Color( 1, 0, 0, 1 )
+rotation = 3.14159
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="SideCannons/Position2D5"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )
+
+[node name="Position2D6" type="Position2D" parent="SideCannons"]
+modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 2.12, 0.200002 )
+
+[node name="Sprite" type="Sprite" parent="SideCannons/Position2D6"]
+position = Vector2( 31.6038, 0.000758758 )
+texture = ExtResource( 2 )

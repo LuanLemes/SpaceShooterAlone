@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/UI/HeroUI/ValueUI.tscn" type="PackedScene" id=2]
+
+[node name="SandBox" type="Node2D"]
+
+[node name="Node2D" parent="." instance=ExtResource( 2 )]
+
+[node name="Line2D" parent="Node2D" index="0"]
+points = PoolVector2Array( 522, 421, 454, 413, 404, 375, 346, 315, 322, 249, 332, 197, 340, 165, 304, 69, 346, 61, 404, 77, 460, 55, 494, 43, 536, 39, 562, 47, 602, 61, 618, 71, 652, 59, 700, 63, 724, 61, 720, 87, 712, 127, 700, 165, 692, 179, 700, 199, 698, 269, 682, 309, 658, 369, 630, 379, 602, 399, 558, 415, 504, 415 )
+
+[node name="Node2D2" parent="." instance=ExtResource( 2 )]
+
+[node name="Line2D" parent="Node2D2" index="0"]
+points = PoolVector2Array( 386, 241, 380, 213, 402, 195, 418, 199, 422, 219, 408, 241, 368, 249 )
+
+[node name="Node2D3" parent="." instance=ExtResource( 2 )]
+
+[node name="Line2D" parent="Node2D3" index="0"]
+points = PoolVector2Array( 604, 219, 614, 201, 642, 195, 642, 213, 642, 241, 606, 245, 598, 193 )
+
+[node name="Node2D4" parent="." instance=ExtResource( 2 )]
+
+[node name="Line2D" parent="Node2D4" index="0"]
+points = PoolVector2Array( 470, 257, 492, 253, 520, 249, 538, 253, 564, 269, 578, 311, 558, 353, 502, 371, 458, 339, 452, 311, 446, 283, 454, 269 )
+
+[node name="Node2D5" parent="." instance=ExtResource( 2 )]
+
+[node name="Line2D" parent="Node2D5" index="0"]
+points = PoolVector2Array( 476, 319, 470, 299, 498, 289, 496, 319 )
+
+[node name="Node2D6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 56, 2 )
+
+[node name="Line2D" parent="Node2D6" index="0"]
+points = PoolVector2Array( 476, 319, 470, 299, 498, 289, 496, 319 )
+
+[node name="Node2D7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 56, 2 )
+
+[node name="Line2D" parent="Node2D7" index="0"]
+points = PoolVector2Array( 174, 357, 174, 183, 210, 89, 286, 25, 368, -15, 486, -41, 620, -7, 724, 81, 772, 229, 760, 339, 722, 437, 692, 491, 626, 525, 566, 557, 440, 577, 334, 543, 252, 497, 202, 429, 172, 329 )
+
+[node name="Node2D8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 56, 2 )
+
+[node name="Line2D" parent="Node2D8" index="0"]
+points = PoolVector2Array( 2, 1030, -7, 738, 218, 703, 205, 802, 25, 875, 190, 891, 202, 1005, 31, 1005, 383, 1027, 348, 694, 605, 684, 634.877, 857.597, 663, 1021, 377, 992, 710, 1033, 713, 687, 748, 687, 840, 868, 920, 681, 958, 989 )
+
+[node name="Node2D9" parent="." instance=ExtResource( 2 )]
+position = Vector2( 56, 2 )
+
+[node name="Line2D" parent="Node2D9" index="0"]
+points = PoolVector2Array( 12, 1535, 44, 1173, 240, 1256, 285, 1468, 47, 1532, 339, 1538, 364, 1208, 482, 1208, 488, 1557, 374, 1519, 526, 1506, 691, 1167, 774, 1164, 942, 1468, 863, 1472, 742, 1259, 710, 1259, 621, 1449, 40, 1589 )
+
+[editable path="Node2D"]
+[editable path="Node2D2"]
+[editable path="Node2D3"]
+[editable path="Node2D4"]
+[editable path="Node2D5"]
+[editable path="Node2D6"]
+[editable path="Node2D7"]
+[editable path="Node2D8"]
+[editable path="Node2D9"]

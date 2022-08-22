@@ -1,0 +1,172 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Actors/Enemy/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/LineTrail/Trail2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Supports/pixie.png" type="Texture" id=3]
+[ext_resource path="res://objects/weapons/EnemyWeapons/BasicEnemyWeapon/BasicEnemyWeapon.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieEnemy/PixieEnemyIdleState.gd" type="Script" id=5]
+[ext_resource path="res://objects/Resources/DamagedShader.gdshader" type="Shader" id=6]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieEnemy/PixieEnemyChooseHost.gd" type="Script" id=7]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieEnemy/SupportNode.gd" type="Script" id=8]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieEnemy/PixieEnemyMigrateToHostState.gd" type="Script" id=9]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/LaserDefensivePixieEnemy/LaserDefensivePixieSupportIdle.gd" type="Script" id=10]
+[ext_resource path="res://objects/LaserBeam/LaserBeam2D.tscn" type="PackedScene" id=11]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 6 )
+shader_param/damaged = false
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "Normal",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 40, 40 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "horizontal-hover"
+length = 21.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10.1, 21 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -28 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "horizontal-hover"
+length = 28.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Weapon/BasicEnemyWeapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 13.3, 28 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 210.0
+
+[node name="LaserDefensivePixieEnemy" instance=ExtResource( 1 )]
+collision_mask = 0
+base_hp = 480.0
+is_movement_enemy = true
+
+[node name="Weapon" type="Node2D" parent="." index="0"]
+rotation = 1.57079
+
+[node name="BasicEnemyWeapon" parent="Weapon" index="0" instance=ExtResource( 4 )]
+
+[node name="Sprite8" type="Sprite" parent="Weapon/BasicEnemyWeapon" index="2"]
+modulate = Color( 0.64, 0.59, 1.5, 1 )
+rotation = 4.71238
+scale = Vector2( 0.228256, 0.228256 )
+texture = ExtResource( 3 )
+
+[node name="LaserBeam" parent="Weapon/BasicEnemyWeapon/Sprite8" index="0" instance=ExtResource( 11 )]
+modulate = Color( 0.705882, 0.588235, 1.50196, 1 )
+collision_mask = 64
+growth_time = 0.01
+
+[node name="BeamParticles2D" parent="Weapon/BasicEnemyWeapon/Sprite8/LaserBeam" index="2"]
+visible = false
+
+[node name="CollisionParticles2D" parent="Weapon/BasicEnemyWeapon/Sprite8/LaserBeam" index="3"]
+visible = false
+
+[node name="Trail2D" parent="Weapon/BasicEnemyWeapon" index="3" instance=ExtResource( 2 )]
+rotation = -1.57081
+default_color = Color( 0.639216, 0.588235, 1, 0.886275 )
+lenght = 10
+
+[node name="CollisionShape2D" parent="." index="1"]
+scale = Vector2( 0.64102, 0.64102 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" parent="." index="2"]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+material = SubResource( 2 )
+position = Vector2( 0, -4.09273e-12 )
+rotation = -4.71238
+scale = Vector2( 5.21647, 5.21647 )
+frames = SubResource( 3 )
+
+[node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
+shape = SubResource( 4 )
+
+[node name="Button" parent="." index="4"]
+visible = false
+
+[node name="Label" parent="." index="5"]
+visible = false
+
+[node name="Idle" parent="StateMachine" index="0"]
+script = ExtResource( 5 )
+
+[node name="ChooseHost" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 7 )
+
+[node name="MigrateToHost" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 9 )
+
+[node name="SupportIdle" type="Node" parent="StateMachine" index="3"]
+script = ExtResource( 10 )
+laser_node_path = NodePath("../../Weapon/BasicEnemyWeapon/Sprite8/LaserBeam")
+max_number_of_lasers = 4
+
+[node name="LaserCooldown" type="Timer" parent="StateMachine/SupportIdle" index="0"]
+wait_time = 4.0
+one_shot = true
+
+[node name="Delay" parent="StateMachine" index="4"]
+min_wait = 1.0
+max_wait = 2.0
+
+[node name="Position2D" parent="." index="10"]
+position = Vector2( 0, 1 )
+
+[node name="SupportNode" type="Node2D" parent="." index="11"]
+script = ExtResource( 8 )
+
+[node name="Tween" type="Tween" parent="SupportNode" index="0"]
+
+[node name="VerticalAnimator" type="AnimationPlayer" parent="SupportNode" index="1"]
+autoplay = "horizontal-hover"
+anims/horizontal-hover = SubResource( 5 )
+
+[node name="HorizontalAnimator" type="AnimationPlayer" parent="SupportNode" index="2"]
+autoplay = "horizontal-hover"
+anims/horizontal-hover = SubResource( 6 )
+
+[node name="BulletDetector" type="Area2D" parent="." index="14"]
+input_pickable = false
+monitorable = false
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector" index="0"]
+shape = SubResource( 7 )
+
+[connection signal="tween_completed" from="SupportNode/Tween" to="SupportNode" method="_on_Tween_tween_completed"]
+[connection signal="body_shape_entered" from="BulletDetector" to="StateMachine/SupportIdle" method="_on_BulletDetector_body_shape_entered"]
+
+[editable path="Weapon/BasicEnemyWeapon/Sprite8/LaserBeam"]

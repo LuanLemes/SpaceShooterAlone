@@ -1,0 +1,488 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieHollowEnemy/PixieHollowEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Actors/Enemy/enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieHollowEnemy/PixieHollowEnemyIdle.gd" type="Script" id=3]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieHollowEnemy/PixieHollowChargeState.gd" type="Script" id=4]
+[ext_resource path="res://objects/Resources/DamagedShader.gdshader" type="Shader" id=5]
+[ext_resource path="res://Assets/Enemies/Standard/geometric figure.png" type="Texture" id=6]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PixieHollowEnemy/PixieHollowInstanceEnemy.gd" type="Script" id=7]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/WhiteOffensivePixieEnemy/WhiteOffensivePixieEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/LaserDefensivePixieEnemy/LaserDefensivePixieEnemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PurpleOffensivePixieEnemy/PurpleOffensivePixieEnemy.tscn" type="PackedScene" id=10]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.0
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/damaged = false
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "Normal",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=4]
+resource_name = "Charge"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0.870588, 0, 0.694118, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0.870588, 0, 0.694118, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0.870588, 0, 0.694118, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite4:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0.870588, 0, 0.694118, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite5:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0.870588, 0, 0.694118, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite6:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0.870588, 0, 0.694118, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite7:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = false
+tracks/6/keys = {
+"times": PoolRealArray( 1.5, 1.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.25098 ), Color( 1.3, 1.3, 1.3, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "ChargeCenter"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite7:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1.3, 1.3, 1.3, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Uncharge"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite4:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite5:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite6:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite7:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.25098 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Uncharge (copy)"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite4:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite5:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite6:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0.913725, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite7:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.25098 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 40, 40 )
+
+[node name="PixieHollow" instance=ExtResource( 2 )]
+position = Vector2( 328, 144 )
+collision_mask = 14
+script = ExtResource( 1 )
+base_hp = 1200.0
+
+[node name="Weapon" type="Node2D" parent="." index="0"]
+rotation = 1.57079
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" parent="." index="2"]
+material = SubResource( 2 )
+position = Vector2( 3, -24 )
+rotation = 1.57079
+scale = Vector2( 0.0461526, 0.0461526 )
+frames = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="AnimatedSprite" index="1"]
+modulate = Color( 1, 0, 0.913725, 0 )
+position = Vector2( 26.9474, 71.8611 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite7" type="Sprite" parent="AnimatedSprite" index="2"]
+modulate = Color( 1, 1, 1, 0.25098 )
+position = Vector2( 520.992, 71.8643 )
+rotation = -1.57079
+scale = Vector2( 1.44562, 1.44562 )
+texture = ExtResource( 6 )
+
+[node name="Sprite4" type="Sprite" parent="AnimatedSprite" index="3"]
+modulate = Color( 1, 0, 0.913725, 0 )
+position = Vector2( 1033, 71.8674 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite2" type="Sprite" parent="AnimatedSprite" index="4"]
+modulate = Color( 1, 0, 0.913725, 0 )
+position = Vector2( 269.481, -377.269 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite3" type="Sprite" parent="AnimatedSprite" index="5"]
+modulate = Color( 1, 0, 0.913725, 0 )
+position = Vector2( 790.474, -377.265 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite6" type="Sprite" parent="AnimatedSprite" index="6"]
+modulate = Color( 1, 0, 0.913725, 0 )
+position = Vector2( 269.476, 517.797 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite5" type="Sprite" parent="AnimatedSprite" index="7"]
+modulate = Color( 1, 0, 0.913725, 0 )
+position = Vector2( 790.468, 520.998 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite8" type="Sprite" parent="AnimatedSprite" index="8"]
+modulate = Color( 0.376471, 0.376471, 0.376471, 0.137255 )
+show_behind_parent = true
+position = Vector2( 26.9474, 71.8611 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite9" type="Sprite" parent="AnimatedSprite" index="9"]
+visible = false
+show_behind_parent = true
+position = Vector2( 520.992, 71.8643 )
+rotation = -1.57079
+scale = Vector2( 1.44562, 1.44562 )
+texture = ExtResource( 6 )
+
+[node name="Sprite10" type="Sprite" parent="AnimatedSprite" index="10"]
+modulate = Color( 0.376471, 0.376471, 0.376471, 0.137255 )
+show_behind_parent = true
+position = Vector2( 1033, 71.8674 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite11" type="Sprite" parent="AnimatedSprite" index="11"]
+modulate = Color( 0.376471, 0.376471, 0.376471, 0.137255 )
+show_behind_parent = true
+position = Vector2( 269.481, -377.269 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite12" type="Sprite" parent="AnimatedSprite" index="12"]
+modulate = Color( 0.376471, 0.376471, 0.376471, 0.137255 )
+show_behind_parent = true
+position = Vector2( 790.474, -377.265 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite13" type="Sprite" parent="AnimatedSprite" index="13"]
+modulate = Color( 0.376471, 0.376471, 0.376471, 0.137255 )
+show_behind_parent = true
+position = Vector2( 269.476, 517.797 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="Sprite14" type="Sprite" parent="AnimatedSprite" index="14"]
+modulate = Color( 0.376471, 0.376471, 0.376471, 0.137255 )
+show_behind_parent = true
+position = Vector2( 790.468, 520.998 )
+rotation = -1.57079
+scale = Vector2( 1.48632, 1.48632 )
+texture = ExtResource( 6 )
+
+[node name="AnimationPlayer1" type="AnimationPlayer" parent="AnimatedSprite" index="15"]
+autoplay = "Uncharge (copy)"
+anims/Charge = SubResource( 4 )
+anims/ChargeCenter = SubResource( 5 )
+anims/Uncharge = SubResource( 6 )
+"anims/Uncharge (copy)" = SubResource( 7 )
+
+[node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
+visible = false
+shape = SubResource( 8 )
+
+[node name="Button" parent="." index="4"]
+visible = false
+
+[node name="Label" parent="." index="5"]
+visible = false
+
+[node name="CollisionShape2D2" parent="EnemyArea" index="0"]
+visible = false
+
+[node name="Idle" parent="StateMachine" index="0"]
+script = ExtResource( 3 )
+
+[node name="Charge" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 4 )
+
+[node name="InstanceEnemy" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 7 )
+scenes_to_stance = [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 9 ) ]
+
+[node name="Delay" parent="StateMachine" index="3"]
+min_wait = 1.0
+max_wait = 1.5
+
+[node name="DebugControl" parent="." index="9"]
+visible = true
+
+[node name="Position2D" parent="." index="10"]
+position = Vector2( -29, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="." index="13"]
+visible = false
+show_behind_parent = true
+margin_left = -948.0
+margin_top = -438.0
+margin_right = -908.0
+margin_bottom = -398.0
+rect_scale = Vector2( 101.547, 101.547 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

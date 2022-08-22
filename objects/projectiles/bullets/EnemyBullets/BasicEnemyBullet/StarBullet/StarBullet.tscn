@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/projectiles/bullets/EnemyBullets/BasicEnemyBullet/BasicEnemyBullet.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 14.5602
+
+[node name="BasicEnemyBullet" instance=ExtResource( 2 )]
+collision_mask = 34
+speed = 3
+
+[node name="CollisionShape2D2" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="HitBoxArea2D" index="0"]
+shape = SubResource( 1 )

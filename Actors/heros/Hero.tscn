@@ -1,0 +1,188 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Actors/heros/hero_action/shield_recharge_action.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://objects/shield_source.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/projectiles/bullets/Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/novas/Nova.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/hurtBoxArea2D/HurtBoxArea2D.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/weapons/hero_weapon.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Actors/heros/Hero.gd" type="Script" id=8]
+[ext_resource path="res://Actors/heros/StatusHandler.gd" type="Script" id=9]
+[ext_resource path="res://Actors/heros/hero_movement_handler.gd" type="Script" id=10]
+[ext_resource path="res://objects/StateMachine/StateMachine.gd" type="Script" id=11]
+[ext_resource path="res://Actors/heros/UIDebugState_machine.gd" type="Script" id=12]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 34, 34 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0.117647, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 0.984314, 0.984314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 1, 0.984314, 0.984314, 1 )
+
+[node name="Hero" type="KinematicBody2D" groups=[
+"heroes",
+]]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 8 )
+base_hp = 100.0
+base_shield = 20.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../UI")
+update_rotation = false
+
+[node name="Sprite" type="Sprite" parent="RemoteTransform2D"]
+texture = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 1.57079
+frames = SubResource( 2 )
+
+[node name="HurtBoxArea2D" parent="." instance=ExtResource( 6 )]
+team = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxArea2D"]
+shape = SubResource( 1 )
+
+[node name="ShieldRechargeAction" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="ShieldRegenCooldown" type="Timer" parent="ShieldRechargeAction"]
+wait_time = 2.0
+one_shot = true
+
+[node name="HeroWeapon" parent="." instance=ExtResource( 7 )]
+projectile_scene = ExtResource( 4 )
+cooldown_time = 0.1
+
+[node name="StatusStorage" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 9 )
+
+[node name="ShieldSource" parent="." instance=ExtResource( 3 )]
+projectile_scene = ExtResource( 5 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="HeroMovementHandler" type="Node2D" parent="."]
+script = ExtResource( 10 )
+_rotation_speed = 20
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -31.5
+margin_top = -45.0
+margin_right = 31.5
+margin_bottom = -35.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShieldProgressBar" type="ProgressBar" parent="UI/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -5.0
+margin_bottom = -5.0
+size_flags_horizontal = 3
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
+value = 90.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthProgressBar" type="ProgressBar" parent="UI/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+value = 90.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugState_machine" type="VBoxContainer" parent="UI/Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThisHBoxContainer" type="HBoxContainer" parent="UI/Control/DebugState_machine"]
+margin_right = 74.0
+margin_bottom = 14.0
+
+[node name="ThisState" type="Label" parent="UI/Control/DebugState_machine/ThisHBoxContainer"]
+margin_right = 70.0
+margin_bottom = 14.0
+text = "this_state: "
+
+[node name="Name" type="Label" parent="UI/Control/DebugState_machine/ThisHBoxContainer"]
+margin_left = 74.0
+margin_right = 74.0
+margin_bottom = 14.0
+
+[node name="LastHBoxContainer2" type="HBoxContainer" parent="UI/Control/DebugState_machine"]
+margin_top = 18.0
+margin_right = 74.0
+margin_bottom = 32.0
+
+[node name="LastState" type="Label" parent="UI/Control/DebugState_machine/LastHBoxContainer2"]
+margin_right = 69.0
+margin_bottom = 14.0
+text = "last_state: "
+
+[node name="LastName" type="Label" parent="UI/Control/DebugState_machine/LastHBoxContainer2"]
+margin_left = 73.0
+margin_right = 73.0
+margin_bottom = 14.0
+
+[node name="HeroArea" type="Area2D" parent="."]
+monitoring = false
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeroArea"]
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+modulate = Color( 1, 0.0235294, 0.0235294, 1 )
+cast_to = Vector2( 0, 3000 )
+collision_mask = 4
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 11 )
+
+[node name="StateMachineTimer" type="Timer" parent="StateMachine"]
+
+[connection signal="hit_landed" from="HurtBoxArea2D" to="." method="_on_HurtBoxArea2D_hit_landed"]
+[connection signal="timeout" from="ShieldRechargeAction/ShieldRegenCooldown" to="ShieldRechargeAction" method="_on_ShieldRegenCooldown_timeout"]
+[connection signal="state_entered" from="StateMachine" to="UI/Control/DebugState_machine" method="_on_StateMachine_state_entered"]

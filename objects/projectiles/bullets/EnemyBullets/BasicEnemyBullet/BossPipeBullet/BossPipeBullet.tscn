@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/projectiles/bullets/EnemyBullets/BasicEnemyBullet/BasicEnemyBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/LineTrail/Trail2D.tscn" type="PackedScene" id=2]
+
+[node name="PipeBullet" instance=ExtResource( 1 )]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+scale = Vector2( 1, 1 )
+collision_layer = 128
+collision_mask = 160
+speed = 25.0
+
+[node name="Sprite" parent="." index="1"]
+modulate = Color( 1, 0.4, 0.94902, 1 )
+scale = Vector2( 0.705906, 0.705906 )
+
+[node name="Trail2D" parent="." index="4" instance=ExtResource( 2 )]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/Artillary/Artillery.gd" type="Script" id=1]
+[ext_resource path="res://objects/projectiles/bullets/EnemyBullets/BasicTargetEnemyBullets/TargetEnemyBombBullet.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array(  )
+}
+
+[node name="Artillery" type="Path2D"]
+curve = SubResource( 1 )
+script = ExtResource( 1 )
+time_variant = 3.0
+gravity = -50.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+visible = false
+position = Vector2( 243, 518 )
+rotation = -0.582253
+
+[node name="BulletContainer" type="Node2D" parent="PathFollow2D"]
+
+[node name="TargetEnemyBombBullet" parent="PathFollow2D/BulletContainer" instance=ExtResource( 2 )]
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]

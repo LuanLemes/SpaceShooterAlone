@@ -1,0 +1,188 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Actors/Enemy/enemy.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://objects/hurtBoxArea2D/HurtBoxArea2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/Resources/DamagedShader.gdshader" type="Shader" id=4]
+[ext_resource path="res://objects/Resources/DamagedAnimation.tres" type="Animation" id=5]
+[ext_resource path="res://objects/StateMachine/StateMachine.gd" type="Script" id=6]
+[ext_resource path="res://objects/StateMachine/State.gd" type="Script" id=7]
+[ext_resource path="res://Actors/Enemy/DebugControl.gd" type="Script" id=8]
+[ext_resource path="res://objects/Particles/EnemiesDeath/StandarEnemyDeathParticle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Actors/Enemy/EnemyDieState.gd" type="Script" id=10]
+[ext_resource path="res://Actors/Enemy/Delay.gd" type="Script" id=11]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 41, 40 )
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/damaged = false
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Normal",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 40, 40 )
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"enemies",
+]]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 38.0 ]
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 2 )
+frames = SubResource( 3 )
+animation = "Normal"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
+anims/DamagedAnimation = ExtResource( 5 )
+
+[node name="HurtBoxArea2D" parent="." instance=ExtResource( 3 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxArea2D"]
+shape = SubResource( 4 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 4.0
+margin_bottom = 12.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = -42.0
+margin_top = -38.0
+margin_right = -2.0
+margin_bottom = -24.0
+rect_scale = Vector2( 5.33525, 5.33525 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyArea" type="Area2D" parent="."]
+monitoring = false
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EnemyArea"]
+shape = SubResource( 4 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+cast_to = Vector2( 0, 3000 )
+collision_mask = 42
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 6 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
+
+[node name="Delay" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+min_wait = 0.5
+max_wait = 1.0
+
+[node name="StateMachineTimer" type="Timer" parent="StateMachine"]
+one_shot = true
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+death_particle = ExtResource( 9 )
+
+[node name="DebugControl" type="Control" parent="."]
+visible = false
+margin_left = 22.0
+margin_top = -111.0
+margin_right = 62.0
+margin_bottom = -71.0
+rect_scale = Vector2( 1.44812, 1.44812 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DebugControl/VBoxContainer"]
+margin_right = 90.0
+margin_bottom = 31.0
+
+[node name="CurrentState" type="Label" parent="DebugControl/VBoxContainer/HBoxContainer"]
+margin_right = 86.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "current state:
+"
+
+[node name="Currentvalue" type="Label" parent="DebugControl/VBoxContainer/HBoxContainer"]
+margin_left = 90.0
+margin_right = 90.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="DebugControl/VBoxContainer"]
+margin_top = 35.0
+margin_right = 90.0
+margin_bottom = 66.0
+
+[node name="last_state" type="Label" parent="DebugControl/VBoxContainer/HBoxContainer2"]
+margin_right = 67.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "last state: 
+"
+
+[node name="lastvalue" type="Label" parent="DebugControl/VBoxContainer/HBoxContainer2"]
+margin_left = 71.0
+margin_right = 90.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="SupportControl" type="Node2D" parent="."]
+
+[node name="SuportContainer0" type="Node2D" parent="SupportControl"]
+position = Vector2( 38, -48 )
+
+[node name="SuportContainer1" type="Node2D" parent="SupportControl"]
+position = Vector2( 0, -48 )
+
+[node name="SuportContainer2" type="Node2D" parent="SupportControl"]
+position = Vector2( -37, -48 )
+
+[node name="SupportRemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../SupportControl")
+update_rotation = false
+update_scale = false
+
+[connection signal="hit_landed" from="HurtBoxArea2D" to="." method="_on_HurtBoxArea2D_hit_landed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="state_entered" from="StateMachine" to="DebugControl" method="_on_StateMachine_state_entered"]

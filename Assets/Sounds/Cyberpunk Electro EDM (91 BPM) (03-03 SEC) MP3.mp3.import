@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Cyberpunk Electro EDM (91 BPM) (03-03 SEC) MP3.mp3-197c2c2554167166df8bb5c2bd1f6f5f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Cyberpunk Electro EDM (91 BPM) (03-03 SEC) MP3.mp3"
+dest_files=[ "res://.import/Cyberpunk Electro EDM (91 BPM) (03-03 SEC) MP3.mp3-197c2c2554167166df8bb5c2bd1f6f5f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

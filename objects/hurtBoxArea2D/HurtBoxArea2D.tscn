@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/hurtBoxArea2D/HurtBoxArea2D.gd" type="Script" id=1]
+[ext_resource path="res://objects/PopLabelSpawner2D/PopLabelSpawner2D.tscn" type="PackedScene" id=2]
+
+[node name="HurtBoxArea2D" type="Area2D"]
+monitoring = false
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="Status" type="Node2D" parent="."]
+
+[node name="PopLabelSpawner2D" parent="." instance=ExtResource( 2 )]

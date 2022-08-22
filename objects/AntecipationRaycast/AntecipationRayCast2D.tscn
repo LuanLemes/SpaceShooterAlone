@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sandbox/RayCast2D.gd" type="Script" id=1]
+
+[sub_resource type="Animation" id=1]
+resource_name = "SETUP"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Line2D:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.266667, 0.266667, 0.266667, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Line2D:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.301, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.239216, 0.239216, 0.239216, 1 ), Color( 0.819608, 0.141176, 0.627451, 1 ), Color( 0.819608, 0.141176, 0.627451, 1 ), Color( 1.64, 0.28, 1.26, 1 ) ]
+}
+
+[node name="AntecipationRayCast2D" type="RayCast2D"]
+rotation = -1.57079
+scale = Vector2( 0.378487, 0.378487 )
+enabled = true
+cast_to = Vector2( 0, 4000 )
+collision_mask = 42
+script = ExtResource( 1 )
+
+[node name="Line2D" type="Line2D" parent="."]
+show_behind_parent = true
+z_index = -1
+width = 2.0
+default_color = Color( 1.64, 0.28, 1.26, 1 )
+joint_mode = 1
+
+[node name="RedLine2D" type="Line2D" parent="."]
+width = 35.0
+default_color = Color( 1.67, 0.75, 1.7, 1 )
+joint_mode = 1
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "SETUP"
+anims/SETUP = SubResource( 1 )
+anims/change_color_to_red = SubResource( 2 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

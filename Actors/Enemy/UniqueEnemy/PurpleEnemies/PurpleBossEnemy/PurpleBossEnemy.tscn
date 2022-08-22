@@ -1,0 +1,179 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://objects/projectiles/bullets/EnemyBullets/BasicEnemyBullet/BossPipeBullet/BossPipeBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/weapons/EnemyWeapons/BasicEnemyWeapon/BasicEnemyWeapon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Actors/Enemy/enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PurpleBossEnemy/PurpleBossRotateAndShoot.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Enemies/Bosses/purpleenemy2.png" type="Texture" id=5]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PurpleBossEnemy/PurpleBossEnemyIdle.gd" type="Script" id=6]
+[ext_resource path="res://objects/Resources/DamagedShader.gdshader" type="Shader" id=7]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PurpleBossEnemy/PurpleBossEnemy.gd" type="Script" id=8]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PurpleBossEnemy/PurpleBossEnemyWalk.gd" type="Script" id=9]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/PurpleBossEnemy/Courses.gd" type="Script" id=10]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 7 )
+shader_param/damaged = false
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Normal",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 40, 40 )
+
+[node name="PurpleBossEnemy" instance=ExtResource( 3 )]
+script = ExtResource( 8 )
+base_hp = 4300.0
+_rotation_speed = 16.0
+speed = 430
+is_movement_enemy = true
+max_support = 3
+
+[node name="CollisionShape2D" parent="." index="0"]
+scale = Vector2( 0.098098, 0.098098 )
+
+[node name="AnimatedSprite" parent="." index="1"]
+material = SubResource( 1 )
+rotation = 1.57079
+scale = Vector2( 0.078529, 0.078529 )
+frames = SubResource( 2 )
+
+[node name="HurtBoxArea2D" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
+shape = SubResource( 3 )
+
+[node name="Button" parent="." index="3"]
+visible = false
+
+[node name="Label" parent="." index="4"]
+visible = false
+
+[node name="Idle" parent="StateMachine" index="0"]
+script = ExtResource( 6 )
+
+[node name="RotateAndShoot" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 4 )
+max_shoots = 2
+
+[node name="Walk" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 9 )
+courses_container_path = NodePath("../../Courses")
+
+[node name="Delay" parent="StateMachine" index="3"]
+min_wait = 0.0
+max_wait = 0.0
+
+[node name="Weapon" type="Node2D" parent="." index="10"]
+rotation = 1.57079
+
+[node name="BasicEnemyWeapon" parent="Weapon" index="0" instance=ExtResource( 2 )]
+bullet = ExtResource( 1 )
+canons_path = NodePath("cannon")
+
+[node name="cannon" type="Node2D" parent="Weapon/BasicEnemyWeapon" index="2"]
+
+[node name="Courses" type="Node2D" parent="." index="13"]
+script = ExtResource( 10 )
+
+[node name="Course1" type="Node2D" parent="Courses" index="0"]
+
+[node name="Position2D2" type="Position2D" parent="Courses/Course1" index="0"]
+position = Vector2( 347, 465 )
+
+[node name="Position2D3" type="Position2D" parent="Courses/Course1" index="1"]
+position = Vector2( 540, 465 )
+
+[node name="Position2D4" type="Position2D" parent="Courses/Course1" index="2"]
+position = Vector2( 856, 411 )
+
+[node name="Position2D5" type="Position2D" parent="Courses/Course1" index="3"]
+position = Vector2( 167, 304 )
+
+[node name="Position2D6" type="Position2D" parent="Courses/Course1" index="4"]
+position = Vector2( 406, 208 )
+
+[node name="Position2D7" type="Position2D" parent="Courses/Course1" index="5"]
+position = Vector2( 754, 634 )
+
+[node name="Position2D8" type="Position2D" parent="Courses/Course1" index="6"]
+position = Vector2( 398, 663 )
+
+[node name="Position2D9" type="Position2D" parent="Courses/Course1" index="7"]
+position = Vector2( 135, 516 )
+
+[node name="Position2D10" type="Position2D" parent="Courses/Course1" index="8"]
+position = Vector2( 315, 304 )
+
+[node name="Position2D11" type="Position2D" parent="Courses/Course1" index="9"]
+position = Vector2( 634, 232 )
+
+[node name="Position2D12" type="Position2D" parent="Courses/Course1" index="10"]
+position = Vector2( 741, 406 )
+
+[node name="Position2D13" type="Position2D" parent="Courses/Course1" index="11"]
+position = Vector2( 224, 618 )
+
+[node name="Position2D14" type="Position2D" parent="Courses/Course1" index="12"]
+position = Vector2( 610, 591 )
+
+[node name="Position2D15" type="Position2D" parent="Courses/Course1" index="13"]
+position = Vector2( 519, 331 )
+
+[node name="Position2D16" type="Position2D" parent="Courses/Course1" index="14"]
+position = Vector2( 645, 414 )
+
+[node name="Position2D17" type="Position2D" parent="Courses/Course1" index="15"]
+position = Vector2( 776, 524 )
+
+[node name="Position2D18" type="Position2D" parent="Courses/Course1" index="16"]
+position = Vector2( 851, 623 )
+
+[node name="Position2D19" type="Position2D" parent="Courses/Course1" index="17"]
+position = Vector2( 677, 647 )
+
+[node name="Position2D20" type="Position2D" parent="Courses/Course1" index="18"]
+position = Vector2( 481, 615 )
+
+[node name="Position2D21" type="Position2D" parent="Courses/Course1" index="19"]
+position = Vector2( 288, 553 )
+
+[node name="Position2D22" type="Position2D" parent="Courses/Course1" index="20"]
+position = Vector2( 191, 446 )
+
+[node name="Position2D23" type="Position2D" parent="Courses/Course1" index="21"]
+position = Vector2( 202, 280 )
+
+[node name="Position2D24" type="Position2D" parent="Courses/Course1" index="22"]
+position = Vector2( 318, 202 )
+
+[node name="Position2D25" type="Position2D" parent="Courses/Course1" index="23"]
+position = Vector2( 535, 189 )
+
+[node name="Position2D26" type="Position2D" parent="Courses/Course1" index="24"]
+position = Vector2( 728, 194 )
+
+[node name="Position2D27" type="Position2D" parent="Courses/Course1" index="25"]
+position = Vector2( 846, 272 )
+
+[node name="Position2D28" type="Position2D" parent="Courses/Course1" index="26"]
+position = Vector2( 950, 363 )
+
+[node name="Position2D29" type="Position2D" parent="Courses/Course1" index="27"]
+position = Vector2( 923, 521 )
+
+[node name="Position2D30" type="Position2D" parent="Courses/Course1" index="28"]
+position = Vector2( 781, 639 )
+
+[node name="Position2D31" type="Position2D" parent="Courses/Course1" index="29"]
+position = Vector2( 569, 623 )
+
+[node name="Position2D32" type="Position2D" parent="Courses/Course1" index="30"]
+position = Vector2( 529, 473 )
