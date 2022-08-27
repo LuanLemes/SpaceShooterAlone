@@ -4,15 +4,15 @@
 [ext_resource path="res://objects/Particles/Sakura/BulletExplosionParticle.tres" type="Material" id=2]
 
 [node name="ExplosionParticle" type="Particles2D"]
-modulate = Color( 1.2, 1.2, 1.2, 1 )
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+light_mask = 64
 position = Vector2( -1, 0 )
 emitting = false
-amount = 7
-lifetime = 0.43
+amount = 10
+lifetime = 0.3
 one_shot = true
 speed_scale = 1.2
 explosiveness = 0.91
-randomness = 1.0
 fract_delta = false
 process_material = ExtResource( 2 )
 script = ExtResource( 1 )

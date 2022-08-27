@@ -2,12 +2,12 @@ extends Upgrade
 
 var effect_state: bool = false setget set_effect_state
 var hp_percentage_threshold: float = 40
-var damage_reduction: float = 20
+var damage_reduction: float = 30
 
 
 func _ready():
 	_up_name = "DieHard"
-	_up_effect = "If your hp is bellow 40% you take 20% less damage"
+	_up_effect = "If your hp is bellow 40% you take 30% less damage"
 	_scene_path = "res://objects/status/status.tscn"
 
 
@@ -39,9 +39,9 @@ func set_effect_state(new_state) -> void:
 	if effect_state == new_state:
 		return
 	if new_state == true:
-		hero._hurt_box.damage_reduction += 20
+		hero._hurt_box.damage_reduction += damage_reduction
 	if new_state == false:
-		hero._hurt_box.damage_reduction -= 20
+		hero._hurt_box.damage_reduction -= damage_reduction
 	print(hero._hurt_box.damage_reduction)
 	effect_state = new_state
 

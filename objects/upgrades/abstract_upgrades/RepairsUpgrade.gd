@@ -4,7 +4,7 @@ extends Upgrade
 
 func _ready():
 	_up_name = "Repairs"
-	_up_effect = "Repair 35% of your ship health"
+	_up_effect = "Repair 50% of your ship health"
 	_scene_path = "res://objects/status/status.tscn"
 
 

@@ -34,6 +34,7 @@ scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
 [node name="Particles2D" type="Particles2D"]
+light_mask = 64
 emitting = false
 amount = 14
 one_shot = true

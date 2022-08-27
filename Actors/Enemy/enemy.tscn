@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Actors/Enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://objects/Particles/EnemiesDeath/StandarEnemyDeathParticle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Actors/Enemy/EnemyDieState.gd" type="Script" id=10]
 [ext_resource path="res://Actors/Enemy/Delay.gd" type="Script" id=11]
+[ext_resource path="res://Actors/Enemy/EnemySprite.gd" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41, 40 )
@@ -48,9 +49,13 @@ shape = SubResource( 1 )
 material = SubResource( 2 )
 frames = SubResource( 3 )
 animation = "Normal"
+script = ExtResource( 12 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
 anims/DamagedAnimation = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="AnimatedSprite"]
+one_shot = true
 
 [node name="HurtBoxArea2D" parent="." instance=ExtResource( 3 )]
 

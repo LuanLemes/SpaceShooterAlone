@@ -44,7 +44,7 @@ tracks/0/keys = {
 }
 
 [node name="StraightPipeEnemy" instance=ExtResource( 1 )]
-base_hp = 120.0
+base_hp = 125.0
 
 [node name="AnimatedSprite" parent="." index="1"]
 material = SubResource( 1 )
@@ -81,6 +81,3 @@ canons_path = NodePath("Cannons")
 
 [node name="Cannon_0" type="Position2D" parent="Weapon/BasicEnemyWeapon/Cannons" index="0"]
 position = Vector2( 0.000434875, -69 )
-
-[node name="SupportControl" parent="." index="11"]
-position = Vector2( 0, 12 )

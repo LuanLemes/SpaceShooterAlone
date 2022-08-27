@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://objects/TileMap/Walls/CratesWalls.gd" type="Script" id=1]
-[ext_resource path="res://objects/TileSets/Crates/CratesTileSet.tres" type="TileSet" id=2]
+[ext_resource path="res://objects/TileSets/CrateWalls.tres" type="TileSet" id=2]
 
-[node name="CratesWall" type="TileMap"]
+[node name="CrateWalls" type="TileMap"]
+light_mask = 256
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 40, 40 )
 collision_layer = 2

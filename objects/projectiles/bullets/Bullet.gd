@@ -4,18 +4,19 @@ class_name Bullet
 export var speed: = 10
 var direction = Vector2.RIGHT setget set_direction
 var velocity: = Vector2.ZERO
-
+var is_piercing: bool = false
 var max_wall_bounces: = 0
 var walls_bounced: = 0
 var enemies_bounced: = 0
 var max_enemies_bounces: = 0
 var trail: BulletParticles
 var ajusted_color: Color = self_modulate
+var is_special_bullet: bool = false setget set_is_a_special_bullet
 onready var hitbox: HitBoxArea2D = $HitBoxArea2D
 onready var enemy_detector: Area2D = $EnemyDetector
 onready var sprite: Node2D = $Sprite
 onready var raycast2d: RayCast2D = $RayCast2D
-
+var bonus_scale = 1.5
 export var explosion_particle_scene: PackedScene
 export var trail_particle_scene: PackedScene
 
@@ -24,7 +25,14 @@ export var trail_particle_scene: PackedScene
 func _ready():
 	update_color()
 	instance_trail_particle()
+
+
+func set_is_a_special_bullet(value: bool) -> void:
+	is_special_bullet = value
 	
+	if is_special_bullet:
+		addapt_size(bonus_scale)
+
 
 func _physics_process(delta):
 	var collision_info = move_and_collide(velocity)
@@ -34,7 +42,7 @@ func _physics_process(delta):
 
 
 func find_next_target(last_enemy_hurt_box) -> void:
-	if !enemies_bounced < max_enemies_bounces:
+	if !enemies_bounced < max_enemies_bounces and !is_piercing:
 		destroy()
 		return
 	
@@ -79,7 +87,7 @@ func addapt_size(scale_variation) -> void:
 #		var new_scale = 1 / scale_variation
 #		$Trail2D.scale = Vector2(new_scale, new_scale)
 		$Trail2D.scale /= self.scale
-		$Trail2D.lenght = 5
+		$Trail2D.lenght = 7
 		
 		
 func separate_explosion_particles(particle: BulletParticles) -> void:
@@ -94,6 +102,7 @@ func instance_explosion_particle() -> void:
 	particle.this_global_position = self.global_position
 	get_parent().add_child(particle)
 	particle.modulate = sprite.modulate
+	particle.destroy_explosion_after_time()
 	particle.destroy_explosion_after_time()
 
 

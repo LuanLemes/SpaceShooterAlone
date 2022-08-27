@@ -87,6 +87,3 @@ canons_path = NodePath("Cannons")
 [node name="Cannons" type="Node2D" parent="Weapon/EnemyTargetWeapon" index="0"]
 
 [node name="Cannon_0" type="Position2D" parent="Weapon/EnemyTargetWeapon/Cannons" index="0"]
-
-[node name="SupportControl" parent="." index="11"]
-position = Vector2( 0, 3 )

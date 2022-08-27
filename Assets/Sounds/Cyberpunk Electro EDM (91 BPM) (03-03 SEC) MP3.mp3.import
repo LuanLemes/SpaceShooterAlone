@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Cyberpunk Electro EDM (91 BPM) (03-03 SEC) MP3.mp3-1
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

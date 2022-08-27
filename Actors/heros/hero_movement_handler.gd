@@ -6,7 +6,7 @@ signal stopped
 var character: Hero setget set_character
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
-var speed_improve_modifier = 70
+var speed_improve_modifier = 140
 export var base_speed: float = 300
 export var _rotation_speed: = 10
 
@@ -99,8 +99,8 @@ func move() -> void:
 
 
 func clamp_position() -> void:
-#	character.position.x = clamp(character.position.x, 0, screen_size.x)
-#	character.position.y = clamp(character.position.y, 0, screen_size.y)
+	character.position.x = clamp(character.position.x, 0, screen_size.x)
+	character.position.y = clamp(character.position.y, 0, screen_size.y)
 	pass
 
 

@@ -1,6 +1,6 @@
 extends Upgrade
 
-var bonus_damage := 10.0
+var bonus_damage := 20.0
 var cooldown_counter: float = 15
 var is_active = false
 onready var _timer := $Timer
@@ -8,7 +8,7 @@ onready var _timer := $Timer
 
 func _ready():
 	_up_name = "Hyper Space Discharge"
-	_up_effect = "Get 10% bonus shoot attack the first 15 seconds of each chamber"
+	_up_effect = "Get 20 bonus shoot attack the first 15 seconds of each chamber"
 	_up_effect1 = ""
 	_timer.connect("timeout", self, "_on_timeout")
 	_scene_path = "res://objects/status/status.tscn"

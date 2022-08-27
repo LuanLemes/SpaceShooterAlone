@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/Singleton/Sound/BackgroundMusic.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sounds/Cyberpunk Electro EDM (91 BPM) (03-03 SEC) MP3.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Sounds/Background Technology.mp3" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeToTrack1"
@@ -27,7 +29,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 0.501 ),
 "transitions": PoolRealArray( 5, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -80.0, 0.0 ]
+"values": [ 0.0, -80.0, -80.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Track2:playing")
@@ -36,7 +38,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
@@ -46,7 +48,7 @@ tracks/2/keys = {
 resource_name = "FadeToTrack2"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Track1:volume_db")
+tracks/0/path = NodePath("Track2:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -55,19 +57,19 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 5, 1 ),
 "update": 0,
-"values": [ 0.0, -80.0 ]
+"values": [ -80.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Track2:volume_db")
+tracks/1/path = NodePath("Track1:volume_db")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 0.501 ),
-"transitions": PoolRealArray( 5, 1, 1 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 5, 1 ),
 "update": 0,
-"values": [ -80.0, 0.0, 0.0 ]
+"values": [ 0.0, -80.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Track1:playing")
@@ -76,7 +78,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
@@ -85,14 +87,19 @@ tracks/2/keys = {
 [node name="BackgroundMusic" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 1 )
+theme_musics = [ ExtResource( 3 ), ExtResource( 2 ) ]
+first_song = ExtResource( 2 )
 
 [node name="Track1" type="AudioStreamPlayer" parent="."]
-volume_db = -80.0
-bus = "Sound Effects"
+bus = "Background"
 
 [node name="Track2" type="AudioStreamPlayer" parent="."]
-bus = "Sound Effects"
+volume_db = -80.0
+bus = "Background"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeToTrack1 = SubResource( 1 )
 anims/FadeToTrack2 = SubResource( 2 )
+
+[connection signal="finished" from="Track1" to="." method="_on_Track1_finished"]
+[connection signal="finished" from="Track2" to="." method="_on_Track2_finished"]

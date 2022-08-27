@@ -259,13 +259,12 @@ SignalManager="*res://objects/Singleton/SignalManager.gd"
 Rng="*res://objects/Singleton/Rng.gd"
 UpgradeCounter="*res://objects/Singleton/UpgradeCounter.gd"
 BackgroundMusic="*res://objects/Singleton/Sound/BackgroundMusic.tscn"
+SoundEffects="*res://objects/Singleton/SoundEffects.tscn"
 
 [display]
 
 window/size/width=1080
 window/size/height=1920
-window/size/borderless=true
-window/size/fullscreen=true
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
@@ -328,13 +327,24 @@ test_input_4={
 
 [layer_names]
 
+2d_render/layer_1="null"
 2d_physics/layer_1="damage"
+2d_render/layer_2="Enemy"
 2d_physics/layer_2="wall"
+2d_render/layer_3="BorderWalls"
 2d_physics/layer_3="enemy"
+2d_render/layer_4="Ui"
 2d_physics/layer_4="player"
+2d_render/layer_5="Bullets"
 2d_physics/layer_5="floor"
+2d_render/layer_6="Floor"
 2d_physics/layer_6="outerwalls"
+2d_render/layer_7="Particles"
 2d_physics/layer_7="bullet"
+2d_render/layer_8="PlayerBullet"
+2d_render/layer_9="CrateWalls"
+2d_render/layer_10="EnemyBulletLight"
+2d_render/layer_11="ThickWalls"
 
 [physics]
 

@@ -4,17 +4,22 @@ extends Node2D
 onready var _anim_player := $AnimationPlayer
 onready var _track_1 := $Track1
 onready var _track_2 := $Track2
+onready var _player_sounds :Node = $PlayerSounds
+export(Array, AudioStream) var theme_musics
+var last_song
+var current_song: AudioStream setget set_current_song
+export (AudioStream) var first_song
 
 
-# crossfades to a new audio stream
+func set_current_song(song) -> void:
+	last_song = current_song
+	current_song = song
+	crossfade_to(current_song)
+
+
 func crossfade_to(audio_stream: AudioStream) -> void:
-  # If both tracks are playing, we're calling the function in the middle of a fade.
-  # We return early to avoid jumps in the sound.
 	if _track_1.playing and _track_2.playing:
 		return
-
-  # The `playing` property of the stream players tells us which track is active. 
-  # If it's track two, we fade to track one, and vice-versa.
 	if _track_2.playing:
 		_track_1.stream = audio_stream
 		_track_1.play()
@@ -24,3 +29,30 @@ func crossfade_to(audio_stream: AudioStream) -> void:
 		_track_2.play()
 		_anim_player.play("FadeToTrack2")
 
+
+func play_random_song() -> void:
+	var x = 0
+	var selected_song: AudioStream
+	while x != 7:
+		var selected_index = Rng.rng.randi_range(0, theme_musics.size()-1)
+		selected_song = theme_musics[selected_index]
+		if current_song == null:
+			break
+		if selected_song.resource_path != current_song.resource_path:
+			x = 7
+	self.current_song = selected_song
+
+func player_sounds_player(audio_name) -> void:
+	_player_sounds.get_node(audio_name).play()
+
+
+	
+	
+
+
+func _on_Track1_finished():
+	play_random_song()
+
+
+func _on_Track2_finished():
+	play_random_song()

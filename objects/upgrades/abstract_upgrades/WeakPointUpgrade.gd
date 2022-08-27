@@ -1,10 +1,10 @@
 extends Upgrade
 
-var bonus_critical: float = 7.0
+var bonus_critical: float = 15
 
 func _ready():
 	_up_name = "Weak Point"
-	_up_effect = "More 7% chance to deal a critical damage"
+	_up_effect = "More 15% chance to deal a critical damage"
 	_scene_path = "res://objects/status/status.tscn"
 
 

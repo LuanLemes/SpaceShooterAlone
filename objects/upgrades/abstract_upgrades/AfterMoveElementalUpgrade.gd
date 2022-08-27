@@ -6,7 +6,7 @@ var status_bonus_chance := 15
 
 func _ready():
 	_up_name = "After Move Elemental Upgrade"
-	_up_effect = "After moving your first shoot have 15% more chance of being and elemental shoot (if possible)"
+	_up_effect = "After moving your first shoot have 25% more chance of being and elemental shoot (if possible)"
 
 
 	_scene_path = "res://objects/status/status.tscn"
@@ -61,6 +61,7 @@ func reset_all_bonus() -> void:
 		return
 	is_effect_active = false
 	hero.hero_weapon.bonus_status_chance -= status_bonus_chance
+	hero.hero_weapon.is_special_bullet = false
 
 
 func add_all_bonus() -> void:
@@ -68,6 +69,7 @@ func add_all_bonus() -> void:
 		return
 	is_effect_active = true
 	hero.hero_weapon.bonus_status_chance += status_bonus_chance
+	hero.hero_weapon.is_special_bullet = true
 
 
 func update_labels() -> void:

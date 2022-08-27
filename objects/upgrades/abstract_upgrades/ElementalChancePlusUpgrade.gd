@@ -1,11 +1,12 @@
 extends Upgrade
 
 var effect_state: bool = false
+var bonus_elemental_chance: int = 15
 
 
 func _ready():
 	_up_name = "Elemental Chance Plus"
-	_up_effect = "3.5% more elemental chance"
+	_up_effect = "15% more elemental chance"
 	_scene_path = "res://objects/status/status.tscn"
 
 
@@ -22,7 +23,7 @@ func _initialize() -> void:
 
 
 func on_buy_effect():
-	hero.hero_weapon.bonus_status_chance += 3.5
+	hero.hero_weapon.bonus_status_chance += bonus_elemental_chance
 
 
 func _execute_bonus_1() -> void:
@@ -35,6 +36,7 @@ func _execute_bonus_2() -> void:
 
 func _execute_bonus_3() -> void:
 	pass
+
 
 func _on_timeout() -> void:
 	_unexecute()

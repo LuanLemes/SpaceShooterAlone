@@ -82,6 +82,7 @@ func get_hurt(damage) -> void:
 func _on_HurtBoxArea2D_hit_landed(damage):
 	get_hurt(damage)
 	emit_signal("enemy_hit_landed")
+	animated_sprite.shake = true
 
 
 func _on_Button_pressed():

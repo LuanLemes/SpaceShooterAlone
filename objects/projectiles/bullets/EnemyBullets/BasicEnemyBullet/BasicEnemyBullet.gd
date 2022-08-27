@@ -33,10 +33,11 @@ func _on_HitBoxArea2D_hit_applied():
 
 
 func instance_explosion_particle() -> void:
-	var particle = explosion_particle_scene.instance()
+	var particle: Particles2D = explosion_particle_scene.instance()
 	particle.this_global_position = self.global_position
 	particle.modulate = $Sprite.modulate
 	get_parent().add_child(particle)
+	particle.emitting = true
 	particle.destroy_explosion_after_time()
 
 

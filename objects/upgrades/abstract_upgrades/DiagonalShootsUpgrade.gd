@@ -1,12 +1,12 @@
 extends Upgrade
 
 
-var _damage_cost = 3
+var _damage_cost = 5
 
 
 func _ready():
 	_up_name = "Diagonal Shoot"
-	_up_effect = "Your Gun Shoots Diagonal Shoots but you lose 3 damage"
+	_up_effect = "Your Gun Shoots Diagonal Shoots but you lose 5 damage"
 	_bonus_1 = ""
 	_bonus_2 = ""
 	_bonus_3 = ""

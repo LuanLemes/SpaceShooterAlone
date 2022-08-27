@@ -1,11 +1,12 @@
 extends Upgrade
 
 var effect_state: bool = false
-var upgrade_bonus: = 2.9
+var upgrade_bonus: = 10
 
 func _ready():
 	_up_name = "Critical chance Plus"
 	_scene_path = "res://objects/status/status.tscn"
+	_up_effect = "gain " + String(upgrade_bonus) + "% critical chance"
 
 
 func _execute(value = 0):

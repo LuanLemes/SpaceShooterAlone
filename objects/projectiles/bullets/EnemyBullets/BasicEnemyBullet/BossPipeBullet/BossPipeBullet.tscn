@@ -12,6 +12,7 @@ speed = 25.0
 
 [node name="Sprite" parent="." index="1"]
 modulate = Color( 1, 0.4, 0.94902, 1 )
+light_mask = 512
 scale = Vector2( 0.705906, 0.705906 )
 
 [node name="Trail2D" parent="." index="4" instance=ExtResource( 2 )]

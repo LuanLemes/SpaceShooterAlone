@@ -25,6 +25,7 @@ func _initialize() -> void:
 
 func on_buy_effect():
 	hero.hero_weapon.max_wall_bounces += 1
+	
 
 
 func on_signal_received(value = 0):

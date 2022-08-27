@@ -5,3 +5,4 @@
 
 [node name="ElementalChancePlusUpgrade" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+_number_of_cards = 3

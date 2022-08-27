@@ -138,5 +138,6 @@ unique_type = 0
 [node name="HopeUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 26 )]
 
 [node name="WeakPointUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 10 )]
+_number_of_cards = 1
 
 [node name="UpgradesActive" type="Node" parent="UpgradeContainer"]

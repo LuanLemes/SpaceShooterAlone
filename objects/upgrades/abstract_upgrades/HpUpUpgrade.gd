@@ -1,9 +1,9 @@
 extends Upgrade
-
+var bonus_hp = 100
 
 func _ready():
 	_up_name = "HP UP"
-	_up_effect = "Raise your max hp by 20"
+	_up_effect = "Raise your max hp by 100"
 	_bonus_1 = ""
 	_bonus_2 = ""
 	_bonus_3 = ""
@@ -26,7 +26,7 @@ func _initialize() -> void:
 
 
 func on_buy_effect():
-	hero.bonus_hp += 20
+	hero.bonus_hp += bonus_hp
 
 
 func on_signal_received(value = 0):

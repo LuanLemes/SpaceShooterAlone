@@ -1,14 +1,14 @@
 extends Upgrade
 
 var _heal_amount = 5
-var _heal_chance = 5
+var _heal_chance = 10
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready():
 	rng.randomize()
 	_up_name = "Ofense is the best defense"
-	_up_effect = "Every time you crit has a 2% chance to heal 5 hp"
+	_up_effect = "Every time you crit has a 5% chance to heal 10 hp"
 	_scene_path = "res://objects/status/status.tscn"
 
 

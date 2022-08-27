@@ -12,5 +12,8 @@ speed = 3
 [node name="CollisionShape2D2" parent="." index="0"]
 shape = SubResource( 1 )
 
+[node name="Sprite" parent="." index="1"]
+light_mask = 512
+
 [node name="CollisionShape2D" parent="HitBoxArea2D" index="0"]
 shape = SubResource( 1 )

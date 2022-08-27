@@ -2,23 +2,24 @@ extends Upgrade
 
 
 onready var _timer: Timer = $Timer
-var wait_time = 35
-var heal_amount = 5
+var wait_time = 40
+var heal_amount = 30
+var hurt_amount = 15
 
 
 func _ready():
 	_timer.wait_time = wait_time
 	_up_name = "Dangerous Game"
-	_up_effect = "If you finish a chamber before 35 seconds heal 5 hp, else lose 2hp"
+	_up_effect = "If you finish a chamber before 35 seconds heal 15 hp, else lose 5 hp"
 	_scene_path = "res://objects/status/status.tscn"
 	
 
 
 func _execute(value = 0):
 	if _timer.is_stopped():
-		hero._hp -= 2
+		hero._hp -= hurt_amount
 	else:
-		hero.get_heal(5)
+		hero.get_heal(heal_amount)
 
 
 func _unexecute():

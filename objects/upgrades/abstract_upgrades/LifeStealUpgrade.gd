@@ -2,7 +2,7 @@ extends Upgrade
 
 func _ready():
 	_up_name = "Is this even LifeSteal?"
-	_up_effect = "Whenever You Kill An Enemy you have 50% chance to Heal 1 HP"
+	_up_effect = "Whenever You Kill An Enemy you have 20% chance to Heal 5 HP"
 	_bonus_1 = ""
 	_bonus_2 = ""
 	_bonus_3 = ""
@@ -10,7 +10,7 @@ func _ready():
 	
 
 func _execute():
-	if Rng.rng.randi_range(0,1) == 1:
+	if Rng.rng.randi_range(1,10) <= 2:
 		hero.get_heal(1)
 
 

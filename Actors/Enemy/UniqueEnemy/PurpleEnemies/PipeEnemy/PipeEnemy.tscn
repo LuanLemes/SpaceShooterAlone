@@ -92,7 +92,7 @@ tracks/0/keys = {
 }
 
 [node name="PipeEnemy" instance=ExtResource( 1 )]
-base_hp = 500.0
+base_hp = 550.0
 _rotation_speed = 5.0
 crosshair_scale = 0.7
 
@@ -147,6 +147,3 @@ position = Vector2( 0.00025177, -40 )
 
 [node name="Cannon_2" type="Position2D" parent="Weapon/BasicEnemyWeapon/Cannons" index="2"]
 position = Vector2( 20.0002, -23.9999 )
-
-[node name="SupportControl" parent="." index="11"]
-position = Vector2( 0, 16 )

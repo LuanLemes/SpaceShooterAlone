@@ -14,8 +14,6 @@ func _ready():
 	_up_name = "Catastrophic Morale!"
 	_up_effect = "After you Kill an enemy add 1 enemy ricochet and 2 wall ricochet for 5 seconds"
 	_scene_path = "res://objects/status/status.tscn"
-	
-	
 
 
 func _execute(value = 0):

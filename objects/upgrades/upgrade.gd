@@ -20,7 +20,7 @@ var hero: Hero
 var _up_name: String = ""
 var _up_effect: String = ""
 var _up_effect1: String = ""
-export var _number_of_cards: int = 0
+export var _number_of_cards: int = 1
 #var _atribute_bonus: float = 0
 
 var _bonus_1: String = ""
@@ -50,10 +50,10 @@ func _ready() -> void:
 
 
 func initialize() -> void:
-	if _number_of_cards != 0:
-		_number_of_cards -= 1
+
 	
-	if _number_of_cards > 0:
+	if _number_of_cards > 1:
+		_number_of_cards -= 1
 		var duplicate: Upgrade = duplicate()
 		duplicate._number_of_cards = self._number_of_cards
 		get_parent().add_child(duplicate)

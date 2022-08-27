@@ -28,11 +28,10 @@ onready var side_cannons = $SideCannons
 onready var front_cannon = $FrontCannons
 export var splash_path: NodePath
 
-var cooldown_modifier = 0.17
+var cooldown_modifier = 0.34
 var splash_animated_sprite
-var bullet_bonus_scale = 1
 var max_enemies_bounces : = 0 setget set_max_enemies_bounces
-var max_wall_bounces : = 0
+var max_wall_bounces : = 0 setget set_wall_bounces
 var max_number_of_hits: = 4
 var all_cannons: Array
 var last_front_cannon: int = 0
@@ -40,7 +39,7 @@ export var base_critical_chance: float = 10
 var bonus_critical_chance: float = 0 setget set_bonus_critical
 var percent_critical_chance: float = 0 setget set_percent_critical
 var total_critical_chance: float 
-
+var is_special_bullet: bool = false
 
 func set_bonus_critical(new_value) -> void:
 	bonus_critical_chance = new_value
@@ -109,9 +108,9 @@ func shoot() -> void:
 		return
 
 	for cannon in all_cannons:
+		SoundEffects.instance_sound("PlayerShoot1")
 		spawned_projectile = projectile_scene.instance() 
 		var spawned_projectile_hitbox = spawned_projectile.get_node("HitBoxArea2D")
-		
 		if is_status_bullet and self.array_of_status_names.size() > 0:
 			spawned_projectile_hitbox.connect("status_setted", spawned_projectile, "_on_hitbox_status_setted")
 			spawned_projectile_hitbox.damage_source = self
@@ -123,9 +122,9 @@ func shoot() -> void:
 		spawned_projectile_hitbox.max_number_of_hits = max_number_of_hits
 		spawned_projectile.max_enemies_bounces = max_enemies_bounces
 		spawned_projectile.max_wall_bounces = max_wall_bounces
-		spawned_projectile.addapt_size(bullet_bonus_scale)
 		add_child(spawned_projectile)
 		spawned_projectile.set_as_toplevel(true)
+		spawned_projectile.is_special_bullet = self.is_special_bullet
 		spawned_projectile.global_position = cannon.global_position
 		spawned_projectile.global_rotation = cannon.global_rotation
 		spawned_projectile.direction = Vector2.RIGHT.rotated(cannon.global_rotation)
@@ -164,6 +163,13 @@ func set_max_enemies_bounces(value) -> void:
 	max_number_of_hits = max_enemies_bounces +1
 
 
+func set_wall_bounces(value) -> void:
+	max_wall_bounces = value
+	if max_number_of_hits <= max_wall_bounces:
+		max_number_of_hits += 1
+	
+
+
 func set_cooldown(value) -> void:
 	cooldown_time =  value
 	if !cooldown_timer_node:
@@ -173,7 +179,7 @@ func set_cooldown(value) -> void:
 
 func improve_cooldown() -> void:
 	self.cooldown_time = cooldown_time - (cooldown_time * cooldown_modifier)
-	cooldown_modifier -= cooldown_modifier /100 * 14
+	cooldown_modifier -= cooldown_modifier /100 * 15
 
 
 func set_percent_status_chance(value) -> void:

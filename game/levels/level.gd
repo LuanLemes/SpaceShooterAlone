@@ -25,7 +25,7 @@ onready var _restart_button = $CanvasLayer/RestartButton
 onready var _timer: Timer = $Timer
 onready var _level_label := $CanvasLayer/Ui/LevelLabel
 export var _reward_levels: int = 3
-var _min_wait_time_between_levels: int = 1.5
+var _min_wait_time_between_levels: int = 3.5
 
 
 func _ready():
@@ -121,7 +121,7 @@ func call_next_level() -> void:
 	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_transition_rect.transition_in()
 	_level_label.visible = false
-	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
+#	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_hero.is_active = true
 	emit_signal("_level_started")
 
@@ -135,8 +135,9 @@ func start_level() -> void:
 	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_transition_rect.transition_in()
 	_level_label.visible = false
-	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
+#	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_hero.is_active = true
+	_reward_handler.spawn_reward("BuyReward", _hero.global_position)
 	emit_signal("_level_started")
 
 
