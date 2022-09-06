@@ -9,7 +9,7 @@ signal _hero_shield_full
 signal _hero_shield_depleted
 signal _enemy_critical_landed
 signal _level_started
-
+signal token_count_changed(current_tokens)
 
 onready var _hero = $HeroContainer.get_child(0)
 onready var _upgrade_handler = $CanvasLayer/Ui/UpgradeHandler
@@ -24,23 +24,35 @@ onready var _camera := $Camera2D
 onready var _restart_button = $CanvasLayer/RestartButton
 onready var _timer: Timer = $Timer
 onready var _level_label := $CanvasLayer/Ui/LevelLabel
-export var _reward_levels: int = 3
+onready var _token_label_container:= $CanvasLayer/Ui/TokenLabelContainer
+
+var _level_count: int = 0
 var _min_wait_time_between_levels: int = 3.5
+var _tokens_count: int = 0 setget _set_tokens_counter
+
+export var _reward_levels: int = 5
 
 
 func _ready():
 	_upgrade_handler.hero = self._hero
-	
+	SignalManager.connect("collectable_picked", self, "_on_collectable_picked")
 	SignalManager.connect("wave_ended", self, "_on_wave_spawner_wave_ended")
 	SignalManager.connect("all_waves_ended", self, "_on_wave_spawner_all_waves_ended")
 	SignalManager.connect("object_destroyed", self, "_on_Spawner_object_destroyed")
 	SignalManager.connect("on_hero_left", self, "_on_Spawner_hero_left")
 	SignalManager.connect("upgrade_animation_finished", self, "_on_upgrade_handler_upgrade_finished")
+	connect("token_count_changed", _token_label_container, "_on_token_count_changed")
 	connect("_level_started", SignalManager, "_on_level_entered")
 	_restart_button.connect("restart_button_pressed", self, "_on_restart_button_pressed")
 	_reward_handler.connect("reward_activated", self, "_on_reward_handler_activated")
 	start_level()
-#	_wave_spawner.open_wave_front_door()
+	
+func _on_collectable_picked(collectable_name) -> void:
+	self._tokens_count += 1
+
+func _set_tokens_counter(value) -> void:
+	_tokens_count = value
+	emit_signal("token_count_changed", _tokens_count)
 
 
 func count_timer() -> void:
@@ -69,7 +81,7 @@ func _on_upgrade_handler_upgrade_finished():
 
 func _on_wave_spawner_wave_ended():
 	print(_wave_spawner.wave_to_spawn)
-	if (_wave_spawner.wave_to_spawn) % 3 == 0:
+	if _level_count % _reward_levels == 0:
 		_reward_handler.spawn_reward("BuyReward", _hero.global_position)
 	_wave_spawner.open_wave_front_door()
 
@@ -111,33 +123,31 @@ func _on_Spawner_hero_left() -> void:
 
 
 func call_next_level() -> void:
+	_level_count += 1
 	count_timer()
 	_hero.is_active = false
 	_transition_rect.transition_out()
 	yield(_transition_rect, "transition_ended")
 	_wave_spawner.call_next_wave()
 	_update_level_label()
-	reset_hero_position()
 	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_transition_rect.transition_in()
 	_level_label.visible = false
-#	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_hero.is_active = true
+	reset_hero_position()
 	emit_signal("_level_started")
 
 
 func start_level() -> void:
+	_level_count += 1
 	_hero.is_active = false
 	_wave_spawner.call_next_wave()
-#	yield(_transition_rect, "transition_ended")
 	reset_hero_position()
 	_update_level_label()
 	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_transition_rect.transition_in()
 	_level_label.visible = false
-#	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_hero.is_active = true
-	_reward_handler.spawn_reward("BuyReward", _hero.global_position)
 	emit_signal("_level_started")
 
 
@@ -159,4 +169,3 @@ func _on_restart_button_pressed() -> void:
 func _update_level_label() -> void:
 	_level_label.visible = true
 	_level_label.text = "Level " + String(_wave_spawner.folder_number) + " - " + String(_wave_spawner.wave_to_spawn)
-

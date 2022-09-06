@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Actors/heros/Hero.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://objects/CrossHair/CrossHair.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/Heros/Sakura/rect2150.png" type="Texture" id=10]
 [ext_resource path="res://objects/Particles/Sakura/DeathExplosionParticle/SakuraExplosionParticle.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Actors/heros/Sakura/Dash.gd" type="Script" id=12]
+[ext_resource path="res://objects/SpriteEffect/SpriteTrail.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Heros/Sakura/testsakura7.png" type="Texture" id=16]
 [ext_resource path="res://Assets/Heros/Sakura/testsakura5.png" type="Texture" id=17]
 [ext_resource path="res://objects/UI/HeroUI/ValueUI.tscn" type="PackedScene" id=18]
@@ -20,37 +22,11 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 27, 10 )
 
-[sub_resource type="Shader" id=2]
-code = "shader_type canvas_item;
-render_mode unshaded;
- 
-uniform float width : hint_range(0.0, 116.0);
-uniform vec4 outline_color : hint_color;
- 
-void fragment()
-{
-    vec2 size = vec2(width) / vec2(textureSize(TEXTURE, 0));
-   
-    vec4 sprite_color = texture(TEXTURE, UV);
-   
-    float alpha = sprite_color.a;
-    alpha += texture(TEXTURE, UV + vec2(0.0, -size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(size.x, 0.0)).a;
-    alpha += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(0.0, size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
-    alpha += texture(TEXTURE, UV + vec2(-size.x, 0.0)).a;
-    alpha += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
-   
-    vec3 final_color = mix(outline_color.rgb, sprite_color.rgb, sprite_color.a);
-    COLOR = vec4(final_color, clamp(alpha, 0.0, 1.0));
-}"
+[sub_resource type="StreamTexture" id=2]
+flags = 4
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
-shader_param/width = 1.0
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StreamTexture" id=3]
+flags = 4
 
 [sub_resource type="StreamTexture" id=4]
 flags = 4
@@ -61,52 +37,98 @@ flags = 4
 [sub_resource type="StreamTexture" id=6]
 flags = 4
 
-[sub_resource type="StreamTexture" id=7]
-flags = 4
-
-[sub_resource type="StreamTexture" id=8]
-flags = 4
-
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 4 ), ExtResource( 10 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), ExtResource( 17 ), ExtResource( 16 ), SubResource( 8 ) ],
+"frames": [ SubResource( 2 ), ExtResource( 10 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), ExtResource( 17 ), ExtResource( 16 ), SubResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 10, 30 )
 
-[sub_resource type="Curve" id=11]
+[sub_resource type="Curve" id=9]
 _data = [ Vector2( 0, 0.163636 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=10]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+emission_shape = 1
+emission_sphere_radius = 14.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 210.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.7
+scale_curve = SubResource( 11 )
+color = Color( 0.0509804, 1, 0, 0.968627 )
+
+[sub_resource type="Shader" id=16]
+code = "shader_type canvas_item;
+
+uniform vec4 dash_color : hint_color;
+
+void fragment(){
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 new_color = vec4(dash_color.r, dash_color.g, dash_color.b, previous_color.a);
+//	white_color = outline_color;
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
+shader_param/dash_color = Color( 0, 0.0862745, 1, 0.145098 )
+
+[sub_resource type="Gradient" id=13]
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+flag_align_y = true
+flag_rotate_y = true
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+color_ramp = SubResource( 14 )
 
 [node name="Sakura" instance=ExtResource( 1 )]
 base_shield = 0.0
 
-[node name="CollisionShape2D2" parent="." index="0"]
+[node name="CollisionShape2D2" parent="." index="1"]
 position = Vector2( 1, 0 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="RemoteTransform2D" index="0"]
 visible = false
 
-[node name="AnimatedSprite" parent="." index="2"]
-material = SubResource( 3 )
+[node name="AnimatedSprite" parent="." index="3"]
 position = Vector2( -1, -5.32907e-14 )
 scale = Vector2( 1.84774, 1.84774 )
-frames = SubResource( 9 )
+frames = SubResource( 7 )
 frame = 1
 
-[node name="HurtBoxArea2D" parent="." index="3"]
+[node name="HurtBoxArea2D" parent="." index="4"]
 position = Vector2( -1, 0 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBoxArea2D" index="3"]
 position = Vector2( -16, 0 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
-[node name="HeroWeapon" parent="." index="5"]
-cooldown_time = 0.5
+[node name="HeroWeapon" parent="." index="6"]
 splash_path = NodePath("SplashAnimatedSprite")
 
 [node name="SplashAnimatedSprite" parent="HeroWeapon" index="6" instance=ExtResource( 8 )]
@@ -114,11 +136,11 @@ position = Vector2( -24, 0 )
 scale = Vector2( 0.5, 0.5 )
 z_index = -1
 
-[node name="ShieldSource" parent="." index="7"]
+[node name="ShieldSource" parent="." index="8"]
 shield_reaction = ExtResource( 7 )
 
-[node name="HeroMovementHandler" parent="." index="9"]
-base_speed = 630.0
+[node name="HeroMovementHandler" parent="." index="10"]
+base_speed = 570.0
 
 [node name="ShieldProgressBar" parent="UI/Control" index="0"]
 visible = false
@@ -126,13 +148,10 @@ visible = false
 [node name="HealthProgressBar" parent="UI/Control" index="1"]
 visible = false
 
-[node name="DebugState_machine" parent="UI/Control" index="2"]
-visible = false
-
 [node name="ValueUI" parent="UI/Control" index="3" instance=ExtResource( 18 )]
 position = Vector2( 55.5, 15 )
 
-[node name="HeroArea" parent="." index="11"]
+[node name="HeroArea" parent="." index="12"]
 visible = false
 
 [node name="TrailPoint3" type="Position2D" parent="." index="13"]
@@ -144,7 +163,7 @@ modulate = Color( 1, 1, 1, 0.8 )
 position = Vector2( -683, -1043 )
 points = PoolVector2Array( 735.794, 1571.75 )
 width = 5.0
-width_curve = SubResource( 11 )
+width_curve = SubResource( 9 )
 default_color = Color( 0.552941, 0.552941, 0.552941, 0.886275 )
 lenght = 3
 
@@ -156,11 +175,23 @@ position = Vector2( -35, 11 )
 modulate = Color( 1, 1, 1, 0.8 )
 position = Vector2( -683, -1043 )
 width = 5.0
-width_curve = SubResource( 11 )
+width_curve = SubResource( 9 )
 default_color = Color( 0.552941, 0.552941, 0.552941, 0.886275 )
 lenght = 3
 
-[node name="StateMachine" parent="." index="15"]
+[node name="CrossHair" parent="." index="16" instance=ExtResource( 9 )]
+
+[node name="Timer" type="Timer" parent="." index="17"]
+wait_time = 0.3
+autostart = true
+
+[node name="glowing_circle_gray" type="Sprite" parent="." index="18"]
+modulate = Color( 1, 0, 0, 0 )
+position = Vector2( -3.28583, -4.05229 )
+scale = Vector2( 2.17369, 2.17369 )
+texture = ExtResource( 2 )
+
+[node name="StateMachine" parent="." index="19"]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="1"]
@@ -174,24 +205,47 @@ max_wait = 0.0
 [node name="Move" type="Node" parent="StateMachine" index="3"]
 script = ExtResource( 5 )
 
-[node name="Die" type="Node" parent="StateMachine" index="4"]
+[node name="Dash" type="Node" parent="StateMachine" index="4"]
+script = ExtResource( 12 )
+sprite_trail = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="StateMachine/Dash" index="0"]
+one_shot = true
+
+[node name="Die" type="Node" parent="StateMachine" index="5"]
 script = ExtResource( 19 )
 
 [node name="SakuraExplosionParticle" parent="StateMachine/Die" index="0" instance=ExtResource( 11 )]
 
-[node name="RotateAndShoot" type="Node" parent="StateMachine" index="5"]
+[node name="RotateAndShoot" type="Node" parent="StateMachine" index="6"]
 script = ExtResource( 6 )
 
-[node name="CrossHair" parent="." index="16" instance=ExtResource( 9 )]
-
-[node name="Light2D" type="Light2D" parent="CrossHair" index="6"]
+[node name="Particles2D" type="Particles2D" parent="." index="20"]
+show_behind_parent = true
+emitting = false
+amount = 21
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 12 )
 texture = ExtResource( 2 )
-texture_scale = 12.0
-energy = 2.0
-range_item_cull_mask = 32
 
-[node name="Timer" type="Timer" parent="." index="17"]
-wait_time = 0.3
-autostart = true
+[node name="DashParticles2D2" type="Particles2D" parent="." index="21"]
+show_behind_parent = true
+material = SubResource( 17 )
+rotation = -3.12636
+emitting = false
+amount = 34
+lifetime = 0.5
+local_coords = false
+draw_order = 1
+process_material = SubResource( 15 )
+texture = ExtResource( 10 )
+__meta__ = {
+"_editor_description_": "w"
+}
+
+[node name="DashTimer" type="Timer" parent="." index="22"]
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

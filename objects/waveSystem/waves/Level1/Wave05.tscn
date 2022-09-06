@@ -66,8 +66,8 @@ position = Vector2( 142.135, 1634.43 )
 [node name="StraightPipeEnemy11" parent="Enemies" index="7" instance=ExtResource( 3 )]
 position = Vector2( 942.231, 1634.43 )
 
-[node name="LeaveArea" parent="." index="7"]
+[node name="LeaveArea" parent="." index="8"]
 position = Vector2( -20, -146 )
 
-[node name="PlayerStartPosition" parent="." index="8"]
+[node name="PlayerStartPosition" parent="." index="9"]
 position = Vector2( 540, 1781.06 )

@@ -16,8 +16,10 @@ func physics_process(delta):
 	character.hero_movement_handler.move()
 	character.hero_movement_handler.rotate_to_movement(delta)
 	if character.hero_movement_handler.direction == Vector2.ZERO:
-		_state_machine.transition_to("Idle")
-
+		_state_machine.transition_without_delay("Idle")
+	if character.hero_movement_handler.is_pressing_dash and character._dash_timer.is_stopped():
+		_state_machine.transition_without_delay("Dash")
+		
 
 func enter(msg: Dictionary = {}) -> void:
 	emit_signal("hero_started_moving")

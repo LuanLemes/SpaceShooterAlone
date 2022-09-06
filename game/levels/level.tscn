@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Actors/heros/Sakura/sakura.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/waveSystem/spawner.tscn" type="PackedScene" id=2]
@@ -10,11 +10,14 @@
 [ext_resource path="res://objects/UI/RestartButton/RestartButton.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/Font/Gentax.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=10]
+[ext_resource path="res://objects/UI/TokensLabel/TokensLabel.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
+background_energy = 0.3
 background_canvas_max_layer = 1
 glow_enabled = true
+glow_intensity = 0.3
 glow_blend_mode = 0
 glow_bicubic_upscale = true
 
@@ -119,6 +122,9 @@ mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TokenLabelContainer" parent="CanvasLayer/Ui" instance=ExtResource( 12 )]
+position = Vector2( 910.786, 23.2269 )
 
 [node name="TransitionRect" parent="CanvasLayer/Ui" instance=ExtResource( 7 )]
 visible = false

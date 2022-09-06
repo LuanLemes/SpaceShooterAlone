@@ -14,7 +14,7 @@ func physics_process(delta):
 
 func enter(msg: Dictionary = {}) -> void:
 	character.set_collision_layer_bit(2, 0)
-	character.emit_signal("death_started")
+	character.emit_signal("death_started",character.global_position)
 	character.activated = false
 	character.support_control.visible = false
 	character.enemy_area.set_deferred("monitoring", false)

@@ -12,9 +12,11 @@ var walkable_cells: Array
 onready var border_walls: TileMap = $BorderWalls
 onready var navigation_2d: Navigation2D = $Navigation2D
 onready var all_enemies = $Enemies.get_children()
-onready var exit_particles = $Particles2D2
+onready var exit_particles = $Particles2D1
+onready var exit_particles2 = $Particles2D2
 onready var door_animator: AnimationPlayer = $Door/AnimationPlayer
 onready var door_tilemap: TileMap = $Door
+onready var collectable_handler: CollectableHandler = $CollectableHandler
 var number_of_enemies = 0
 var standard_tile: int
 var hero: Hero = null
@@ -66,10 +68,12 @@ func add_enemy(enemy) -> void:
 	enemy.connect("moved", self, "_on_enemy_moved_on_tile")
 
 
-func _on_enemy_died():
+func _on_enemy_died(enemy_global_position):
 	number_of_enemies -= 1
-	if number_of_enemies <= 0:
+	if number_of_enemies == 0:
 		emit_signal("wave_ended")
+	if number_of_enemies == -1:
+		pass
 
 
 func _on_object_destroyed() -> void:
@@ -86,6 +90,7 @@ func open_one_exit_door() -> void:
 		thick_walls.set_cell(x, 0, -1)
 		door_tilemap.set_cell(x, 0, -1)
 		exit_particles.emitting = true
+		exit_particles2.emitting = true
 #		camera_shake_requested
 		
 
@@ -149,5 +154,11 @@ func get_random_walkable_cell_location() -> Vector2:
 
 	random_walkable_cell_position = to_global(walkable_tilemap.map_to_world(random_walkable_cell_position))
 	return random_walkable_cell_position
+
+func destroy() -> void:
+	collectable_handler._unexecute_all()
+	queue_free()
+
+
 
 

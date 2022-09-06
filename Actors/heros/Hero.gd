@@ -36,8 +36,11 @@ var shield: float = 0 setget set_shield
 export var shield_regen_base: float = 0.5
 export var shield_recharge_cd: float = 2 setget set_shield_recharge_cd
 
+
 var can_be_hurt: bool = false
-var is_active:bool = true
+var is_active:bool = true setget _set_is_active
+var dash_cooldown: float = 0.7
+
 
 onready var _hurt_box: HurtBoxArea2D = $HurtBoxArea2D
 onready var shield_recharge_action: = $ShieldRechargeAction
@@ -45,7 +48,7 @@ onready var hero_weapon: HeroWeapon = $HeroWeapon
 onready var status_storage = $StatusStorage
 onready var _tween = $Tween
 onready var _shield_source : ShieldSource = $ShieldSource
-onready var hero_movement_handler := $HeroMovementHandler
+onready var hero_movement_handler : HeroMovementHandler = $HeroMovementHandler
 onready var remote_transform : RemoteTransform2D = $RemoteTransform2D
 onready var _health_bar: ProgressBar = $UI/Control/HealthProgressBar
 onready var _shield_bar: ProgressBar = $UI/Control/ShieldProgressBar
@@ -55,9 +58,14 @@ onready var _label_ui: LabelUI = $UI/Control/ValueUI
 onready var _state_machine : StateMachine = $StateMachine
 onready var _sprite: AnimatedSprite = $AnimatedSprite
 onready var _collision_shape: CollisionShape2D = $CollisionShape2D2
+onready var _damaged_animation: AnimationPlayer = $AnimationPlayer
+onready var _dash_particles: Particles2D = $DashParticles2D2
+onready var _dash_timer: Timer = $DashTimer
+
+
 
 func _ready():
-	
+	HeroManager.hero = self
 	connect("total_shield_changed", self, "_on_total_shield_changed")
 	connect("shield_changed", self, "_on_shield_changed" )
 	connect("total_hp_changed", self, "_on_total_hp_changed")
@@ -78,7 +86,7 @@ func _ready():
 	$UI.set_as_toplevel(true)
 	update_total_hp()
 	set_hp(_total_hp)
-	
+	_label_ui._hero = self
 
 	update_total_shield()
 	set_shield(_total_shield)
@@ -88,6 +96,8 @@ func _ready():
 	_shield_source.character = self
 	hero_movement_handler.character = self
 	$StateMachine.set_character(self)
+	_dash_timer.wait_time = dash_cooldown
+	
 	
 	
 #func _physics_process(delta):
@@ -209,6 +219,7 @@ func damage_shield(damage) -> void:
 
 func damage_health(damage) -> void:
 	self._hp -= damage
+	_damaged_animation.play("Damaged")
 
 
 func get_heal(heal_value) -> void:
@@ -297,3 +308,11 @@ func set_target(value) -> void:
 
 func _on_Timer_timeout():
 	update_target()
+
+
+func _set_state_machine_to_idle() -> void:
+	_state_machine.transition_without_delay("Idle")
+
+func _set_is_active(value) -> void:
+	is_active = value
+	_set_state_machine_to_idle()

@@ -6,7 +6,7 @@ signal damaged
 signal moved(enemy_global_position)
 signal critical_landed
 signal camera_shake_requested
-signal death_started
+signal death_started(enemy_global_position)
 signal enemy_hit_landed
 
 
@@ -36,6 +36,7 @@ export var is_movement_enemy: bool = false
 export var crosshair_scale: float = 0.54
 export var max_support: int = 1
 export var support_number: int = 0
+var dying = false
 
 
 
@@ -60,7 +61,8 @@ func _ready():
 func set_hp(value) -> void:
 	hp = clamp(value, 0, total_hp)
 	$Label.text = String(hp)
-	if hp == 0: 
+	if hp == 0 and dying == false: 
+		dying = true
 		_die()
 	
 
@@ -71,6 +73,7 @@ func set_bonus_hp(value) -> void:
 
 func set_total_hp() -> void:
 	total_hp = base_hp + (base_hp / 100 * bonus_percent_hp)
+	
 
 
 func get_hurt(damage) -> void:

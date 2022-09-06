@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Score Coin 1.mp3-cea3d1277ab9bed748482a6f75f7180d.mp3str"
+
+[deps]
+
+source_file="res://Assets/SoundEffects/Score Coin 1.mp3"
+dest_files=[ "res://.import/Score Coin 1.mp3-cea3d1277ab9bed748482a6f75f7180d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

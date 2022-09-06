@@ -1,19 +1,62 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/CrossHair/new folder/outeraim34.png" type="Texture" id=1]
 [ext_resource path="res://Assets/CrossHair/new folder/outeraim3.png" type="Texture" id=2]
 [ext_resource path="res://Assets/CrossHair/new folder/crosshair7part4.png" type="Texture" id=3]
 [ext_resource path="res://Assets/CrossHair/new folder/outeraim343.png" type="Texture" id=4]
 [ext_resource path="res://objects/CrossHair/CrossHair.gd" type="Script" id=5]
+[ext_resource path="res://ui/Font/Gentax.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 6 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 300, 2000 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 300, 2000 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 2000, 300 )
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 100.0
+
+[sub_resource type="Animation" id=6]
+resource_name = "FadeOut"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="CrossHair" type="Node2D"]
+modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 0.5403, 0.5403 )
 z_index = -1
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_horizontal_guides_": [ 222.0 ],
-"_edit_vertical_guides_": [ 211.0 ]
-}
 
 [node name="MainPart" type="Node2D" parent="."]
 
@@ -62,5 +105,111 @@ autostart = true
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="LabelTween" type="Tween" parent="."]
+
+[node name="LabelPosiitionTween" type="Tween" parent="."]
+
+[node name="LabelContainer" type="Node2D" parent="."]
+position = Vector2( 48.7695, -103.79 )
+
+[node name="HealthLabel" type="Label" parent="LabelContainer"]
+margin_left = 2.9577
+margin_top = 1.59848
+margin_right = 321.958
+margin_bottom = 49.5985
+custom_fonts/font = SubResource( 1 )
+text = "HP:7000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThresholdContainers" type="Node2D" parent="."]
+
+[node name="Right" type="Area2D" parent="ThresholdContainers"]
+light_mask = 0
+position = Vector2( 1699.55, 1656.49 )
+monitorable = false
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThresholdContainers/Right"]
+position = Vector2( 283.61, 131.912 )
+shape = SubResource( 2 )
+
+[node name="Left" type="Area2D" parent="ThresholdContainers"]
+light_mask = 0
+position = Vector2( 170.404, 1656.49 )
+monitorable = false
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThresholdContainers/Left"]
+position = Vector2( -171.485, -46.1692 )
+shape = SubResource( 3 )
+
+[node name="Top" type="Area2D" parent="ThresholdContainers"]
+light_mask = 0
+position = Vector2( 1114.64, 235.04 )
+monitorable = false
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ThresholdContainers/Top"]
+position = Vector2( -98.9341, -224.25 )
+shape = SubResource( 4 )
+
+[node name="Bottom" type="Area2D" parent="ThresholdContainers"]
+light_mask = 0
+position = Vector2( 0, 2173.62 )
+monitorable = false
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="ThresholdContainers/Bottom"]
+position = Vector2( 1002.52, 1389.06 )
+shape = SubResource( 4 )
+
+[node name="PositionContainer" type="Node2D" parent="."]
+
+[node name="RightTop" type="Position2D" parent="PositionContainer"]
+position = Vector2( 48.7695, -111.193 )
+
+[node name="RightBottom" type="Position2D" parent="PositionContainer"]
+position = Vector2( 62.5373, 55.9943 )
+
+[node name="LeftBottom" type="Position2D" parent="PositionContainer"]
+position = Vector2( -379.44, 55.9943 )
+
+[node name="LeftTop" type="Position2D" parent="PositionContainer"]
+position = Vector2( -381.291, -103.79 )
+
+[node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+light_mask = 0
+shape = SubResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeOut = SubResource( 6 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 7 )
+texture_scale = 12.0
+energy = 2.0
+range_item_cull_mask = 32
+__meta__ = {
+"_editor_description_": ""
+}
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
+[connection signal="area_entered" from="ThresholdContainers/Right" to="." method="_on_Right_area_entered"]
+[connection signal="area_entered" from="ThresholdContainers/Left" to="." method="_on_Left_area_entered"]
+[connection signal="area_entered" from="ThresholdContainers/Top" to="." method="_on_Top_area_entered"]
+[connection signal="area_exited" from="ThresholdContainers/Top" to="." method="_on_Top_area_exited"]
+[connection signal="area_entered" from="ThresholdContainers/Bottom" to="." method="_on_Bottom_area_entered"]

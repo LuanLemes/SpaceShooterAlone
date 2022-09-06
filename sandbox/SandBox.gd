@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 enum Unique_Types{Commom, Rare, VeryRare, Epic, Legendary, UltraLegendary, MegaLegendary, CaoticLegendary, OMGThisThinkEverEnds}
 export (Unique_Types) var unique_type = Unique_Types.Commom
@@ -10,3 +10,6 @@ func _input(event):
 	if event.is_action_pressed("test_input_1"):
 		add_child(one.duplicate(15))
 		add_child(one.duplicate(1))
+
+func _physics_process(delta):
+	

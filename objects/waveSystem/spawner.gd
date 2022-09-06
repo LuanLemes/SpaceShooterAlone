@@ -74,7 +74,7 @@ func instance_next_wave_folder() -> void:
 func delete_last_wave() -> void:
 	if spawned_wave == null:
 		return
-	spawned_wave.queue_free()
+	spawned_wave.destroy()
 	_disconnect_signals()
 	spawned_wave = null
 

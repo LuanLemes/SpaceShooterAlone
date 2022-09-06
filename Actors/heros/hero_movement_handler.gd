@@ -1,12 +1,16 @@
 extends Node2D
+class_name HeroMovementHandler
+
 
 signal stopped
 
-
-var character: Hero setget set_character
+var is_pressing_dash: bool = false
+var update_direction_inputs: bool = true
+var character setget set_character
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
 var speed_improve_modifier = 140
+export var dash_speed = 1500
 export var base_speed: float = 300
 export var _rotation_speed: = 10
 
@@ -42,8 +46,8 @@ func set_final_speed() -> void:
 func set_bonus_speed(value) -> void:
 	bonus_speed = value
 	set_final_speed()
-	
-	
+
+
 func rotate_to_target(delta) -> bool:
 	var angle_delta = _rotation_speed * delta
 	
@@ -81,6 +85,8 @@ func rotate_to_movement(delta) -> void:
 
 
 func update_direction() -> void:
+	if !update_direction_inputs:
+		return
 	var old_direction = direction
 	direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
@@ -98,12 +104,22 @@ func move() -> void:
 		character.move_and_slide(velocity, up)
 
 
+func dash() -> void:
+	if velocity != Vector2.ZERO:
+		character.move_and_slide(direction * dash_speed, up)
+
+
 func clamp_position() -> void:
 	character.position.x = clamp(character.position.x, 0, screen_size.x)
-	character.position.y = clamp(character.position.y, 0, screen_size.y)
+	character.position.y = clamp(character.position.y, -300, screen_size.y)
 	pass
 
 
 func improve_speed() -> void:
-	self.bonus_speed += speed_improve_modifier 
+	self.base_speed += speed_improve_modifier 
 	speed_improve_modifier = speed_improve_modifier - float(speed_improve_modifier)/100 * 28
+
+
+func _input(event):
+	
+	is_pressing_dash = event.is_action_pressed("dash") 

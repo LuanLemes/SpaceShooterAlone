@@ -7,12 +7,13 @@ var array_of_status_names: Array
 var spawned_projectile
 export var projectile_scene: PackedScene
 var character
-export var cooldown_time: float = 0.9 setget set_cooldown
+export var total_cooldown_time: float
+var base_cooldown: float = 0.30 setget set_base_cooldown
+var bonus_cooldown: float = 0 setget set_bonus_cooldown
 export var _base_damage: int = 25
 var _total_damage: int = 2
 var _bonus_damage = 0 setget set_bonus_damage
 var _percent_bonus_damage = 0 setget set_percent_damage
-
 
 var status_chance: float
 var base_status_chance: float = 5
@@ -60,7 +61,7 @@ func _ready():
 	update_status_chance()
 	splash_animated_sprite = get_node(splash_path)
 	update_total_damage()
-	cooldown_timer_node.wait_time = cooldown_time
+	update_total_cooldown()
 	add_front_cannon()
 	self.connect("hero_shooted", SignalManager, "_on_hero_shooted")
 	update_total_critical_chance()
@@ -167,18 +168,27 @@ func set_wall_bounces(value) -> void:
 	max_wall_bounces = value
 	if max_number_of_hits <= max_wall_bounces:
 		max_number_of_hits += 1
-	
 
 
-func set_cooldown(value) -> void:
-	cooldown_time =  value
+func update_total_cooldown() -> void:
+	total_cooldown_time  = base_cooldown - bonus_cooldown
 	if !cooldown_timer_node:
 		return
-	cooldown_timer_node.wait_time = cooldown_time
+	cooldown_timer_node.wait_time = total_cooldown_time
 
+
+func set_base_cooldown(value) -> void:
+	base_cooldown = value
+	update_total_cooldown()
+
+
+func set_bonus_cooldown(value) -> void:
+	bonus_cooldown = value
+	update_total_cooldown()
+	
 
 func improve_cooldown() -> void:
-	self.cooldown_time = cooldown_time - (cooldown_time * cooldown_modifier)
+	self.total_cooldown_time = total_cooldown_time - (total_cooldown_time * cooldown_modifier)
 	cooldown_modifier -= cooldown_modifier /100 * 15
 
 

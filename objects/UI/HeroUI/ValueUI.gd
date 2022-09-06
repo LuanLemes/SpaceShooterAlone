@@ -1,13 +1,15 @@
 extends Node2D
 class_name LabelUI
 
-
+var _hero
 onready var label: Label = $Label
 onready var tween: Tween = $Tween
 onready var timer: Timer = $Timer
 var label_value: int setget set_label_value
 #var active: bool setget set_active
-export var duration: float = 0.3
+export var duration: float = 2.5
+export var value_change_duration: float = 0.5
+
 
 func _ready():
 	timer.connect("timeout", self, "on_timer_time_out")
@@ -16,12 +18,12 @@ func _ready():
 
 func set_label_value(new_label_value) -> void:
 	label_value = new_label_value
-	label.text = String(label_value)
+	label.text =  String(label_value) + "/" + String(_hero._total_hp)
 
 
 func tween_label_value(new_value) -> void:
 	appear()
-	tween.interpolate_property(self, "label_value", self.label_value, new_value, duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT )
+	tween.interpolate_property(self, "label_value", self.label_value, new_value, value_change_duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT )
 	tween.start()
 
 

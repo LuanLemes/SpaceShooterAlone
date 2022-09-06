@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/collectables/AllCollectables/Collectable.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 63.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 143.0
+
+[node name="Collectable" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="PlayerPickArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerPickArea"]
+scale = Vector2( 0.704057, 0.704057 )
+shape = SubResource( 1 )
+
+[node name="PlayerMagneticArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMagneticArea"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.101961, 0, 1, 1 )
+self_modulate = Color( 1.5, 1.5, 1.5, 1 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="PlayerPickArea" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="PlayerMagneticArea" to="." method="_on_PlayerMagneticArea_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

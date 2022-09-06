@@ -26,22 +26,23 @@ signal hero_started_moving
 signal hero_stopped_moving
 signal on_wave_ended
 signal on_enemy_hit_landed
-signal enemy_death_started
+signal enemy_death_started(enemy_global_position)
 signal hero_started_shooting
 signal hero_stopped_shooting
 signal upgrade_duplicated(upgrade_duplicated)
 signal hero_death_started
+signal collectable_picked(collectable_name)
 
 
-var _hero: Hero setget _set_hero
+#var _hero: Hero setget _set_hero
 
 
 func camera_shake_requested() -> void:
 	emit_signal("camera_shake_requested")
 
 
-func _set_hero(new_hero) -> void:
-	_hero = new_hero
+#func _set_hero(new_hero) -> void:
+#	_hero = new_hero
 
 	
 func _on_hero_hurt(final_damage) -> void:
@@ -136,8 +137,8 @@ func _on_enemy_hit_landed() -> void:
 	emit_signal("on_enemy_hit_landed")
 
 
-func _on_enemy_death_started() -> void:
-	emit_signal("enemy_death_started")
+func _on_enemy_death_started(enemy_global_position) -> void:
+	emit_signal("enemy_death_started", enemy_global_position)
 
 
 func _on_hero_started_shooting() -> void:
@@ -171,4 +172,7 @@ func _on_hero_death_started() -> void:
 func on_upgrade_activated(upgrade) -> void:
 	emit_signal("upgrade_activated", upgrade)
 
+
+func _on_collectable_picked(collectable_name) -> void:
+	emit_signal("collectable_picked", collectable_name)
 
