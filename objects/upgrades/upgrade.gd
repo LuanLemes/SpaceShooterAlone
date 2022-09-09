@@ -9,8 +9,8 @@ signal unlock_secondary(secondary_type)
 enum Types {Normal, Poison, Fire, Water, Ice}
 export (Types) var type = Types.Normal
 
-enum Unique_Types{Commom, Rare, VeryRare, Epic}
-export (Unique_Types) var unique_type = Unique_Types.Commom
+enum Rarity{Commom, Rare, VeryRare, Epic}
+export (Rarity) var rarity = Rarity.Commom
 
 #enum Teams{PLAYER, ENEMY}
 #export (Teams) var team := Teams.ENEMY

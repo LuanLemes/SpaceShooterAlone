@@ -63,7 +63,6 @@ onready var _dash_particles: Particles2D = $DashParticles2D2
 onready var _dash_timer: Timer = $DashTimer
 
 
-
 func _ready():
 	HeroManager.hero = self
 	connect("total_shield_changed", self, "_on_total_shield_changed")
@@ -97,11 +96,9 @@ func _ready():
 	hero_movement_handler.character = self
 	$StateMachine.set_character(self)
 	_dash_timer.wait_time = dash_cooldown
-	
-	
-	
-#func _physics_process(delta):
-#	update_target()
+
+
+
 
 
 func _powered_up() -> void:
@@ -183,7 +180,6 @@ func set_hp(value):
 	emit_signal("hp_changed")
 	if _hp == 0 or _hp < 0:
 		_state_machine.transition_without_delay("Die")
-		
 
 
 func set_bonus_hp(value):
@@ -314,5 +310,11 @@ func _set_state_machine_to_idle() -> void:
 	_state_machine.transition_without_delay("Idle")
 
 func _set_is_active(value) -> void:
+	if value == false:
+		_set_state_machine_to_idle()
 	is_active = value
-	_set_state_machine_to_idle()
+
+
+func _input(event):
+	if event.is_action_pressed("test_input_1"):
+		self.is_active = !is_active

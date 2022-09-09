@@ -209,10 +209,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/upgrades/upgrade.gd"
 }, {
-"base": "Button",
+"base": "Node2D",
 "class": "UpgradeButton",
 "language": "GDScript",
-"path": "res://ui/Upgrade_Button/Button.gd"
+"path": "res://ui/Upgrade_Button/ButtonNode2d.gd"
 }, {
 "base": "TileMap",
 "class": "Wall",
@@ -327,7 +327,8 @@ move_down={
 }
 test_input_1={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
 }
 click={
 "deadzone": 0.5,

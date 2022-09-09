@@ -50,6 +50,7 @@ func _ready():
 func _on_collectable_picked(collectable_name) -> void:
 	self._tokens_count += 1
 
+
 func _set_tokens_counter(value) -> void:
 	_tokens_count = value
 	emit_signal("token_count_changed", _tokens_count)
@@ -71,6 +72,7 @@ func _hide_upgrade_ui() -> void:
 
 func _show_upgrade() -> void:
 	_show_upgrade_ui()
+	_upgrade_handler._show_cards_animation()
 	upgrade_pause()
 
 
@@ -125,16 +127,16 @@ func _on_Spawner_hero_left() -> void:
 func call_next_level() -> void:
 	_level_count += 1
 	count_timer()
-	_hero.is_active = false
 	_transition_rect.transition_out()
 	yield(_transition_rect, "transition_ended")
+	_hero.is_active = false
 	_wave_spawner.call_next_wave()
+	reset_hero_position()
 	_update_level_label()
 	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
 	_transition_rect.transition_in()
 	_level_label.visible = false
 	_hero.is_active = true
-	reset_hero_position()
 	emit_signal("_level_started")
 
 

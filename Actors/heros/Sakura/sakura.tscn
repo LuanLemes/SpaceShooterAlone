@@ -71,7 +71,7 @@ scale = 0.7
 scale_curve = SubResource( 11 )
 color = Color( 0.0509804, 1, 0, 0.968627 )
 
-[sub_resource type="Shader" id=16]
+[sub_resource type="Shader" id=13]
 code = "shader_type canvas_item;
 
 uniform vec4 dash_color : hint_color;
@@ -83,17 +83,17 @@ void fragment(){
 	COLOR = new_color;
 }"
 
-[sub_resource type="ShaderMaterial" id=17]
-shader = SubResource( 16 )
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 13 )
 shader_param/dash_color = Color( 0, 0.0862745, 1, 0.145098 )
 
-[sub_resource type="Gradient" id=13]
+[sub_resource type="Gradient" id=15]
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=14]
-gradient = SubResource( 13 )
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=17]
 flag_align_y = true
 flag_rotate_y = true
 flag_disable_z = true
@@ -103,7 +103,7 @@ initial_velocity = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 2.0
-color_ramp = SubResource( 14 )
+color_ramp = SubResource( 16 )
 
 [node name="Sakura" instance=ExtResource( 1 )]
 base_shield = 0.0
@@ -118,6 +118,7 @@ visible = false
 [node name="AnimatedSprite" parent="." index="3"]
 position = Vector2( -1, -5.32907e-14 )
 scale = Vector2( 1.84774, 1.84774 )
+z_index = 70
 frames = SubResource( 7 )
 frame = 1
 
@@ -232,14 +233,14 @@ texture = ExtResource( 2 )
 
 [node name="DashParticles2D2" type="Particles2D" parent="." index="21"]
 show_behind_parent = true
-material = SubResource( 17 )
+material = SubResource( 14 )
 rotation = -3.12636
 emitting = false
 amount = 34
 lifetime = 0.5
 local_coords = false
 draw_order = 1
-process_material = SubResource( 15 )
+process_material = SubResource( 17 )
 texture = ExtResource( 10 )
 __meta__ = {
 "_editor_description_": "w"

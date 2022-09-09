@@ -110,8 +110,8 @@ func dash() -> void:
 
 
 func clamp_position() -> void:
-	character.position.x = clamp(character.position.x, 0, screen_size.x)
-	character.position.y = clamp(character.position.y, -300, screen_size.y)
+#	character.position.x = clamp(character.position.x, 0, screen_size.x)
+#	character.position.y = clamp(character.position.y, -300, screen_size.y)
 	pass
 
 

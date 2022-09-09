@@ -16,17 +16,22 @@ var character
 var last_state
 
 func set_character(new_character) -> void:
+	set_physics_process(true)
 	character = new_character
 	insert_properties_on_states()
+	yield(get_tree().create_timer(2.5), "timeout")
 	state.enter()
+	
 
 func _init() -> void:
 	add_to_group("state_machine")
 
 
 func _ready():
+	set_physics_process(false)
 	rng.randomize()
 	_timer.connect("timeout", self, "_on_timeout")
+	
 
 func insert_properties_on_states() -> void:
 	for state in get_children():

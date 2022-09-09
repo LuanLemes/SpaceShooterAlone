@@ -5,4 +5,4 @@
 
 [node name="AfterMoveCriticalUpgrade" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-unique_type = 1
+rarity = 2

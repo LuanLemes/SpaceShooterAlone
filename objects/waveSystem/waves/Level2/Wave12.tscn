@@ -59,8 +59,8 @@ position = Vector2( 248, 606 )
 [node name="PipeEnemy" parent="Enemies" index="5" instance=ExtResource( 4 )]
 position = Vector2( 544, 650 )
 
-[node name="LeaveArea" parent="." index="7"]
+[node name="LeaveArea" parent="." index="8"]
 position = Vector2( -20, -146 )
 
-[node name="PlayerStartPosition" parent="." index="8"]
+[node name="PlayerStartPosition" parent="." index="9"]
 position = Vector2( 523, 1664 )

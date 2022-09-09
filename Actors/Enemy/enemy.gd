@@ -129,6 +129,7 @@ func set_can_see_player(new_value) -> void:
 
 
 func on_wave_ready() -> void:
+#	yield(get_tree().create_timer(1.5), "timeout")
 	$StateMachine.set_character(self)
 	
 

@@ -6,8 +6,9 @@ enum {BUY, UPGRADE}
 
 var hero: Hero setget set_hero
 
-onready var button1: = $ColorRect/Panel/ButtonsHBoxContainer/Button
-onready var all_buttons = $ColorRect/Panel/ButtonsHBoxContainer.get_children()
+onready var cards_animation_player: AnimationPlayer = $AnimationPlayer
+onready var button1: = $ColorRect/ButtonsHBoxContainer/Button
+onready var all_buttons = $ColorRect/ButtonsHBoxContainer.get_children()
 onready var upgrade_container = $UpgradeContainer
 onready var color_rect = $ColorRect
 onready var unsorted_container = $UpgradeContainer/UnsortedContainer.get_children()
@@ -22,6 +23,7 @@ var all_rarities: Array
 
 
 func _ready():
+	_show_cards_animation()
 	SignalManager.connect("upgrade_activated", self, "on_upgrade_activated")
 	SignalManager.connect("upgrade_duplicated", self, "_on_upgrade_duplicated")
 	rng.randomize()
@@ -29,7 +31,7 @@ func _ready():
 	non_bought_upgrades = all_upgrades
 	set_containers()
 
-	for button in $ColorRect/Panel/ButtonsHBoxContainer.get_children():
+	for button in $ColorRect/ButtonsHBoxContainer.get_children():
 		button.connect("upgrade_button_pressed", self, "upgrade_button_pressed")
 
 
@@ -121,7 +123,7 @@ func chosse_upgrades_to_upgrade() -> void:
 
 
 func unlock_unique_secondary_upgrades(type: String) -> void:
-#	var unique_container = upgrade_container.get_node(upgrade.Unique_Types.keys()[upgrade.unique_type])
+#	var unique_container = upgrade_container.get_node(upgrade.Rarity.keys()[upgrade.rarity])
 	var type_container = upgrade_container.get_node(type)
 	var upgrades_to_unlock = type_container.get_children()
 	for upgrade in upgrades_to_unlock:
@@ -162,15 +164,15 @@ func set_hero(new_hero: Hero) -> void:
 func set_containers() -> void:
 	for upgrade in all_upgrades:
 		upgrade.get_parent().remove_child(upgrade)
-		if !upgrade_container.has_node(upgrade.Unique_Types.keys()[upgrade.unique_type]):
+		if !upgrade_container.has_node(upgrade.Rarity.keys()[upgrade.rarity]):
 			var new_unique_container = Node.new()
-			new_unique_container.name = upgrade.Unique_Types.keys()[upgrade.unique_type]
+			new_unique_container.name = upgrade.Rarity.keys()[upgrade.rarity]
 			upgrade_container.add_child(new_unique_container)
 			new_unique_container.add_child(upgrade)
 		else:
-			var unique_container = upgrade_container.get_node(upgrade.Unique_Types.keys()[upgrade.unique_type])
+			var unique_container = upgrade_container.get_node(upgrade.Rarity.keys()[upgrade.rarity])
 			unique_container.add_child(upgrade)
-	for types in all_upgrades[0].Unique_Types:
+	for types in all_upgrades[0].Rarity:
 		all_rarities.append(types)
 
 
@@ -196,10 +198,14 @@ func _on_upgrade_duplicated(upgrade_duplicated) -> void:
 func on_upgrade_activated(upgrade: Upgrade) -> void:
 	upgrade.get_parent().remove_child(upgrade)
 	active_upgrades_container.add_child(upgrade)
-	
 
 
+func _show_cards_animation() -> void:
+	cards_animation_player.play("Show Cards")
 
+
+func _hide_cards_animation() -> void:
+	cards_animation_player.play_backwards("Show Cards")
 
 
 

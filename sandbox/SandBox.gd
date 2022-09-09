@@ -8,8 +8,4 @@ onready var one = $Sprite
 
 func _input(event):
 	if event.is_action_pressed("test_input_1"):
-		add_child(one.duplicate(15))
-		add_child(one.duplicate(1))
-
-func _physics_process(delta):
-	
+		print(unique_type)

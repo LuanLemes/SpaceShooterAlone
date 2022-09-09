@@ -22,6 +22,7 @@ func physics_process(delta):
 
 
 func enter(msg: Dictionary = {}) -> void:
+	character._hurt_box.set_deferred("monitorable", false)
 	character._dash_timer.start()
 #	character._dash_particles.emitting = true
 	character.hero_movement_handler._rotation_speed += _bonus_rotation_speed
@@ -29,22 +30,23 @@ func enter(msg: Dictionary = {}) -> void:
 	character.hero_movement_handler
 	emit_signal("hero_started_dashing")
 	initial_position = character.global_position
-	timer.start(dash_duration)
+#	timer.start(dash_duration)
+	start_timer(dash_duration)
 
 
 func _on_dash_timeout() -> void:
-	_state_machine.transition_without_delay("Move")
-
+	pass
 
 func exit() -> void:
 #	character._dash_particles.emitting = false
+	character._hurt_box.set_deferred("monitorable", true)
 	character.hero_movement_handler.update_direction_inputs = true
 	character.hero_movement_handler._rotation_speed -= _bonus_rotation_speed
 	emit_signal("hero_stopped_dashing")
 
 
 func _on_timer_timeout() -> void:
-	exit()
+	_state_machine.transition_without_delay("Idle")
 
 
 func _spawn_trail() -> void:
@@ -52,8 +54,6 @@ func _spawn_trail() -> void:
 	character.add_child(new_sprite_trail)
 	new_sprite_trail.global_position = character.global_position
 	new_sprite_trail.global_rotation = character.global_rotation
-
-
 
 
 

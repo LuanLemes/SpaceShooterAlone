@@ -1,21 +1,25 @@
-extends Button
-#class_name UpgradeButton
+extends Node2D
+class_name UpgradeButton
 signal upgrade_button_pressed(button)
 signal upgrade_animation_ended
 signal upgrade_animation_started
 signal upgrade_animation_finished
 
 
-onready var label_name = $VBoxContainer/Name
-onready var ui_effect = $VBoxContainer/Effect
-onready var atribute_description = $VBoxContainer/Atribute_descrption
-onready var upgrade_description: Label = $VBoxContainer/Upgrade_descrption
-onready var label_bonus_1 = $VBoxContainer/LabelVBoxContainer/Bonus1
-onready var label_bonus_2 = $VBoxContainer/LabelVBoxContainer/Bonus2
-onready var label_bonus_3 = $VBoxContainer/LabelVBoxContainer/Bonus3
-onready var animation_player :AnimationPlayer = $AnimationPlayer
-onready var _tween = $Tween
-#onready var reference: Label = $VBoxContainer/Reference
+#onready var label_name = $Button/Button/VBoxContainer/Name
+onready var label_name = $Button/VBoxContainer/Name
+onready var ui_effect = $Button/VBoxContainer/Effect
+onready var atribute_description = $Button/VBoxContainer/Atribute_descrption
+onready var upgrade_description: Label = $Button/VBoxContainer/Upgrade_descrption
+onready var label_bonus_1 = $Button/VBoxContainer/Bonus1
+onready var label_bonus_2 = $Button/VBoxContainer/Bonus2
+onready var label_bonus_3 = $Button/VBoxContainer/Bonus3
+onready var type_label = $Button/Type
+onready var animation_player :AnimationPlayer = $Button/AnimationPlayer
+onready var _tween = $Button/Tween
+onready var _button: Button = $Button
+onready var rarity_label: Label = $Button/Rarity
+#onready var reference: Label = $Button/VBoxContainer/Reference
 
 var upgrade: Upgrade
 var index_of_upgrade: int
@@ -31,6 +35,7 @@ func _ready():
 func upgrade_animation_finished(animation_name: String) -> void:
 	emit_signal("upgrade_animation_finished")
 
+
 func upgrade_animation_started(animation_name: String) -> void:
 	emit_signal("upgrade_animation_started")
 
@@ -43,6 +48,9 @@ func fill_fields(upgrade) -> void:
 	label_name.text = String(upgrade._up_name)
 	ui_effect.text = "Effect: " + String(upgrade._up_effect)
 	atribute_description.text = upgrade._atribute_description
+	type_label.text = upgrade.Types.keys()[upgrade.type]
+	rarity_label.text = upgrade.Rarity.keys()[upgrade.rarity]
+	
 
 
 func fill_fields_to_upgrade(upgrade) -> void:
@@ -72,7 +80,7 @@ func _on_Button_button_up():
 
 
 func _play_upgrade_animation():
-	$AnimationPlayer.play("shine")
+	$Button/AnimationPlayer.play("shine")
 
 
 func update_fields():
@@ -88,17 +96,16 @@ func _on_Button_mouse_entered():
 
 
 func _get_bigger_animation() -> void:
-	_tween.interpolate_property(self, "rect_scale", rect_scale ,Vector2(1.3,1.3), 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN )
+	z_index = 1
+	_tween.interpolate_property(_button, "rect_scale", _button.rect_scale ,Vector2(1.3,1.3), 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN )
 	_tween.start()
 	
 	
 func _return_to_original_size() -> void:
-	_tween.interpolate_property(self, "rect_scale", rect_scale ,Vector2(1, 1), 0., Tween.TRANS_LINEAR, Tween.EASE_IN )
+	z_index = 0
+	_tween.interpolate_property(_button, "rect_scale", _button.rect_scale ,Vector2(1, 1), 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN )
 	_tween.start()
 
-
-func _process(delta):
-	print(rect_scale)
 
 
 func _on_Button_focus_exited():
@@ -107,3 +114,4 @@ func _on_Button_focus_exited():
 
 func _on_Button_mouse_exited():
 	_return_to_original_size()
+	_button.focus_mode

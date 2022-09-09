@@ -1,7 +1,7 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://objects/upgradeSystem/UpgradeHandler.gd" type="Script" id=1]
-[ext_resource path="res://ui/Upgrade_Button/Button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/Upgrade_Button/ButtonNode2d.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/HpUpUpgrade.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/AttackPoisonUpgrade.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/AttackFireUpgrade.tscn" type="PackedScene" id=5]
@@ -26,65 +26,104 @@
 [ext_resource path="res://objects/upgrades/abstract_upgrades/AfterMoveElementalUpgrade.tscn" type="PackedScene" id=24]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/AfterMoveCriticalUpgrade.tscn" type="PackedScene" id=25]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/HopeUpgrade.tscn" type="PackedScene" id=26]
+[ext_resource path="res://objects/upgradeSystem/ButtonsHBoxContainer.gd" type="Script" id=27]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.752941, 0.917647, 1, 1 )
+[sub_resource type="Animation" id=2]
+resource_name = "Show Cards"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect/ButtonsHBoxContainer/ButtonRight:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 540, 309 ), Vector2( 889.733, 309 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect/ButtonsHBoxContainer/ButtonLeft:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 540, 309 ), Vector2( 169.263, 309 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("ColorRect/ButtonsHBoxContainer/ButtonMiddle/Button")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
 
 [node name="Upgrade_Handler" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 779.741 ]
+}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1080.0
 margin_bottom = 1920.0
-color = Color( 1, 1, 1, 0.0509804 )
+color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="ColorRect"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -540.0
-margin_top = -477.0
-margin_right = 540.0
-margin_bottom = 163.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="ColorRect/Panel"]
+[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 7.0
-margin_top = 7.0
+margin_top = 474.0
 margin_right = -7.0
-margin_bottom = -7.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_bottom = 476.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_constants/separation = 0
+alignment = 1
+script = ExtResource( 27 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" parent="ColorRect/Panel/ButtonsHBoxContainer" instance=ExtResource( 2 )]
-margin_right = 352.0
-margin_bottom = 626.0
+[node name="ButtonLeft" parent="ColorRect/ButtonsHBoxContainer" instance=ExtResource( 2 )]
+position = Vector2( 169.263, 309 )
 
-[node name="Button2" parent="ColorRect/Panel/ButtonsHBoxContainer" instance=ExtResource( 2 )]
-margin_left = 356.0
-margin_right = 709.0
-margin_bottom = 626.0
+[node name="Button" parent="ColorRect/ButtonsHBoxContainer/ButtonLeft" index="0"]
+focus_neighbour_left = NodePath("../../ButtonRight/Button")
+focus_neighbour_right = NodePath("../../ButtonMiddle/Button")
 
-[node name="Button3" parent="ColorRect/Panel/ButtonsHBoxContainer" instance=ExtResource( 2 )]
-margin_left = 713.0
-margin_right = 1066.0
-margin_bottom = 626.0
+[node name="ButtonRight" parent="ColorRect/ButtonsHBoxContainer" instance=ExtResource( 2 )]
+position = Vector2( 889.733, 309 )
+
+[node name="Button" parent="ColorRect/ButtonsHBoxContainer/ButtonRight" index="0"]
+focus_neighbour_left = NodePath("../../ButtonMiddle/Button")
+focus_neighbour_right = NodePath("../../ButtonLeft/Button")
+
+[node name="ButtonMiddle" parent="ColorRect/ButtonsHBoxContainer" instance=ExtResource( 2 )]
+position = Vector2( 527, 308 )
+
+[node name="Button" parent="ColorRect/ButtonsHBoxContainer/ButtonMiddle" index="0"]
+focus_neighbour_left = NodePath("../../ButtonLeft/Button")
+focus_neighbour_right = NodePath("../../ButtonRight/Button")
 
 [node name="UpgradeContainer" type="Node2D" parent="."]
 
@@ -140,3 +179,13 @@ unique_type = 0
 [node name="WeakPointUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 10 )]
 
 [node name="UpgradesActive" type="Node" parent="UpgradeContainer"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/Show Cards" = SubResource( 2 )
+
+[editable path="ColorRect/ButtonsHBoxContainer/ButtonLeft"]
+[editable path="ColorRect/ButtonsHBoxContainer/ButtonLeft/Button"]
+[editable path="ColorRect/ButtonsHBoxContainer/ButtonRight"]
+[editable path="ColorRect/ButtonsHBoxContainer/ButtonRight/Button"]
+[editable path="ColorRect/ButtonsHBoxContainer/ButtonMiddle"]
+[editable path="ColorRect/ButtonsHBoxContainer/ButtonMiddle/Button"]

@@ -5,4 +5,4 @@
 
 [node name="AgressiveEnduranceUpgrade" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-unique_type = 1
+rarity = 1
