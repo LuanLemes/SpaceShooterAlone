@@ -48,10 +48,5 @@ func set_shake(value: bool) -> void:
 		timer.start()
 
 
-#func connect_to_shakers() -> void:
-#	for camera_shaker in get_tree().get_nodes_in_group("camera_shaker"):
-#		camera_shaker.connect("camera_shake_requested", self, "_on_camera_shake_requested")
-
-
 func set_shake_true() -> void:
 	set_shake(true)

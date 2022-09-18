@@ -7,12 +7,22 @@ enum {BUY, UPGRADE}
 var hero: Hero setget set_hero
 
 onready var cards_animation_player: AnimationPlayer = $AnimationPlayer
-onready var button1: = $ColorRect/ButtonsHBoxContainer/Button
-onready var all_buttons = $ColorRect/ButtonsHBoxContainer.get_children()
+onready var big_cards_container: Node2D = $ColorRect/VBoxContainer/BigButtons
+#onready var button1: = $ColorRect/ButtonsHBoxContainer/Button
+onready var all_buttons = $ColorRect/VBoxContainer/SmallButtons.get_children()
+onready var all_buttons_container = $ColorRect/VBoxContainer/SmallButtons
 onready var upgrade_container = $UpgradeContainer
 onready var color_rect = $ColorRect
 onready var unsorted_container = $UpgradeContainer/UnsortedContainer.get_children()
 onready var active_upgrades_container = $UpgradeContainer/UpgradesActive
+onready var big_cards_tween = $Tween
+onready var small_left_button = $ColorRect/VBoxContainer/SmallButtons/ButtonLeft/Button
+onready var small_middle_button = $ColorRect/VBoxContainer/SmallButtons/ButtonMiddle/Button
+onready var small_right_button = $ColorRect/VBoxContainer/SmallButtons/ButtonRight/Button
+onready var big_button_left:UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonLeft
+onready var big_button_middle:UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonMiddle
+onready var big_button_right:UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonRight
+
 var all_upgrades = []
 var non_bought_upgrades: Array
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -21,8 +31,13 @@ var upgrade_selected2: Upgrade
 var upgrade_selected3: Upgrade
 var all_rarities: Array
 
-
 func _ready():
+	small_left_button.connect("focus_entered", self, "_on_left_focus")
+	small_left_button.connect("mouse_entered", self, "_on_left_focus")
+	small_middle_button.connect("focus_entered", self, "_on_middle_focus")
+	small_middle_button.connect("mouse_entered", self, "_on_middle_focus")
+	small_right_button.connect("focus_entered", self, "_on_right_focus")
+	small_right_button.connect("mouse_entered", self, "_on_right_focus")
 	_show_cards_animation()
 	SignalManager.connect("upgrade_activated", self, "on_upgrade_activated")
 	SignalManager.connect("upgrade_duplicated", self, "_on_upgrade_duplicated")
@@ -31,7 +46,7 @@ func _ready():
 	non_bought_upgrades = all_upgrades
 	set_containers()
 
-	for button in $ColorRect/ButtonsHBoxContainer.get_children():
+	for button in all_buttons_container.get_children():
 		button.connect("upgrade_button_pressed", self, "upgrade_button_pressed")
 
 
@@ -51,6 +66,7 @@ func chosse_upgrades_to_buy() -> void:
 				all_buttons[buttons_filled].fill_fields(this_upgrade)
 				all_buttons[buttons_filled].index_of_upgrade = buttons_filled
 				buttons_filled += 1
+	update_bigger_cards()
 
 
 func chosse_upgrade_rarity() -> String:
@@ -90,6 +106,7 @@ func chosse_upgrade() -> Upgrade:
 			chossen_upgrade = all_upgrades_from_this_rarity[index_of_the_given_upgrade]
 			break
 	return chossen_upgrade
+	
 
 
 func is_upgrade_in_button(upgrade) -> bool:
@@ -208,14 +225,42 @@ func _hide_cards_animation() -> void:
 	cards_animation_player.play_backwards("Show Cards")
 
 
+func _tween_big_left_card() -> void:
+	big_cards_tween.stop_all()
+	big_cards_tween.interpolate_property(big_cards_container, "position", big_cards_container.position, Vector2(828,0), 0.3)
+	big_cards_tween.start()
 
 
+func _tween_big_middle_card() -> void:
+	big_cards_tween.stop_all()
+	big_cards_tween.interpolate_property(big_cards_container, "position", big_cards_container.position, Vector2(0,0), 0.3)
+	big_cards_tween.start()
 
 
+func _tween_big_right_card() -> void:
+	big_cards_tween.stop_all()
+	big_cards_tween.interpolate_property(big_cards_container, "position", big_cards_container.position, Vector2(-828,0), 0.3)
+	big_cards_tween.start()
 
 
+func _on_left_focus() -> void:
+	_tween_big_left_card()
+	
 
+func _on_middle_focus() -> void:
+	_tween_big_middle_card()
+	
 
+func _on_right_focus() -> void:
+	_tween_big_right_card()
 
+func update_bigger_cards() -> void:
+	var i = 0
+	var all_big_buttons = $ColorRect/VBoxContainer/BigButtons.get_children()
+	for button in all_buttons:
+		all_big_buttons[i].upgrade = button.upgrade
+		i += 1
+	for button in all_big_buttons:
+		button.fill_fields(button.upgrade)
 
 

@@ -19,8 +19,8 @@
 [ext_resource path="res://Actors/heros/Sakura/SakuraDieState.gd" type="Script" id=19]
 [ext_resource path="res://Actors/heros/Sakura/Delay.gd" type="Script" id=20]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 27, 10 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.0
 
 [sub_resource type="StreamTexture" id=2]
 flags = 4
@@ -106,10 +106,10 @@ scale = 2.0
 color_ramp = SubResource( 16 )
 
 [node name="Sakura" instance=ExtResource( 1 )]
+collision_mask = 34
 base_shield = 0.0
 
 [node name="CollisionShape2D2" parent="." index="1"]
-position = Vector2( 1, 0 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="RemoteTransform2D" index="0"]
@@ -147,6 +147,9 @@ base_speed = 570.0
 visible = false
 
 [node name="HealthProgressBar" parent="UI/Control" index="1"]
+visible = false
+
+[node name="DebugState_machine" parent="UI/Control" index="2"]
 visible = false
 
 [node name="ValueUI" parent="UI/Control" index="3" instance=ExtResource( 18 )]
@@ -248,5 +251,68 @@ __meta__ = {
 
 [node name="DashTimer" type="Timer" parent="." index="22"]
 one_shot = true
+
+[node name="DashEndPoint" type="Position2D" parent="." index="23"]
+
+[node name="RayCast2D" type="RayCast2D" parent="DashEndPoint" index="0"]
+position = Vector2( 275, 0 )
+enabled = true
+cast_to = Vector2( -61, 0 )
+collision_mask = 258
+
+[node name="RayCast2D2" type="RayCast2D" parent="DashEndPoint" index="1"]
+position = Vector2( 300, 0 )
+enabled = true
+cast_to = Vector2( -61, 0 )
+collision_mask = 258
+
+[node name="RayCast2D3" type="RayCast2D" parent="DashEndPoint" index="2"]
+position = Vector2( 325, 0 )
+enabled = true
+cast_to = Vector2( -61, 0 )
+collision_mask = 258
+
+[node name="RayCast2D4" type="RayCast2D" parent="DashEndPoint" index="3"]
+position = Vector2( 350, 0 )
+enabled = true
+cast_to = Vector2( -61, 0 )
+collision_mask = 258
+
+[node name="RayCast2D5" type="RayCast2D" parent="DashEndPoint" index="4"]
+position = Vector2( 375, 0 )
+enabled = true
+cast_to = Vector2( -61, 0 )
+collision_mask = 258
+
+[node name="RayCast2D6" type="RayCast2D" parent="DashEndPoint" index="5"]
+position = Vector2( 400, 0 )
+enabled = true
+cast_to = Vector2( -61, 0 )
+collision_mask = 258
+
+[node name="RayCast2D7" type="RayCast2D" parent="DashEndPoint" index="6"]
+position = Vector2( 425, 0 )
+enabled = true
+cast_to = Vector2( -61, 0 )
+collision_mask = 258
+
+[node name="IndiseWallChecker" type="Position2D" parent="." index="24"]
+
+[node name="FowardDashWallChecker" type="RayCast2D" parent="IndiseWallChecker" index="0"]
+enabled = true
+cast_to = Vector2( 270, 0 )
+collision_mask = 258
+
+[node name="RayCast2D" type="RayCast2D" parent="IndiseWallChecker" index="1"]
+position = Vector2( 0, -39 )
+enabled = true
+cast_to = Vector2( 0, 80 )
+collision_mask = 258
+
+[node name="RayCast2D2" type="RayCast2D" parent="IndiseWallChecker" index="2"]
+position = Vector2( 35.3553, 0.597977 )
+enabled = true
+cast_to = Vector2( -80, 0 )
+collision_mask = 258
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

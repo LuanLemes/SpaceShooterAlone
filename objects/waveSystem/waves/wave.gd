@@ -11,15 +11,19 @@ onready var walkable_tilemap: TileMap = $Navigation2D/WalkableCells
 var walkable_cells: Array
 onready var border_walls: TileMap = $BorderWalls
 onready var navigation_2d: Navigation2D = $Navigation2D
-onready var all_enemies = $Enemies.get_children()
 onready var exit_particles = $Particles2D1
 onready var exit_particles2 = $Particles2D2
 onready var door_animator: AnimationPlayer = $Door/AnimationPlayer
 onready var door_tilemap: TileMap = $Door
 onready var collectable_handler: CollectableHandler = $CollectableHandler
-var number_of_enemies = 0
+onready var sub_wave: SubWave = $Enemies/SubWave
+var number_of_enemies:int = 0
+#var current_sub_wave: int = 0
+var next_subwave: SubWave
 var standard_tile: int
 var hero: Hero = null
+onready var all_sub_waves: = $SubWaves.get_children()
+onready var number_of_sub_waves = all_sub_waves.size()
 onready var _player_start_position: Position2D = $PlayerStartPosition
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 export var is_boss_level: = false
@@ -29,50 +33,44 @@ func _ready():
 	connect("wave_ended", SignalManager, "_on_wave_ended")
 	connect("hero_left", SignalManager, "_on_hero_left")
 	rng.randomize()
+	hero = SingletonManager.hero
 	var all_heroes_nodes = get_tree().get_nodes_in_group("heroes")
 	if all_heroes_nodes.size() > 0:
 		hero = all_heroes_nodes[0]
 	get_floor_without_walls()
 	init_walkable_cells()
-#	print(walkable_tilemap.world_to_map(Vector2(539,1570)))
-
-
-
-	number_of_enemies = all_enemies.size()
-	for enemy in all_enemies:
-		initialize_enemy(enemy)
+	initialize_wave_system()
+	_on_wave_entered()
 
 
 func initialize_enemy(enemy) -> void:
-	enemy.wave = self
 
 	if !enemy.is_movement_enemy:
 		_on_enemy_moved_on_tile(Vector2(-5,-5), enemy.global_position)
+	enemy.wave = self
 
-	enemy.on_wave_ready()
-	enemy.connect("death_started",self,"_on_enemy_died")
-#	enemy.connect("died",self,"_on_enemy_died")
-	enemy.connect("moved", self, "_on_enemy_moved_on_tile")
+#	enemy.on_wave_ready()
+#	enemy.connect("death_started",self,"_on_enemy_started_to_die")
+#	enemy.connect("moved", self, "_on_enemy_moved_on_tile")
 
 
 func add_enemy(enemy) -> void:
 	number_of_enemies += 1
-	enemy.wave = self
 
 	if !enemy.is_movement_enemy:
 		_on_enemy_moved_on_tile(Vector2(-5,-5), enemy.global_position)
+	enemy.wave = self
 
-	enemy.on_wave_ready()
-	enemy.connect("death_started",self,"_on_enemy_died")
-#	enemy.connect("died",self,"_on_enemy_died")
-	enemy.connect("moved", self, "_on_enemy_moved_on_tile")
+#	enemy.on_wave_ready()
+#	enemy.connect("death_started",self,"_on_enemy_started_to_die")
+#	enemy.connect("moved", self, "_on_enemy_moved_on_tile")
 
 
-func _on_enemy_died(enemy_global_position):
+func _on_enemy_started_to_die(enemy_global_position):
 	number_of_enemies -= 1
 	if number_of_enemies == 0:
 		emit_signal("wave_ended")
-	if number_of_enemies == -1:
+	if number_of_enemies <= -1:
 		pass
 
 
@@ -91,8 +89,6 @@ func open_one_exit_door() -> void:
 		door_tilemap.set_cell(x, 0, -1)
 		exit_particles.emitting = true
 		exit_particles2.emitting = true
-#		camera_shake_requested
-		
 
 
 func _on_Area2D_area_entered(area):
@@ -136,6 +132,7 @@ func _on_enemy_moved_on_tile(last_position: Vector2,new_position: Vector2) -> vo
 				walkable_tilemap.set_cell(last_position_on_tile.x,last_position_on_tile.y, 0)
 
 		if this_cell == new_position_on_tile:
+			var walkable_cells_size = walkable_cells.size()
 			walkable_cells[i] += 1
 			if walkable_cells[i] > 0:
 				walkable_tilemap.set_cell(new_position_on_tile.x, new_position_on_tile.y, 1)
@@ -155,10 +152,52 @@ func get_random_walkable_cell_location() -> Vector2:
 	random_walkable_cell_position = to_global(walkable_tilemap.map_to_world(random_walkable_cell_position))
 	return random_walkable_cell_position
 
+
 func destroy() -> void:
 	collectable_handler._unexecute_all()
 	queue_free()
 
 
+func _on_wave_entered() -> void:
+	pass
 
 
+func _on_wave_exited() -> void:
+	pass
+
+
+func initialize_wave_system() -> void:
+	insert_wave_references()
+	define_and_connect_all_enemies()
+	define_and_init_current_sub_wave()
+
+
+
+func start_sub_wave(sub_wave: SubWave) -> void:
+	sub_wave.visible = true
+	for enemy in sub_wave.get_children():
+		initialize_enemy(enemy)
+
+
+func define_and_init_current_sub_wave() -> void:
+	start_sub_wave(all_sub_waves[0])
+
+
+func _on_sub_wave_ready_to_start(sub_wave: SubWave):
+	start_sub_wave(sub_wave)
+
+
+func insert_wave_references() -> void:
+	for i in all_sub_waves.size():
+		all_sub_waves[i].connect("ready_to_start", self, "_on_sub_wave_ready_to_start")
+		if i < all_sub_waves.size()-1:
+			all_sub_waves[i+1].last_subwave = all_sub_waves[i]
+			all_sub_waves[i].next_subwave = all_sub_waves[i+1]
+
+
+func define_and_connect_all_enemies() -> void:
+	for this_sub_wave in all_sub_waves:
+		number_of_enemies += this_sub_wave.current_number_of_enemies
+		for enemy in this_sub_wave.get_children():
+			enemy.connect("death_started",self,"_on_enemy_started_to_die")
+			enemy.connect("moved", self, "_on_enemy_moved_on_tile")

@@ -39,7 +39,7 @@ export var shield_recharge_cd: float = 2 setget set_shield_recharge_cd
 
 var can_be_hurt: bool = false
 var is_active:bool = true setget _set_is_active
-var dash_cooldown: float = 0.7
+var dash_cooldown: float = 0.63
 
 
 onready var _hurt_box: HurtBoxArea2D = $HurtBoxArea2D
@@ -61,10 +61,13 @@ onready var _collision_shape: CollisionShape2D = $CollisionShape2D2
 onready var _damaged_animation: AnimationPlayer = $AnimationPlayer
 onready var _dash_particles: Particles2D = $DashParticles2D2
 onready var _dash_timer: Timer = $DashTimer
-
-
+onready var _dash_checker = $DashEndPoint
+onready var _inside_wall_checker: RayCast2D = $IndiseWallChecker/RayCast2D
+onready var _inside_wall_checker2: RayCast2D = $IndiseWallChecker/RayCast2D2
+onready var _foward_wall_checker: RayCast2D = $IndiseWallChecker/FowardDashWallChecker
+var saved_global_position
 func _ready():
-	HeroManager.hero = self
+	SingletonManager.hero = self
 	connect("total_shield_changed", self, "_on_total_shield_changed")
 	connect("shield_changed", self, "_on_shield_changed" )
 	connect("total_hp_changed", self, "_on_total_hp_changed")
@@ -309,6 +312,7 @@ func _on_Timer_timeout():
 func _set_state_machine_to_idle() -> void:
 	_state_machine.transition_without_delay("Idle")
 
+
 func _set_is_active(value) -> void:
 	if value == false:
 		_set_state_machine_to_idle()
@@ -317,4 +321,39 @@ func _set_is_active(value) -> void:
 
 func _input(event):
 	if event.is_action_pressed("test_input_1"):
-		self.is_active = !is_active
+		save_global_position()
+	if event.is_action_pressed("ui_accept"):
+		global_position = saved_global_position
+		
+
+func save_global_position() -> void:
+	saved_global_position = self.global_position
+
+func check_if_can_wall_dash() -> int:
+	if !check_foward_wall():
+		return -1
+	var value_to_return: = -1
+	var index = 0
+	for checker in _dash_checker.get_children():
+		var this_raycast: RayCast2D = checker
+		this_raycast.force_raycast_update()
+		if !this_raycast.is_colliding():
+			value_to_return = index
+			break
+		index += 1
+	return value_to_return
+
+
+func check_if_is_in_wall() -> bool:
+	var to_return = false
+	_inside_wall_checker.force_raycast_update()
+	_inside_wall_checker2.force_raycast_update()
+	if _inside_wall_checker.is_colliding() and _inside_wall_checker2.is_colliding():
+		to_return = true
+	return to_return
+
+
+func check_foward_wall() -> bool:
+	_foward_wall_checker.force_raycast_update()
+	return _foward_wall_checker.is_colliding()
+	 

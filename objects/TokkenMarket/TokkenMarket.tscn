@@ -1,0 +1,622 @@
+[gd_scene load_steps=38 format=2]
+
+[ext_resource path="res://Assets/EffectsSprites/glowing_circle.png" type="Texture" id=1]
+[ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=2]
+[ext_resource path="res://objects/TokkenMarket/TokkenMarket.gd" type="Script" id=3]
+[ext_resource path="res://ui/Font/Gentax.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/Icons/reroll.png" type="Texture" id=5]
+[ext_resource path="res://objects/TokkenMarket/TokenUpgrades/HealToken.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/TokkenMarket/TokenUpgrades/AtkUpToken.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/TokkenMarket/TokenUpgrades/DefUpToken.tscn" type="PackedScene" id=8]
+
+[sub_resource type="Animation" id=1]
+resource_name = "WaveringFlame"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite/particles/Main:process_material:spread")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 2.79397e-07, 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 4.0, 70.0, 4.0 ]
+}
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.576471, 0.584314, 1, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0.109804, 1, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.266667, 0.92549, 0, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 1, 0, 0, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="DynamicFont" id=8]
+size = 55
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 50
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 63
+outline_size = 7
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="Gradient" id=11]
+offsets = PoolRealArray( 0, 0.847082 )
+colors = PoolColorArray( 0, 0.666667, 1, 1, 1, 1, 1, 0.380392 )
+
+[sub_resource type="GradientTexture" id=12]
+gradient = SubResource( 11 )
+
+[sub_resource type="Curve" id=13]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.498077, 0.173864 ), 0.0, 0.0, 0, 0, Vector2( 0.961539, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=14]
+curve = SubResource( 13 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+emission_shape = 1
+emission_sphere_radius = 70.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 7.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.04
+orbit_velocity_random = 0.0
+radial_accel = -50.0
+tangential_accel = -10.0
+scale = 0.7
+scale_curve = SubResource( 14 )
+color_ramp = SubResource( 12 )
+
+[sub_resource type="Curve" id=16]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=17]
+curve = SubResource( 16 )
+
+[sub_resource type="ParticlesMaterial" id=18]
+emission_shape = 1
+emission_sphere_radius = 90.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 7.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = -7.0
+radial_accel_curve = SubResource( 17 )
+tangential_accel = -7.0
+scale = 0.7
+scale_curve = SubResource( 14 )
+color_ramp = SubResource( 12 )
+
+[sub_resource type="ParticlesMaterial" id=19]
+emission_shape = 1
+emission_sphere_radius = 30.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 7.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.1
+orbit_velocity_random = 0.0
+radial_accel = -50.0
+tangential_accel = -10.0
+scale = 0.7
+scale_curve = SubResource( 14 )
+color_ramp = SubResource( 12 )
+
+[sub_resource type="Gradient" id=20]
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0.666667, 1, 1 )
+
+[sub_resource type="GradientTexture" id=21]
+gradient = SubResource( 20 )
+
+[sub_resource type="Curve" id=22]
+_data = [ Vector2( 0, 0.825 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=23]
+curve = SubResource( 22 )
+
+[sub_resource type="ParticlesMaterial" id=24]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 3.99982
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 70.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.7
+scale_curve = SubResource( 23 )
+color_ramp = SubResource( 21 )
+
+[sub_resource type="CircleShape2D" id=25]
+radius = 80.0
+
+[sub_resource type="Animation" id=26]
+resource_name = "CloseLeftButton"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Options/LeftOption:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "Setup"
+length = 0.001
+step = 0.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Options/LeftOption:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "RightButtonClose"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Options/RightOption:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "Setup"
+length = 0.001
+step = 0.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Options/RightOption:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[node name="TokenMarket" type="Node2D"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 392.658 ]
+}
+
+[node name="FlameAnimator" type="AnimationPlayer" parent="."]
+anims/WaveringFlame = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.9967
+margin_right = 1083.0
+margin_bottom = 1920.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Node2D" parent="Control"]
+position = Vector2( 0, 312.703 )
+
+[node name="RightOption" type="Control" parent="Control/Options"]
+margin_left = 826.132
+margin_top = 466.72
+margin_right = 866.132
+margin_bottom = 506.72
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="outer" type="Button" parent="Control/Options/RightOption"]
+modulate = Color( 1.7, 1.7, 1.7, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -205.275
+margin_top = -203.655
+margin_right = 164.725
+margin_bottom = 146.345
+focus_neighbour_left = NodePath("../../MiddleOption/outer")
+focus_neighbour_top = NodePath("../../MiddleOption/outer")
+focus_neighbour_right = NodePath("../../LeftOption/outer")
+focus_neighbour_bottom = NodePath("../../MiddleOption/outer")
+focus_next = NodePath("../../LeftOption/outer")
+focus_previous = NodePath("../../MiddleOption/outer")
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Control/Options/RightOption"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.073
+margin_top = -200.022
+margin_right = 158.927
+margin_bottom = 139.978
+mouse_filter = 2
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Control/Options/RightOption/Button2"]
+margin_right = 360.0
+margin_bottom = 340.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "max
+Stacks
+Up"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="RightPrice" type="Label" parent="Control/Options/RightOption/Button2"]
+margin_top = 292.0
+margin_right = 360.0
+margin_bottom = 340.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "100"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftOption" type="Control" parent="Control/Options"]
+margin_left = 276.0
+margin_top = 462.0
+margin_right = 316.0
+margin_bottom = 502.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="outer" type="Button" parent="Control/Options/LeftOption"]
+modulate = Color( 1.7, 1.7, 1.7, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -202.973
+margin_top = -197.28
+margin_right = 167.027
+margin_bottom = 152.72
+focus_neighbour_left = NodePath("../../RightOption/outer")
+focus_neighbour_top = NodePath("../../MiddleOption/outer")
+focus_neighbour_right = NodePath("../../MiddleOption/outer")
+focus_neighbour_bottom = NodePath("../../MiddleOption/outer")
+focus_next = NodePath("../../MiddleOption/outer")
+focus_previous = NodePath("../../RightOption/outer")
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Button2" type="Button" parent="Control/Options/LeftOption"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -198.771
+margin_top = -193.647
+margin_right = 161.229
+margin_bottom = 146.353
+mouse_filter = 2
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Name" type="Label" parent="Control/Options/LeftOption/Button2"]
+margin_right = 360.0
+margin_bottom = 340.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "Def
+Up"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="LefPrice" type="Label" parent="Control/Options/LeftOption/Button2"]
+margin_left = 3.05176e-05
+margin_top = 292.0
+margin_right = 360.0
+margin_bottom = 340.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "100"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="MiddleOption" type="Control" parent="Control/Options"]
+margin_left = 700.31
+margin_top = 353.21
+margin_right = 740.31
+margin_bottom = 393.21
+rect_scale = Vector2( 0.801718, 0.801718 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="outer" type="Button" parent="Control/Options/MiddleOption"]
+modulate = Color( 1.7, 1.7, 1.7, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -356.69
+margin_top = -20.969
+margin_right = -76.69
+margin_bottom = 259.031
+focus_neighbour_left = NodePath("../../LeftOption/outer")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath("../../RightOption/outer")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath("../../RightOption/outer")
+focus_previous = NodePath("../../LeftOption/outer")
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Button2" type="Button" parent="Control/Options/MiddleOption"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -352.488
+margin_top = -17.336
+margin_right = -82.488
+margin_bottom = 252.664
+mouse_filter = 2
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="reroll" type="Sprite" parent="Control/Options/MiddleOption/Button2"]
+self_modulate = Color( 1.15, 1.15, 1.15, 1 )
+position = Vector2( 135.961, 136.534 )
+scale = Vector2( 0.59248, 0.59248 )
+texture = ExtResource( 5 )
+
+[node name="MiddlePrice" type="Label" parent="Control/Options/MiddleOption/Button2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -158.881
+margin_top = -160.66
+margin_right = 161.119
+margin_bottom = 159.34
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "300"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Node2D" parent="."]
+position = Vector2( 0, 1106.82 )
+
+[node name="particles" type="Node2D" parent="Sprite"]
+position = Vector2( 540, 0 )
+scale = Vector2( 3, 3 )
+
+[node name="Particles2D2" type="Particles2D" parent="Sprite/particles"]
+self_modulate = Color( 1.3, 1.3, 1.3, 1 )
+show_behind_parent = true
+position = Vector2( -1.5, 7.3163 )
+scale = Vector2( 1, 0.4 )
+amount = 90
+process_material = SubResource( 15 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Particles2D3" type="Particles2D" parent="Sprite/particles"]
+self_modulate = Color( 1.3, 1.3, 1.3, 1 )
+show_behind_parent = true
+position = Vector2( -1.5, 7.3163 )
+scale = Vector2( 1, 0.4 )
+amount = 34
+lifetime = 2.0
+process_material = SubResource( 18 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Particles2D4" type="Particles2D" parent="Sprite/particles"]
+self_modulate = Color( 1.3, 1.3, 1.3, 1 )
+show_behind_parent = true
+position = Vector2( -1.5, 7.3163 )
+scale = Vector2( 1, 0.5 )
+amount = 34
+process_material = SubResource( 19 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Main" type="Particles2D" parent="Sprite/particles"]
+self_modulate = Color( 1.3, 1.3, 1.3, 1 )
+position = Vector2( 0, 3 )
+amount = 70
+process_material = SubResource( 24 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Sprite" type="Sprite" parent="Sprite"]
+self_modulate = Color( 1.5, 1.5, 1.5, 1 )
+position = Vector2( 540, 0 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Light2D" type="Light2D" parent="Sprite"]
+position = Vector2( 540, 0 )
+texture = ExtResource( 2 )
+texture_scale = 10.0
+color = Color( 0, 1, 1, 1 )
+energy = 3.0
+range_item_cull_mask = 292
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite"]
+position = Vector2( 540, 0 )
+collision_layer = 290
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/StaticBody2D"]
+shape = SubResource( 25 )
+
+[node name="AllProducts" type="Node" parent="."]
+
+[node name="AtkUpToken" parent="AllProducts" instance=ExtResource( 7 )]
+
+[node name="DefUpToken" parent="AllProducts" instance=ExtResource( 8 )]
+
+[node name="HealToken" parent="AllProducts" instance=ExtResource( 6 )]
+
+[node name="LeftButtonAnim" type="AnimationPlayer" parent="."]
+autoplay = "Setup"
+anims/CloseLeftButton = SubResource( 26 )
+anims/Setup = SubResource( 27 )
+
+[node name="RightButtonAnim" type="AnimationPlayer" parent="."]
+autoplay = "Setup"
+anims/RightButtonClose = SubResource( 28 )
+anims/Setup = SubResource( 29 )

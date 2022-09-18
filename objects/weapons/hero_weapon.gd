@@ -10,7 +10,7 @@ var character
 export var total_cooldown_time: float
 var base_cooldown: float = 0.30 setget set_base_cooldown
 var bonus_cooldown: float = 0 setget set_bonus_cooldown
-export var _base_damage: int = 25
+export var _base_damage: int = 25 setget set_base_damage
 var _total_damage: int = 2
 var _bonus_damage = 0 setget set_bonus_damage
 var _percent_bonus_damage = 0 setget set_percent_damage
@@ -162,6 +162,11 @@ func play_splash_sprite() -> void:
 func set_max_enemies_bounces(value) -> void:
 	max_enemies_bounces = value
 	max_number_of_hits = max_enemies_bounces +1
+
+
+func set_base_damage(value) -> void:
+	_base_damage = value
+	update_total_damage()
 
 
 func set_wall_bounces(value) -> void:

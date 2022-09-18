@@ -19,7 +19,7 @@ func set_character(new_character) -> void:
 	set_physics_process(true)
 	character = new_character
 	insert_properties_on_states()
-	yield(get_tree().create_timer(2.5), "timeout")
+#	yield(get_tree().create_timer(2.5), "timeout")
 	state.enter()
 	
 

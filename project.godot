@@ -130,6 +130,11 @@ _global_script_classes=[ {
 "path": "res://objects/UI/HeroUI/ValueUI.gd"
 }, {
 "base": "Node2D",
+"class": "Level",
+"language": "GDScript",
+"path": "res://game/levels/level.gd"
+}, {
+"base": "Node2D",
 "class": "Nova",
 "language": "GDScript",
 "path": "res://objects/novas/Nova.gd"
@@ -185,6 +190,11 @@ _global_script_classes=[ {
 "path": "res://Actors/heros/StatusHandler.gd"
 }, {
 "base": "Node2D",
+"class": "SubWave",
+"language": "GDScript",
+"path": "res://objects/waveSystem/waves/SubWave.gd"
+}, {
+"base": "Node2D",
 "class": "TargetBasicWeapon",
 "language": "GDScript",
 "path": "res://objects/weapons/EnemyWeapons/EnemyTargetWeapon/EnemyTargetWeapon.gd"
@@ -193,6 +203,16 @@ _global_script_classes=[ {
 "class": "TargetEnemyBullet",
 "language": "GDScript",
 "path": "res://objects/projectiles/bullets/EnemyBullets/BasicTargetEnemyBullets/TargetEnemyBombBullet.gd"
+}, {
+"base": "Node2D",
+"class": "TokenMarket",
+"language": "GDScript",
+"path": "res://objects/TokkenMarket/TokkenMarket.gd"
+}, {
+"base": "Node2D",
+"class": "TokenUpgrade",
+"language": "GDScript",
+"path": "res://objects/TokkenMarket/TokenUpgrades/TokenUpgrade.gd"
 }, {
 "base": "ColorRect",
 "class": "TransitionRect",
@@ -249,6 +269,7 @@ _global_script_class_icons={
 "HitBoxArea2D": "",
 "HurtBoxArea2D": "",
 "LabelUI": "",
+"Level": "",
 "Nova": "",
 "PipeBullet": "",
 "PopLabel": "",
@@ -260,8 +281,11 @@ _global_script_class_icons={
 "StateMachine": "",
 "Status": "",
 "StatusStorage": "",
+"SubWave": "",
 "TargetBasicWeapon": "",
 "TargetEnemyBullet": "",
+"TokenMarket": "",
+"TokenUpgrade": "",
 "TransitionRect": "",
 "TriggerObject": "",
 "Upgrade": "",
@@ -284,7 +308,7 @@ Rng="*res://objects/Singleton/Rng.gd"
 UpgradeCounter="*res://objects/Singleton/UpgradeCounter.gd"
 BackgroundMusic="*res://objects/Singleton/Sound/BackgroundMusic.tscn"
 SoundEffects="*res://objects/Singleton/SoundEffects.tscn"
-HeroManager="*res://objects/Singleton/HeroManager.gd"
+SingletonManager="*res://objects/Singleton/SingleManager.gd"
 
 [display]
 
@@ -296,6 +320,34 @@ window/stretch/aspect="keep"
 
 [input]
 
+ui_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
 shoot={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
@@ -376,6 +428,7 @@ dash={
 2d_render/layer_8="PlayerBullet"
 2d_physics/layer_8="crosshair"
 2d_render/layer_9="CrateWalls"
+2d_physics/layer_9="thick_walls"
 2d_render/layer_10="EnemyBulletLight"
 2d_render/layer_11="ThickWalls"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Actors/Enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Actors/Enemy/EnemyDieState.gd" type="Script" id=10]
 [ext_resource path="res://Actors/Enemy/Delay.gd" type="Script" id=11]
 [ext_resource path="res://Actors/Enemy/EnemySprite.gd" type="Script" id=12]
+[ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41, 40 )
@@ -32,9 +33,32 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 40, 40 )
 
-[node name="Enemy" type="KinematicBody2D" groups=[
-"enemies",
-]]
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.85078 )
+colors = PoolColorArray( 1, 0, 0.969727, 1, 0.055397, 0, 0.103516, 1 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0.948864 ), 0.0, -1.20967, 0, 0, Vector2( 1, 0.0306818 ), -0.663543, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 140.0
+initial_velocity_random = 0.24
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 200.0
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 10 )
+
+[node name="Enemy" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 6
 script = ExtResource( 1 )
@@ -59,18 +83,10 @@ anims/DamagedAnimation = ExtResource( 5 )
 one_shot = true
 
 [node name="HurtBoxArea2D" parent="." instance=ExtResource( 3 )]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxArea2D"]
 shape = SubResource( 4 )
-
-[node name="Button" type="Button" parent="."]
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 4.0
-margin_bottom = 12.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
 margin_left = -42.0
@@ -84,7 +100,7 @@ __meta__ = {
 
 [node name="EnemyArea" type="Area2D" parent="."]
 monitoring = false
-collision_layer = 4
+collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="EnemyArea"]
@@ -189,6 +205,18 @@ remote_path = NodePath("../SupportControl")
 update_rotation = false
 update_scale = false
 
+[node name="AppearNode" type="Node2D" parent="."]
+
+[node name="Particles2D2" type="Particles2D" parent="AppearNode"]
+scale = Vector2( 1.38843, 1.38843 )
+emitting = false
+amount = 21
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.76
+visibility_rect = Rect2( 1, -4.91667e-07, 72, 75 )
+process_material = SubResource( 8 )
+texture = ExtResource( 13 )
+
 [connection signal="hit_landed" from="HurtBoxArea2D" to="." method="_on_HurtBoxArea2D_hit_landed"]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="state_entered" from="StateMachine" to="DebugControl" method="_on_StateMachine_state_entered"]

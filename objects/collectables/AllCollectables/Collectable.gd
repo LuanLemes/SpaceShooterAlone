@@ -28,7 +28,7 @@ func on_pick_() -> void:
 
 
 func initialize() -> void:
-	hero = HeroManager.hero
+	hero = SingletonManager.hero
 	area_2d.monitoring = true
 	area_2d.set_deferred("monitoring", true)
 	magnetic_area.set_deferred("monitoring", true)

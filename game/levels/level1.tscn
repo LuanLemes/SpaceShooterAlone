@@ -201,7 +201,7 @@ autostart = true
 
 [node name="CollectableHandler" parent="ShockWaveHandler/World" index="8" instance=ExtResource( 11 )]
 
-[node name="PostProcessedScreen" parent="ShockWaveHandler" index="2"]
+[node name="PostProcessedScreen" parent="ShockWaveHandler/CanvasLayer" index="0"]
 material = SubResource( 5 )
 texture = SubResource( 6 )
 

@@ -19,7 +19,7 @@ var is_weapon_cooldown_modifier: bool = true
 var max_stacks:int = 9
 var current_stacks: int = 0
 
-onready var hero: Hero = HeroManager.hero
+onready var hero: Hero = SingletonManager.hero
 
 func _ready():
 	_timer.wait_time = effect_duration

@@ -7,7 +7,7 @@ signal upgrade_animation_finished
 
 
 #onready var label_name = $Button/Button/VBoxContainer/Name
-onready var label_name = $Button/VBoxContainer/Name
+onready var label_name = $Button/VBoxContainer/MarginContainer/Name
 onready var ui_effect = $Button/VBoxContainer/Effect
 onready var atribute_description = $Button/VBoxContainer/Atribute_descrption
 onready var upgrade_description: Label = $Button/VBoxContainer/Upgrade_descrption
@@ -20,10 +20,9 @@ onready var _tween = $Button/Tween
 onready var _button: Button = $Button
 onready var rarity_label: Label = $Button/Rarity
 #onready var reference: Label = $Button/VBoxContainer/Reference
-
 var upgrade: Upgrade
 var index_of_upgrade: int
-
+export var animate_on_focus: = false
 
 func _ready():
 	animation_player.connect("animation_finished", self, "upgrade_animation_finished")
@@ -41,6 +40,7 @@ func upgrade_animation_started(animation_name: String) -> void:
 
 
 func fill_fields(upgrade) -> void:
+	self.upgrade = upgrade
 	upgrade_description.visible = false
 	clean_button()
 	upgrade.update_labels()
@@ -54,6 +54,7 @@ func fill_fields(upgrade) -> void:
 
 
 func fill_fields_to_upgrade(upgrade) -> void:
+	self.upgrade = upgrade
 	upgrade_description.visible = true
 	clean_button()
 	upgrade.update_labels()
@@ -92,20 +93,24 @@ func _on_Button_focus_entered():
 
 
 func _on_Button_mouse_entered():
+	_button.grab_focus()
 	_get_bigger_animation()
 
 
 func _get_bigger_animation() -> void:
+	if !animate_on_focus:
+		return
 	z_index = 1
 	_tween.interpolate_property(_button, "rect_scale", _button.rect_scale ,Vector2(1.3,1.3), 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN )
 	_tween.start()
 	
 	
 func _return_to_original_size() -> void:
+	if !animate_on_focus:
+		return
 	z_index = 0
 	_tween.interpolate_property(_button, "rect_scale", _button.rect_scale ,Vector2(1, 1), 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN )
 	_tween.start()
-
 
 
 func _on_Button_focus_exited():
@@ -114,4 +119,5 @@ func _on_Button_focus_exited():
 
 func _on_Button_mouse_exited():
 	_return_to_original_size()
-	_button.focus_mode
+#	_button.set_focus_mode = 0
+

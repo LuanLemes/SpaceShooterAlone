@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name Level
 
 signal _hero_heal
 signal _hero_hurt
@@ -28,12 +28,15 @@ onready var _token_label_container:= $CanvasLayer/Ui/TokenLabelContainer
 
 var _level_count: int = 0
 var _min_wait_time_between_levels: int = 3.5
-var _tokens_count: int = 0 setget _set_tokens_counter
+var _tokens_count: int = 900 setget _set_tokens_counter
 
 export var _reward_levels: int = 5
+export var _flame_levels: int = 5
 
 
 func _ready():
+	self._tokens_count = _tokens_count
+	SingletonManager.level = self
 	_upgrade_handler.hero = self._hero
 	SignalManager.connect("collectable_picked", self, "_on_collectable_picked")
 	SignalManager.connect("wave_ended", self, "_on_wave_spawner_wave_ended")
@@ -88,7 +91,6 @@ func _on_wave_spawner_wave_ended():
 	_wave_spawner.open_wave_front_door()
 
 
-
 func _on_wave_spawner_all_waves_ended():
 	pass
 
@@ -121,6 +123,9 @@ func reset_hero_position() -> void:
 
 
 func _on_Spawner_hero_left() -> void:
+	if _level_count % _flame_levels == 0 and _wave_spawner.is_special_level == false:
+		call_market()
+		return
 	call_next_level()
 
 
@@ -131,6 +136,22 @@ func call_next_level() -> void:
 	yield(_transition_rect, "transition_ended")
 	_hero.is_active = false
 	_wave_spawner.call_next_wave()
+	reset_hero_position()
+	_update_level_label()
+	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
+	_transition_rect.transition_in()
+	_level_label.visible = false
+	_hero.is_active = true
+	emit_signal("_level_started")
+
+
+func call_market() -> void:
+	_level_count += 1
+	count_timer()
+	_transition_rect.transition_out()
+	yield(_transition_rect, "transition_ended")
+	_hero.is_active = false
+	_wave_spawner.call_market()
 	reset_hero_position()
 	_update_level_label()
 	yield(get_tree().create_timer(_min_wait_time_between_levels), "timeout")
@@ -170,4 +191,8 @@ func _on_restart_button_pressed() -> void:
 
 func _update_level_label() -> void:
 	_level_label.visible = true
-	_level_label.text = "Level " + String(_wave_spawner.folder_number) + " - " + String(_wave_spawner.wave_to_spawn)
+	if _wave_spawner.is_special_level == false:
+		_level_label.text = "Level " + String(_wave_spawner.folder_number) + " - " + String(_wave_spawner.wave_to_spawn)
+	else: 
+		_level_label.text = _wave_spawner.level_label
+

@@ -6,17 +6,19 @@ signal all_waves_ended
 signal object_destroyed
 signal hero_left
 
-export var scene_to_spawn: PackedScene
+export var market_scene: PackedScene
+export var scene_to_spawn1: PackedScene
 export var location_number: int = 1
 
 onready var spawned = $Spawned
 
+var is_special_level = false
 var path_to_waves: = ""  
 var all_waves
 var wave_to_spawn: = 0
 var folder_number: = 1
 var spawned_wave
-
+var level_label: String
 
 func _ready():
 	connect("wave_ended", SignalManager, "_on_wave_spawner_wave_ended")
@@ -55,6 +57,7 @@ func set_path_to_waves() -> void:
 
 
 func instance_next_wave() -> void:
+	is_special_level = false
 	if !wave_to_spawn < all_waves.size():
 		instance_next_wave_folder()
 		return
@@ -107,5 +110,14 @@ func call_next_wave() -> void:
 	delete_last_wave()
 	instance_next_wave()
 
+
+func call_market() -> void:
+	level_label = "The Flame"
+	is_special_level = true
+	delete_last_wave()
+	spawned_wave = market_scene.instance()
+	add_child(spawned_wave)
+	_connect_signals()
+	
 
 

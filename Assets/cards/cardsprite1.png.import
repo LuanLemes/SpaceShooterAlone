@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/outercircle.png-e9d18e2b6c8029e8dec48b142ab8ab36.stex"
+path="res://.import/cardsprite1.png-89946ff648e9947d9265a557f7848330.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/outercircle.png"
-dest_files=[ "res://.import/outercircle.png-e9d18e2b6c8029e8dec48b142ab8ab36.stex" ]
+source_file="res://Assets/cards/cardsprite1.png"
+dest_files=[ "res://.import/cardsprite1.png-89946ff648e9947d9265a557f7848330.stex" ]
 
 [params]
 

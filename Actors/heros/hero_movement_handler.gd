@@ -83,6 +83,13 @@ func rotate_to_movement(delta) -> void:
 	angle = clamp(angle, character.global_rotation - angle_delta, character.global_rotation + angle_delta)
 	character.global_rotation = angle
 
+func fast_rotate_to_movement() -> void:
+#	var angle_delta = _rotation_speed * delta
+	var angle = velocity.angle()
+#	angle = lerp_angle(character.global_rotation, angle, 1)
+#	angle = clamp(angle, character.global_rotation - angle_delta, character.global_rotation + angle_delta)
+	character.global_rotation = angle
+
 
 func update_direction() -> void:
 	if !update_direction_inputs:

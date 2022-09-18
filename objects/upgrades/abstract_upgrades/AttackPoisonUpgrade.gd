@@ -1,7 +1,7 @@
 extends Upgrade
 
 func _ready():
-	_up_name = "PoisonBullets"
+	_up_name = "Poison Bullets"
 	_up_effect = "Your bullets now can have poison element. Poison gives damage based on enemys current hp"
 	_bonus_1 = ""
 	_bonus_2 = ""

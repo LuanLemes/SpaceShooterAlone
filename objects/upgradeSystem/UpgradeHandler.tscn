@@ -28,11 +28,11 @@
 [ext_resource path="res://objects/upgrades/abstract_upgrades/HopeUpgrade.tscn" type="PackedScene" id=26]
 [ext_resource path="res://objects/upgradeSystem/ButtonsHBoxContainer.gd" type="Script" id=27]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "Show Cards"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect/ButtonsHBoxContainer/ButtonRight:position")
+tracks/0/path = NodePath("ColorRect/VBoxContainer/SmallButtons/ButtonRight:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -41,10 +41,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 540, 309 ), Vector2( 889.733, 309 ) ]
+"values": [ Vector2( 674.728, 309 ), Vector2( 2320.15, 309 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect/ButtonsHBoxContainer/ButtonLeft:position")
+tracks/1/path = NodePath("ColorRect/VBoxContainer/SmallButtons/ButtonLeft:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -53,27 +53,39 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 540, 309 ), Vector2( 169.263, 309 ) ]
+"values": [ Vector2( 674.728, 309 ), Vector2( -1045.86, 309 ) ]
 }
 tracks/2/type = "method"
-tracks/2/path = NodePath("ColorRect/ButtonsHBoxContainer/ButtonMiddle/Button")
+tracks/2/path = NodePath("ColorRect/VBoxContainer/SmallButtons/ButtonMiddle/Button")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "grab_focus"
 } ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("ColorRect/VBoxContainer/SmallButtons/ButtonMiddle:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 674.728, 308 ) ]
+}
 
 [node name="Upgrade_Handler" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_vertical_guides_": [ 779.741 ]
+"_edit_vertical_guides_": [ 539.782 ]
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -81,49 +93,57 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1080.0
 margin_bottom = 1920.0
-color = Color( 1, 1, 1, 0 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="ColorRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 7.0
-margin_top = 474.0
-margin_right = -7.0
-margin_bottom = 476.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 7
-size_flags_vertical = 7
-custom_constants/separation = 0
-alignment = 1
+[node name="VBoxContainer" type="Node2D" parent="ColorRect"]
+
+[node name="BigButtons" type="Node2D" parent="ColorRect/VBoxContainer"]
+scale = Vector2( 0.2, 0.2 )
+
+[node name="BigButtonLeft" parent="ColorRect/VBoxContainer/BigButtons" instance=ExtResource( 2 )]
+position = Vector2( -1438.64, 3550.04 )
+scale = Vector2( 2.2, 2.2 )
+
+[node name="BigButtonMiddle" parent="ColorRect/VBoxContainer/BigButtons" instance=ExtResource( 2 )]
+position = Vector2( 2696.36, 3550.04 )
+scale = Vector2( 2.2, 2.2 )
+
+[node name="BigButtonRight" parent="ColorRect/VBoxContainer/BigButtons" instance=ExtResource( 2 )]
+position = Vector2( 6831.36, 3540.6 )
+scale = Vector2( 2.2, 2.2 )
+
+[node name="SmallButtons" type="Node2D" parent="ColorRect/VBoxContainer"]
+position = Vector2( 404.712, 1652.47 )
+scale = Vector2( 0.2, 0.2 )
 script = ExtResource( 27 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ButtonLeft" parent="ColorRect/ButtonsHBoxContainer" instance=ExtResource( 2 )]
-position = Vector2( 169.263, 309 )
+[node name="ButtonLeft" parent="ColorRect/VBoxContainer/SmallButtons" instance=ExtResource( 2 )]
+position = Vector2( -1045.86, 309 )
+animate_on_focus = true
 
-[node name="Button" parent="ColorRect/ButtonsHBoxContainer/ButtonLeft" index="0"]
-focus_neighbour_left = NodePath("../../ButtonRight/Button")
+[node name="Button" parent="ColorRect/VBoxContainer/SmallButtons/ButtonLeft" index="0"]
 focus_neighbour_right = NodePath("../../ButtonMiddle/Button")
+focus_mode = 2
 
-[node name="ButtonRight" parent="ColorRect/ButtonsHBoxContainer" instance=ExtResource( 2 )]
-position = Vector2( 889.733, 309 )
+[node name="ButtonMiddle" parent="ColorRect/VBoxContainer/SmallButtons" instance=ExtResource( 2 )]
+position = Vector2( 674.728, 308 )
+animate_on_focus = true
 
-[node name="Button" parent="ColorRect/ButtonsHBoxContainer/ButtonRight" index="0"]
-focus_neighbour_left = NodePath("../../ButtonMiddle/Button")
-focus_neighbour_right = NodePath("../../ButtonLeft/Button")
-
-[node name="ButtonMiddle" parent="ColorRect/ButtonsHBoxContainer" instance=ExtResource( 2 )]
-position = Vector2( 527, 308 )
-
-[node name="Button" parent="ColorRect/ButtonsHBoxContainer/ButtonMiddle" index="0"]
+[node name="Button" parent="ColorRect/VBoxContainer/SmallButtons/ButtonMiddle" index="0"]
 focus_neighbour_left = NodePath("../../ButtonLeft/Button")
 focus_neighbour_right = NodePath("../../ButtonRight/Button")
+focus_mode = 2
+
+[node name="ButtonRight" parent="ColorRect/VBoxContainer/SmallButtons" instance=ExtResource( 2 )]
+position = Vector2( 2320.15, 309 )
+animate_on_focus = true
+
+[node name="Button" parent="ColorRect/VBoxContainer/SmallButtons/ButtonRight" index="0"]
+focus_neighbour_left = NodePath("../../ButtonMiddle/Button")
+focus_mode = 2
 
 [node name="UpgradeContainer" type="Node2D" parent="."]
 
@@ -168,7 +188,6 @@ focus_neighbour_right = NodePath("../../ButtonRight/Button")
 [node name="LifeStealUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 12 )]
 
 [node name="RepairsUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 23 )]
-unique_type = 0
 
 [node name="AfterMoveElementalUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 24 )]
 
@@ -181,11 +200,11 @@ unique_type = 0
 [node name="UpgradesActive" type="Node" parent="UpgradeContainer"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-"anims/Show Cards" = SubResource( 2 )
+autoplay = "Show Cards"
+"anims/Show Cards" = SubResource( 1 )
 
-[editable path="ColorRect/ButtonsHBoxContainer/ButtonLeft"]
-[editable path="ColorRect/ButtonsHBoxContainer/ButtonLeft/Button"]
-[editable path="ColorRect/ButtonsHBoxContainer/ButtonRight"]
-[editable path="ColorRect/ButtonsHBoxContainer/ButtonRight/Button"]
-[editable path="ColorRect/ButtonsHBoxContainer/ButtonMiddle"]
-[editable path="ColorRect/ButtonsHBoxContainer/ButtonMiddle/Button"]
+[node name="Tween" type="Tween" parent="."]
+
+[editable path="ColorRect/VBoxContainer/SmallButtons/ButtonLeft"]
+[editable path="ColorRect/VBoxContainer/SmallButtons/ButtonMiddle"]
+[editable path="ColorRect/VBoxContainer/SmallButtons/ButtonRight"]

@@ -45,8 +45,8 @@ var is_bonus_2: bool = false
 var is_bonus_3: bool = false
 
 
-func _ready() -> void:
-	connect("upgrade_activated", SignalManager, "on_upgrade_activated")
+#func _ready() -> void:
+#	connect("upgrade_activated", SignalManager, "on_upgrade_activated")
 
 
 func initialize() -> void:

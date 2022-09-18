@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/circle5357.png-2d4a25dceab5350480104e3fe0a158f2.stex"
+path="res://.import/reroll.png-263df10409ba6e0245bfa12699a3beaa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Shoots/circle5357.png"
-dest_files=[ "res://.import/circle5357.png-2d4a25dceab5350480104e3fe0a158f2.stex" ]
+source_file="res://Assets/Icons/reroll.png"
+dest_files=[ "res://.import/reroll.png-263df10409ba6e0245bfa12699a3beaa.stex" ]
 
 [params]
 
