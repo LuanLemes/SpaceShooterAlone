@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/outeraim34.png-e14030981c517adab1982b139be5848a.stex"
+path="res://.import/square.png-4d6851fb18db962eecb585df39c741be.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CrossHair/new folder/outeraim34.png"
-dest_files=[ "res://.import/outeraim34.png-e14030981c517adab1982b139be5848a.stex" ]
+source_file="res://Assets/Hazards/square.png"
+dest_files=[ "res://.import/square.png-4d6851fb18db962eecb585df39c741be.stex" ]
 
 [params]
 

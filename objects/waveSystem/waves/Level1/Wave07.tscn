@@ -69,9 +69,7 @@ position = Vector2( 978.489, 1418.78 )
 [node name="StraightPipeEnemy8" parent="SubWaves/SubWave2" index="3" instance=ExtResource( 3 )]
 position = Vector2( 554.704, 958.978 )
 
-[node name="SubWave3" parent="SubWaves" index="2" instance=ExtResource( 4 )]
-
-[node name="SubWave4" parent="SubWaves" index="3" instance=ExtResource( 4 )]
+[node name="SubWave4" parent="SubWaves" index="2" instance=ExtResource( 4 )]
 
 [node name="StraightPipeEnemy5" parent="SubWaves/SubWave4" index="0" instance=ExtResource( 3 )]
 position = Vector2( 565.249, 1763.93 )

@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Heros/Sakura/rect2150.png" type="Texture" id=1]
 [ext_resource path="res://objects/SpriteEffect/SpriteTrail.gd" type="Script" id=2]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 resource_name = "FadeOut"
 length = 0.3
 tracks/0/type = "value"
@@ -19,10 +19,10 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.639216 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Fade_Out"
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
 
 uniform vec4 dash_color : hint_color;
@@ -34,8 +34,8 @@ void fragment(){
 	COLOR = new_color;
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 shader_param/dash_color = Color( 0.329412, 1, 1, 1 )
 
 [node name="DashTrail" type="Node2D"]
@@ -45,14 +45,14 @@ script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "FadeOut"
-anims/FadeOut = SubResource( 4 )
-anims/Fade_Out = SubResource( 3 )
+anims/FadeOut = SubResource( 1 )
+anims/Fade_Out = SubResource( 2 )
 
 [node name="Node2D" type="Node2D" parent="."]
 modulate = Color( 2, 2, 2, 1 )
 
 [node name="Sprite" type="Sprite" parent="Node2D"]
-material = SubResource( 2 )
+material = SubResource( 4 )
 rotation = 1.57079
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )

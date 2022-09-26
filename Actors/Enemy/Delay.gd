@@ -9,6 +9,10 @@ func unhandled_input(event):
 func physics_process(delta):
 	pass
 
+func _ready():
+	min_wait = DifficultParameters.enemy_delay_state
+	max_wait = min_wait
+
 
 func enter(msg: Dictionary = {}) -> void:
 	start_timer()

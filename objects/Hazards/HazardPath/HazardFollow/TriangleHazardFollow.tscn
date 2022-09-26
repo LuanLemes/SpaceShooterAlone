@@ -1,0 +1,103 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://objects/Hazards/HazardPath/HazardFollow/HazardFollow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Hazards/hazardsquare3.png" type="Texture" id=2]
+[ext_resource path="res://objects/Particles/HazardParticles/HazardParticles.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Hazards/hazardborder.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20, 20 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "rotation"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 2.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "BackToNormal"
+length = 0.001
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Container/Sprite/Sprite2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1.15, 1.15, 1.15, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Shine"
+length = 0.001
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Container/Sprite/Sprite2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.28, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 2.3, 1, 1, 1 ), Color( 3, 1, 1, 1 ), Color( 1.15, 1.15, 1.15, 1 ) ]
+}
+
+[node name="HazardFollow" instance=ExtResource( 1 )]
+modulate = Color( 1.2, 1.2, 1.2, 1 )
+
+[node name="Container" parent="." index="0"]
+scale = Vector2( 1, 1 )
+
+[node name="HitBoxArea2D" parent="Container" index="0"]
+team = 2
+damage = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/HitBoxArea2D" index="0"]
+shape = SubResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Container" index="1"]
+position = Vector2( -3.75509e-06, -0.0405502 )
+scale = Vector2( 1.777, 1.777 )
+texture = ExtResource( 2 )
+
+[node name="Sprite2" type="Sprite" parent="Container/Sprite" index="0"]
+modulate = Color( 2.3, 1, 1, 1 )
+self_modulate = Color( 1, 0.560784, 0, 1 )
+rotation = 1.74846e-07
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Container" index="2"]
+autoplay = "rotation"
+anims/rotation = SubResource( 1 )
+
+[node name="HazardParticles" parent="." index="1" instance=ExtResource( 3 )]
+show_behind_parent = true
+
+[node name="Timer" type="Timer" parent="." index="2"]
+wait_time = 0.25
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+autoplay = "BackToNormal"
+anims/BackToNormal = SubResource( 5 )
+anims/Shine = SubResource( 3 )
+
+[connection signal="area_entered" from="Container/HitBoxArea2D" to="." method="_on_HitBoxArea2D_area_entered"]
+[connection signal="area_exited" from="Container/HitBoxArea2D" to="." method="_on_HitBoxArea2D_area_exited"]

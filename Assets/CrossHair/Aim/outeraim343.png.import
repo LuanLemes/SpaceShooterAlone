@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/inner aim34.png-84ff516636b98c6b337d1962bf4aa17e.stex"
+path="res://.import/outeraim343.png-0a2aef4b2275fc79155bf208949e66e8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/CrossHair/new folder/inner aim34.png"
-dest_files=[ "res://.import/inner aim34.png-84ff516636b98c6b337d1962bf4aa17e.stex" ]
+source_file="res://Assets/CrossHair/Aim/outeraim343.png"
+dest_files=[ "res://.import/outeraim343.png-0a2aef4b2275fc79155bf208949e66e8.stex" ]
 
 [params]
 

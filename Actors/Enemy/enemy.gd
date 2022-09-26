@@ -93,9 +93,9 @@ func set_bonus_hp(value) -> void:
 
 
 func set_total_hp() -> void:
-	total_hp = base_hp + (base_hp / 100 * bonus_percent_hp)
+	total_hp = base_hp + (base_hp / 100 * bonus_percent_hp) 
+	total_hp = round(float(total_hp) * DifficultParameters.enemy_health_factor)
 	
-
 
 func get_hurt(damage) -> void:
 	self.hp -= damage

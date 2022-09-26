@@ -40,6 +40,16 @@ _global_script_classes=[ {
 "path": "res://objects/Camera/Camera.gd"
 }, {
 "base": "Node2D",
+"class": "ChallengeMarket",
+"language": "GDScript",
+"path": "res://objects/TokkenMarket/ChallengeMarket.gd"
+}, {
+"base": "Node",
+"class": "ChallengeUpgrade",
+"language": "GDScript",
+"path": "res://objects/TokkenMarket/ChallengeUpgrade/ChallengeUpgrade.gd"
+}, {
+"base": "Node2D",
 "class": "Collectable",
 "language": "GDScript",
 "path": "res://objects/collectables/AllCollectables/Collectable.gd"
@@ -78,6 +88,16 @@ _global_script_classes=[ {
 "class": "EnemyWeapon",
 "language": "GDScript",
 "path": "res://objects/weapons/EnemyWeapons/PipeWeapon/PipeWeapon.gd"
+}, {
+"base": "Node2D",
+"class": "HazardFollow",
+"language": "GDScript",
+"path": "res://objects/Hazards/HazardPath/HazardFollow/HazardFollow.gd"
+}, {
+"base": "Path2D",
+"class": "HazardPath",
+"language": "GDScript",
+"path": "res://objects/Hazards/HazardPath/HazardPath.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Hero",
@@ -251,6 +271,8 @@ _global_script_class_icons={
 "Bullet": "",
 "BulletParticles": "",
 "CameraShaker": "",
+"ChallengeMarket": "",
+"ChallengeUpgrade": "",
 "Collectable": "",
 "CollectableEffect": "",
 "CollectableHandler": "",
@@ -259,6 +281,8 @@ _global_script_class_icons={
 "EnemyNova": "",
 "EnemySupport": "",
 "EnemyWeapon": "",
+"HazardFollow": "",
+"HazardPath": "",
 "Hero": "",
 "HeroMovementHandler": "",
 "HeroState": "",
@@ -300,6 +324,10 @@ config/name="space shooter"
 run/main_scene="res://game/Menu/MainMenu.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [autoload]
 
 ParticlesCache="*res://objects/Singleton/ParticlesCache.gd"
@@ -309,6 +337,7 @@ UpgradeCounter="*res://objects/Singleton/UpgradeCounter.gd"
 BackgroundMusic="*res://objects/Singleton/Sound/BackgroundMusic.tscn"
 SoundEffects="*res://objects/Singleton/SoundEffects.tscn"
 SingletonManager="*res://objects/Singleton/SingleManager.gd"
+DifficultParameters="*res://objects/Singleton/DifficultParameters.gd"
 
 [display]
 

@@ -69,7 +69,7 @@ tracks/0/keys = {
 
 [node name="TargetEnemyBombBullet" type="KinematicBody2D"]
 modulate = Color( 1.3, 1.3, 1.3, 1 )
-scale = Vector2( 1.03701, 1.03701 )
+scale = Vector2( 1.27, 1.27 )
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )
@@ -107,6 +107,7 @@ anims/SETUP = SubResource( 5 )
 [node name="AntecipationTargetAnimation" parent="." instance=ExtResource( 4 )]
 modulate = Color( 1, 1, 1, 0.329412 )
 scale = Vector2( 0.424376, 0.424376 )
+z_index = 0
 
 [connection signal="hit_applied" from="HitBoxArea2D" to="." method="_on_HitBoxArea2D_hit_applied"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

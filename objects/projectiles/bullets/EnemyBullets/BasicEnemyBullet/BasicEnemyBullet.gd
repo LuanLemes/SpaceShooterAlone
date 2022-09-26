@@ -6,6 +6,12 @@ export var speed: = 10.0
 var velocity: = Vector2.RIGHT * speed
 var direction setget set_direction
 export var explosion_particle_scene : PackedScene
+onready var _hit_box: HitBoxArea2D = $HitBoxArea2D
+
+
+func _ready():
+	speed *= DifficultParameters.enemy_bullet_speed
+	_hit_box.damage *= DifficultParameters.enemy_damage_factor
 
 
 func _physics_process(delta):

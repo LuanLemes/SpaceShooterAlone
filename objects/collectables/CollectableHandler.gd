@@ -22,6 +22,7 @@ var current_stacks: int = 0
 onready var hero: Hero = SingletonManager.hero
 
 func _ready():
+	is_heal_modifier = DifficultParameters.wisper_heal
 	_timer.wait_time = effect_duration
 	SignalManager.connect("collectable_picked", self, "_on_collectable_picked")
 	SignalManager.connect("enemy_death_started", self, "_on_enemy_death_started")

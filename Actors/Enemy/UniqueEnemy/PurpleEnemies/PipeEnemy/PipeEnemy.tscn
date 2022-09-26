@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Actors/Enemy/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/Resources/DamagedShader.gdshader" type="Shader" id=2]
@@ -91,6 +91,39 @@ tracks/0/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "ShootUpgrade"
+length = 2.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+
 [node name="PipeEnemy" instance=ExtResource( 1 )]
 base_hp = 550.0
 _rotation_speed = 5.0
@@ -109,10 +142,7 @@ frames = SubResource( 3 )
 [node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
 shape = SubResource( 4 )
 
-[node name="Button" parent="." index="3"]
-visible = false
-
-[node name="Label" parent="." index="4"]
+[node name="Label" parent="." index="3"]
 visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]
@@ -127,6 +157,7 @@ max_wait = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Shoot" index="0"]
 anims/Shoot = SubResource( 6 )
+anims/ShootUpgrade = SubResource( 7 )
 
 [node name="Weapon" type="Node2D" parent="." index="10"]
 rotation = 1.57079

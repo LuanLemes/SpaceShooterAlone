@@ -8,8 +8,8 @@ export var cooldown_damage: = 0.4
 
 
 func _ready():
-	max_wait = 2.5
-	min_wait = 3.0
+	max_wait = 3.0
+	min_wait = 2.5
 	_damage_cooldown.wait_time = cooldown_damage
 
 

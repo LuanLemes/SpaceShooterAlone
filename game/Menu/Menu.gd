@@ -2,7 +2,8 @@ extends Control
 
 export(AudioStream) var theme_music #set through the Inspector
 var main_level_path: String = "res://game/levels/level.tscn"
-onready var animator: AnimationPlayer = $AnimationPlayer
+onready var animator: AnimationPlayer = $AnimationPlayer 
+
 
 
 func _ready():

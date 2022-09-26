@@ -3,7 +3,7 @@
 [ext_resource path="res://objects/CrossHair/CrossHair.gd" type="Script" id=1]
 [ext_resource path="res://Assets/CrossHair/crosshair7.png" type="Texture" id=2]
 [ext_resource path="res://Assets/CrossHair/crosshair7part1.png" type="Texture" id=3]
-[ext_resource path="res://Assets/CrossHair/new folder/crosshair7part4.png" type="Texture" id=4]
+[ext_resource path="res://Assets/CrossHair/Aim/crosshair7part4.png" type="Texture" id=4]
 [ext_resource path="res://Assets/CrossHair/crosshair7part3.png" type="Texture" id=5]
 
 [node name="CrossHair" type="Node2D"]

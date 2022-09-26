@@ -32,6 +32,9 @@ var upgrade_selected3: Upgrade
 var all_rarities: Array
 
 func _ready():
+	
+	if DifficultParameters.only_one_card_option:
+		choice_limitate()
 	small_left_button.connect("focus_entered", self, "_on_left_focus")
 	small_left_button.connect("mouse_entered", self, "_on_left_focus")
 	small_middle_button.connect("focus_entered", self, "_on_middle_focus")
@@ -254,6 +257,7 @@ func _on_middle_focus() -> void:
 func _on_right_focus() -> void:
 	_tween_big_right_card()
 
+
 func update_bigger_cards() -> void:
 	var i = 0
 	var all_big_buttons = $ColorRect/VBoxContainer/BigButtons.get_children()
@@ -264,3 +268,6 @@ func update_bigger_cards() -> void:
 		button.fill_fields(button.upgrade)
 
 
+func choice_limitate() -> void:
+	small_left_button.visible = false
+	small_right_button.visible = false

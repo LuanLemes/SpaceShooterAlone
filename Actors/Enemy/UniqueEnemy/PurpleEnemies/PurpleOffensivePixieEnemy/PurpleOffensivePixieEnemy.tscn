@@ -97,10 +97,7 @@ frames = SubResource( 3 )
 [node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
 shape = SubResource( 4 )
 
-[node name="Button" parent="." index="4"]
-visible = false
-
-[node name="Label" parent="." index="5"]
+[node name="Label" parent="." index="4"]
 visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]
@@ -119,7 +116,7 @@ script = ExtResource( 5 )
 min_wait = 1.0
 max_wait = 2.0
 
-[node name="Position2D" parent="." index="10"]
+[node name="Position2D" parent="." index="9"]
 position = Vector2( 0, 1 )
 
 [node name="SupportNode" type="Node2D" parent="." index="11"]

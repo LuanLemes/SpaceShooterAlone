@@ -10,6 +10,13 @@ onready var _collision_shape: = $HitBoxArea2D/CollisionShape2D
 onready var _sprite := $Sprite
 
 
+func _ready():
+	if DifficultParameters.init_bombs_are_bigger:
+		self.scale *= 2.3
+		_sprite.scale /= 2.3
+		_target_sprite.scale *= 2.3
+
+
 func explode() -> void:
 	_target_sprite.visible = false
 	_sprite.visible = false
@@ -18,11 +25,6 @@ func explode() -> void:
 	$HitBoxArea2D/CollisionShape2D.disabled = false
 	yield(get_tree().create_timer(0.3), "timeout")
 	queue_free()
-
-
-#func set_direction(new_direction) -> void:
-#	direction = new_direction
-#	velocity = direction * speed
 
 
 func _on_VisibilityNotifier2D_screen_exited():

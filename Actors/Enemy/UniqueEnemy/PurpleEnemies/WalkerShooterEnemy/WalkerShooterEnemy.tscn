@@ -73,10 +73,7 @@ frames = SubResource( 3 )
 [node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
 shape = SubResource( 4 )
 
-[node name="Button" parent="." index="4"]
-visible = false
-
-[node name="Label" parent="." index="5"]
+[node name="Label" parent="." index="4"]
 visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]
@@ -94,11 +91,8 @@ points = PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 script = ExtResource( 5 )
 weapon_cannon_path = NodePath("../../Weapon/BasicEnemyWeapon/greengun")
 
-[node name="Position2D" parent="." index="10"]
+[node name="Position2D" parent="." index="9"]
 position = Vector2( -29, 0 )
 
 [node name="Trail2D" parent="Position2D" index="0" instance=ExtResource( 8 )]
 lenght = 10
-
-[node name="SupportControl" parent="." index="11"]
-position = Vector2( 0, 19 )

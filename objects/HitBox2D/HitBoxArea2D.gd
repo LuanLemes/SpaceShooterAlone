@@ -7,7 +7,7 @@ signal max_hited
 signal status_setted(original_status)
 
 
-enum Teams{PLAYER, ENEMY}
+enum Teams{PLAYER, ENEMY, HAZARD}
 export (Teams) var team := Teams.ENEMY
 export var damage:= 1.0
 

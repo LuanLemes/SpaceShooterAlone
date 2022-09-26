@@ -218,6 +218,7 @@ func damage_shield(damage) -> void:
 
 func damage_health(damage) -> void:
 	self._hp -= damage
+	_sprite.shake = true
 	_damaged_animation.play("Damaged")
 
 

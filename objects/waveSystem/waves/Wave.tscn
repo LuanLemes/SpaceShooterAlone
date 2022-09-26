@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://objects/waveSystem/waves/wave.gd" type="Script" id=1]
 [ext_resource path="res://objects/TileMap/Floor/Floor.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=7]
 [ext_resource path="res://objects/collectables/CollectableHandler.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/waveSystem/SubWave/SubWave.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/UI/WarningNode/WarningNode.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DoorGlowing"
@@ -233,5 +234,9 @@ process_material = SubResource( 11 )
 texture = ExtResource( 7 )
 
 [node name="CollectableHandler" parent="." instance=ExtResource( 8 )]
+
+[node name="WarningNode" parent="." instance=ExtResource( 10 )]
+
+[node name="Hazards" type="Node2D" parent="."]
 
 [connection signal="area_entered" from="LeaveArea" to="." method="_on_Area2D_area_entered"]

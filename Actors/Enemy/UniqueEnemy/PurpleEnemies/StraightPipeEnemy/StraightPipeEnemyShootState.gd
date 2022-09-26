@@ -4,12 +4,14 @@ extends State
 
 onready var _animation_player: AnimationPlayer = $AnimationPlayer
 var stored_target_position: Vector2
-
+var shoot_animation_name: String = "Shoot"
 
 func _ready():
+	_animation_player.connect("animation_finished", self, "_on_animation_player_animation_finished")
 	max_wait = 1
 	min_wait = 1
-	_animation_player.connect("animation_finished", self, "_on_animation_player_animation_finished")
+	if DifficultParameters.shoot_more:
+		shoot_animation_name = "ShootUpgrade"
 
 
 func unhandled_input(event):
@@ -21,17 +23,11 @@ func physics_process(delta):
 
 
 func enter(msg: Dictionary = {}) -> void:
-	start_timer()
-	_animation_player.play("Shoot")
-#	_state_machine.transition_to("Idle")
+	_animation_player.play(shoot_animation_name)
 
 
 func exit() -> void:
 	_animation_player.stop(true)
-
-
-func _on_timer_timeout() -> void:
-	_animation_player.play("Shoot")
 
 
 func shoot() -> void:
@@ -40,8 +36,3 @@ func shoot() -> void:
 
 func _on_animation_player_animation_finished(anim_name):
 	_state_machine.transition_to("Idle")
-
-
-#func _input(event):
-#	if event.is_action_pressed("test_input_1"):
-#		character.weapon.shoot_at_target()

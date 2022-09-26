@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Actors/heros/Hero.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://objects/Particles/Sakura/DeathExplosionParticle/SakuraExplosionParticle.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Actors/heros/Sakura/Dash.gd" type="Script" id=12]
 [ext_resource path="res://objects/SpriteEffect/SpriteTrail.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Actors/heros/Sakura/AnimatedSprite.gd" type="Script" id=14]
 [ext_resource path="res://Assets/Heros/Sakura/testsakura7.png" type="Texture" id=16]
 [ext_resource path="res://Assets/Heros/Sakura/testsakura5.png" type="Texture" id=17]
 [ext_resource path="res://objects/UI/HeroUI/ValueUI.tscn" type="PackedScene" id=18]
@@ -121,6 +122,9 @@ scale = Vector2( 1.84774, 1.84774 )
 z_index = 70
 frames = SubResource( 7 )
 frame = 1
+script = ExtResource( 14 )
+amplitude = 3.0
+duration = 0.7
 
 [node name="HurtBoxArea2D" parent="." index="4"]
 position = Vector2( -1, 0 )
@@ -164,7 +168,6 @@ position = Vector2( -35, -7 )
 
 [node name="LeftWingTrail" parent="TrailPoint3" index="0" instance=ExtResource( 3 )]
 modulate = Color( 1, 1, 1, 0.8 )
-position = Vector2( -683, -1043 )
 points = PoolVector2Array( 735.794, 1571.75 )
 width = 5.0
 width_curve = SubResource( 9 )
@@ -177,7 +180,6 @@ position = Vector2( -35, 11 )
 
 [node name="RightWingTrail" parent="TrailPoint4" index="0" instance=ExtResource( 3 )]
 modulate = Color( 1, 1, 1, 0.8 )
-position = Vector2( -683, -1043 )
 width = 5.0
 width_curve = SubResource( 9 )
 default_color = Color( 0.552941, 0.552941, 0.552941, 0.886275 )

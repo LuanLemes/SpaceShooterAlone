@@ -2,8 +2,12 @@ extends State
 
 export var weapon_cannon_path: NodePath
 var weapon_cannon
+var number_of_shoots = 3
+
 
 func _ready():
+	if DifficultParameters.shoot_more:
+		number_of_shoots += 4
 	min_wait = 2
 	max_wait = 2
 
@@ -24,21 +28,13 @@ func exit() -> void:
 
 
 func _on_timer_timeout() -> void:
-	_state_machine.character.weapon.shoot()
-	if is_the_state_machine_state():
-		yield(get_tree().create_timer(0.3), "timeout")
-	else: 
-		return
-	_state_machine.character.weapon.shoot()
-	if is_the_state_machine_state():
-		yield(get_tree().create_timer(0.3), "timeout")
-	else: 
-		return
-	_state_machine.character.weapon.shoot()
-	if is_the_state_machine_state():
-		yield(get_tree().create_timer(0.3), "timeout")
-	else: 
-		return
+	for i in number_of_shoots:
+		if is_the_state_machine_state():
+			yield(get_tree().create_timer(0.3), "timeout")
+			_state_machine.character.weapon.shoot()
+		else: 
+			return
+		
 	if is_the_state_machine_state():
 		_state_machine.transition_to("Walk")
 	

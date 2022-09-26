@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/HitBox2D/HitBoxArea2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Hazards/HazardPath/HazardFollow/HazardFollow.gd" type="Script" id=3]
+
+[node name="HazardFollow" type="Node2D"]
+rotation = 1.5708
+script = ExtResource( 3 )
+
+[node name="Container" type="Node2D" parent="."]
+scale = Vector2( 0.248601, 0.248601 )
+
+[node name="HitBoxArea2D" parent="Container" instance=ExtResource( 1 )]
+rotation = -3.55271e-15
+damage = 4.0
+max_number_of_hits = 999
