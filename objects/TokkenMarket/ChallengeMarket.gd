@@ -164,5 +164,15 @@ func open_right_button() -> void:
 		right_button.disabled = false
 
 
+func hide_market() -> void:
+	control.visible = false
+	visible = false
+
+
+func show_market() -> void:
+	control.visible = true
+	visible = true
+	
+
 
 	
