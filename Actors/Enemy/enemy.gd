@@ -9,8 +9,8 @@ signal camera_shake_requested
 signal death_started(enemy_global_position)
 signal enemy_hit_landed
 
-
-var is_active:bool = true
+var is_active: bool = true
+var can_be_damaged: bool = true setget set_can_be_damaged
 var hp: int setget set_hp
 var bonus_percent_hp: float setget set_bonus_hp
 var total_hp: int
@@ -104,6 +104,7 @@ func get_hurt(damage) -> void:
 
 
 func _on_HurtBoxArea2D_hit_landed(damage):
+		
 	get_hurt(damage)
 	emit_signal("enemy_hit_landed")
 	animated_sprite.shake = true
@@ -160,5 +161,13 @@ func _initialize_sup_node() -> void:
 	if has_node("SupportNode"):
 		support_node = $SupportNode
 		support_node.character = self
+
+
+func set_can_be_damaged(value) -> void:
+	can_be_damaged = value
+	if can_be_damaged == true:
+		hurt_box.max_damage = 99999
+	else:
+		hurt_box.max_damage = 0
 
 

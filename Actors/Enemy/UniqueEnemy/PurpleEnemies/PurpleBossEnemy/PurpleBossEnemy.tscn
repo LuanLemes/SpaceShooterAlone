@@ -50,10 +50,7 @@ visible = false
 [node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
 shape = SubResource( 3 )
 
-[node name="Button" parent="." index="3"]
-visible = false
-
-[node name="Label" parent="." index="4"]
+[node name="Label" parent="." index="3"]
 visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]

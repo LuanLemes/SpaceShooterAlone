@@ -63,9 +63,9 @@ func instance_next_wave() -> void:
 		return
 	var scene_to_spawn = load(path_to_waves + all_waves[wave_to_spawn])
 	spawned_wave = scene_to_spawn.instance()
-	add_child(spawned_wave)
-	wave_to_spawn += 1
 	_connect_signals()
+	wave_to_spawn += 1
+	add_child(spawned_wave)
 
 
 func instance_next_wave_folder() -> void:

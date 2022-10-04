@@ -4,7 +4,7 @@ extends State
 var path = []
 export var minimum_distance: float = 16.0
 var stored_target_position: Vector2
-export var threshold: int =1
+export var threshold: int = 1
 var location
 var course = null
 var course_points: Array
@@ -92,7 +92,6 @@ func set_path(arrive_location) -> void:
 	path.remove(0)
 	if path:
 		set_process(true)
-#	start_timer()
 
 
 func rotate(delta) -> void:

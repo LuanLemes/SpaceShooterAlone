@@ -80,7 +80,6 @@ texture = ExtResource( 2 )
 [node name="Sprite2" type="Sprite" parent="Container/Sprite" index="0"]
 modulate = Color( 2.3, 1, 1, 1 )
 self_modulate = Color( 1, 0.560784, 0, 1 )
-rotation = 1.74846e-07
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="Container" index="2"]

@@ -105,7 +105,7 @@ position = Vector2( -0.0216675, -67.6631 )
 rotation = 1.57079
 scale = Vector2( 0.763622, 0.782465 )
 frames = SubResource( 10 )
-frame = 6
+frame = 4
 speed_scale = 2.0
 playing = true
 
@@ -123,10 +123,7 @@ frames = SubResource( 13 )
 [node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
 shape = SubResource( 14 )
 
-[node name="Button" parent="." index="4"]
-visible = false
-
-[node name="Label" parent="." index="5"]
+[node name="Label" parent="." index="4"]
 visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]
@@ -139,7 +136,7 @@ stinger_sprite_path = NodePath("../../Weapon/HitBoxArea2D/AnimatedSprite")
 [node name="Die" parent="StateMachine" index="4"]
 script = ExtResource( 10 )
 
-[node name="Position2D" parent="." index="10"]
+[node name="Position2D" parent="." index="9"]
 position = Vector2( -29, 0 )
 
 [node name="Trail2D" parent="Position2D" index="0" instance=ExtResource( 8 )]

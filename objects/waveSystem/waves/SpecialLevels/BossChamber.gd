@@ -6,8 +6,10 @@ onready var warning_node: BossWarning = $WarningNode
 
 
 
+
+
 func _ready():
-	warning_node.connect("warning_ended", self, "on_warning_ended")
+	SignalManager.connect("warning_ended", self, "on_warning_ended")
 	challenge_market.hide_market()
 
 

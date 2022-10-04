@@ -1,6 +1,7 @@
 extends Node2D
 class_name Level
 
+
 signal _hero_heal
 signal _hero_hurt
 signal enemy_died
@@ -10,6 +11,7 @@ signal _hero_shield_depleted
 signal _enemy_critical_landed
 signal _level_started
 signal token_count_changed(current_tokens)
+
 
 onready var _hero = $HeroContainer.get_child(0)
 onready var _upgrade_handler = $CanvasLayer/Ui/UpgradeHandler

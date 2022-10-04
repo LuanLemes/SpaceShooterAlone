@@ -23,12 +23,15 @@ onready var pop_label_spawner := $PopLabelSpawner2D
 var last_hit_position: Vector2 = Vector2.ZERO
 var is_active: bool = true setget set_is_active
 var damage_reduction:float = 0
+var max_damage: int = 99999
+
 
 func _ready():
 	rng.randomize()
 
 
 func get_hurt(hit: Hit) -> void:
+	hit.damage = min(hit.damage, max_damage)
 	if damage_reduction != 0:
 		hit.damage = hit.damage - (damage_reduction/100 * hit.damage)
 	last_hit_position = hit.hit_position

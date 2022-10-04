@@ -128,9 +128,9 @@ __meta__ = {
 [node name="Right" type="Area2D" parent="ThresholdContainers"]
 light_mask = 0
 position = Vector2( 1699.55, 1656.49 )
-monitorable = false
 collision_layer = 0
 collision_mask = 128
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ThresholdContainers/Right"]
 position = Vector2( 283.61, 131.912 )
@@ -139,9 +139,9 @@ shape = SubResource( 2 )
 [node name="Left" type="Area2D" parent="ThresholdContainers"]
 light_mask = 0
 position = Vector2( 170.404, 1656.49 )
-monitorable = false
 collision_layer = 0
 collision_mask = 128
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ThresholdContainers/Left"]
 position = Vector2( -171.485, -46.1692 )
@@ -150,9 +150,9 @@ shape = SubResource( 3 )
 [node name="Top" type="Area2D" parent="ThresholdContainers"]
 light_mask = 0
 position = Vector2( 1114.64, 235.04 )
-monitorable = false
 collision_layer = 0
 collision_mask = 128
+monitorable = false
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="ThresholdContainers/Top"]
 position = Vector2( -98.9341, -224.25 )
@@ -161,9 +161,9 @@ shape = SubResource( 4 )
 [node name="Bottom" type="Area2D" parent="ThresholdContainers"]
 light_mask = 0
 position = Vector2( 0, 2173.62 )
-monitorable = false
 collision_layer = 0
 collision_mask = 128
+monitorable = false
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="ThresholdContainers/Bottom"]
 position = Vector2( 1002.52, 1389.06 )
@@ -184,9 +184,9 @@ position = Vector2( -379.44, 55.9943 )
 position = Vector2( -381.291, -103.79 )
 
 [node name="Area2D" type="Area2D" parent="."]
-monitoring = false
 collision_layer = 128
 collision_mask = 0
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 modulate = Color( 1, 0, 0, 1 )

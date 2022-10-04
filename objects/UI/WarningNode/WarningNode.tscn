@@ -13,7 +13,7 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "Appear"
-length = 7.0
+length = 8.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Label:percent_visible")
 tracks/0/interp = 1
@@ -117,8 +117,8 @@ margin_top = 732.165
 margin_right = 1080.0
 margin_bottom = 877.165
 rect_scale = Vector2( 1, 1.2 )
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Warning"
 align = 1
 valign = 1

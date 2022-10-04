@@ -3,6 +3,7 @@ class_name Wave
 
 signal wave_ended
 signal hero_left
+signal wave_entered
 
 onready var thick_walls: TileMap = $ThickWalls
 onready var walls: TileMap = $CrateWalls
@@ -27,9 +28,11 @@ onready var number_of_sub_waves = all_sub_waves.size()
 onready var _player_start_position: Position2D = $PlayerStartPosition
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 export var is_boss_level: = false
+var is_transition_ended: bool = false
 
 
 func _ready():
+	SignalManager.connect("transition_ended", self, "on_transition_ended")
 	connect("wave_ended", SignalManager, "_on_wave_ended")
 	connect("hero_left", SignalManager, "_on_hero_left")
 	rng.randomize()
@@ -39,6 +42,12 @@ func _ready():
 		hero = all_heroes_nodes[0]
 	get_floor_without_walls()
 	init_walkable_cells()
+	yield(get_tree().create_timer(1),"timeout")
+	if is_transition_ended == true:
+		pass
+	else:
+		yield(SignalManager, "transition_ended")
+#	yield(get_tree().create_timer(1),"timeout")
 	initialize_wave_system()
 	_on_wave_entered()
 
@@ -159,7 +168,7 @@ func destroy() -> void:
 
 
 func _on_wave_entered() -> void:
-	pass
+	emit_signal("wave_entered")
 
 
 func _on_wave_exited() -> void:
@@ -201,3 +210,7 @@ func define_and_connect_all_enemies() -> void:
 		for enemy in this_sub_wave.get_children():
 			enemy.connect("death_started",self,"_on_enemy_started_to_die")
 			enemy.connect("moved", self, "_on_enemy_moved_on_tile")
+
+
+func on_transition_ended() -> void:
+	is_transition_ended = true

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Tiles/NewTiles/tilesetblack.png" type="Texture" id=1]
-[ext_resource path="res://objects/waveSystem/waves/SpecialLevels/BossChamber.gd" type="Script" id=2]
-[ext_resource path="res://objects/TokkenMarket/ChallengeMarket.tscn" type="PackedScene" id=3]
-[ext_resource path="res://objects/waveSystem/waves/Wave.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/waveSystem/waves/Wave.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/waveSystem/waves/SpecialLevels/BossChamber.gd" type="Script" id=3]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/Bosses/BossChargerEnemy/BossChargerEnemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/TokkenMarket/ChallengeMarket.tscn" type="PackedScene" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "tilesetblack.png 0"
@@ -28,8 +29,8 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[node name="wave" instance=ExtResource( 4 )]
-script = ExtResource( 2 )
+[node name="wave" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
 
 [node name="Floor" parent="." index="0"]
 tile_set = SubResource( 1 )
@@ -38,10 +39,13 @@ tile_data = PoolIntArray( 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 
 [node name="BorderWalls" parent="." index="3"]
 tile_data = PoolIntArray( 0, 0, 196608, 1, 0, 196608, 2, 0, 196608, 3, 0, 196608, 4, 0, 196608, 5, 0, 196608, 6, 0, 196608, 7, 0, 196608, 8, 0, 196608, 9, 0, 196608, 10, 0, 196608, 11, 0, 196608, 12, 0, 196608, 13, 0, 196608, 14, 0, 196608, 15, 0, 196608, 16, 0, 196608, 17, 0, 196608, 18, 0, 196608, 19, 0, 196608, 20, 0, 196608, 21, 0, 196608, 22, 0, 196608, 23, 0, 196608, 24, 0, 196608, 25, 0, 196608, 26, 0, 196608, 65536, 0, 196608, 65562, 0, 196608, 131072, 0, 196608, 131098, 0, 196608, 196608, 0, 196608, 196634, 0, 196608, 262144, 0, 196608, 262170, 0, 196608, 327680, 0, 196608, 327706, 0, 196608, 393216, 0, 196608, 393242, 0, 196608, 458752, 0, 196608, 458778, 0, 196608, 524288, 0, 196608, 524314, 0, 196608, 589824, 0, 196608, 589850, 0, 196608, 655360, 0, 196608, 655386, 0, 196608, 720896, 0, 196608, 720922, 0, 196608, 786432, 0, 196608, 786458, 0, 196608, 851968, 0, 196608, 851994, 0, 196608, 917504, 0, 196608, 917530, 0, 196608, 983040, 0, 196608, 983066, 0, 196608, 1048576, 0, 196608, 1048602, 0, 196608, 1114112, 0, 196608, 1114138, 0, 196608, 1179648, 0, 196608, 1179674, 0, 196608, 1245184, 0, 196608, 1245210, 0, 196608, 1310720, 0, 196608, 1310746, 0, 196608, 1376256, 0, 196608, 1376282, 0, 196608, 1441792, 0, 196608, 1441818, 0, 196608, 1507328, 0, 196608, 1507354, 0, 196608, 1572864, 0, 196608, 1572890, 0, 196608, 1638400, 0, 196608, 1638426, 0, 196608, 1703936, 0, 196608, 1703962, 0, 196608, 1769472, 0, 196608, 1769498, 0, 196608, 1835008, 0, 196608, 1835034, 0, 196608, 1900544, 0, 196608, 1900570, 0, 196608, 1966080, 0, 196608, 1966106, 0, 196608, 2031616, 0, 196608, 2031642, 0, 196608, 2097152, 0, 196608, 2097178, 0, 196608, 2162688, 0, 196608, 2162714, 0, 196608, 2228224, 0, 196608, 2228250, 0, 196608, 2293760, 0, 196608, 2293786, 0, 196608, 2359296, 0, 196608, 2359322, 0, 196608, 2424832, 0, 196608, 2424858, 0, 196608, 2490368, 0, 196608, 2490394, 0, 196608, 2555904, 0, 196608, 2555930, 0, 196608, 2621440, 0, 196608, 2621466, 0, 196608, 2686976, 0, 196608, 2687002, 0, 196608, 2752512, 0, 196608, 2752538, 0, 196608, 2818048, 0, 196608, 2818074, 0, 196608, 2883584, 0, 196608, 2883610, 0, 196608, 2949120, 0, 196608, 2949146, 0, 196608, 3014656, 0, 196608, 3014682, 0, 196608, 3080192, 0, 196608, 3080193, 0, 196608, 3080194, 0, 196608, 3080195, 0, 196608, 3080196, 0, 196608, 3080197, 0, 196608, 3080198, 0, 196608, 3080199, 0, 196608, 3080200, 0, 196608, 3080201, 0, 196608, 3080202, 0, 196608, 3080203, 0, 196608, 3080204, 0, 196608, 3080205, 0, 196608, 3080206, 0, 196608, 3080207, 0, 196608, 3080208, 0, 196608, 3080209, 0, 196608, 3080210, 0, 196608, 3080211, 0, 196608, 3080212, 0, 196608, 3080213, 0, 196608, 3080214, 0, 196608, 3080215, 0, 196608, 3080216, 0, 196608, 3080217, 0, 196608, 3080218, 0, 196608 )
 
+[node name="BossChargerEnemy" parent="SubWaves/SubWave" index="0" instance=ExtResource( 5 )]
+position = Vector2( 551, -618 )
+
 [node name="LeaveArea" parent="." index="9"]
 position = Vector2( -20, -146 )
 
 [node name="PlayerStartPosition" parent="." index="10"]
 position = Vector2( 546.352, 1446.7 )
 
-[node name="ChallengeMarket" parent="." index="15" instance=ExtResource( 3 )]
+[node name="ChallengeMarket" parent="." index="15" instance=ExtResource( 6 )]

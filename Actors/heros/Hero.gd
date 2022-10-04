@@ -320,11 +320,11 @@ func _set_is_active(value) -> void:
 	is_active = value
 
 
-func _input(event):
-	if event.is_action_pressed("test_input_1"):
-		save_global_position()
-	if event.is_action_pressed("ui_accept"):
-		global_position = saved_global_position
+#func _input(event):
+#	if event.is_action_pressed("test_input_1"):
+#		save_global_position()
+#	if event.is_action_pressed("ui_accept"):
+#		global_position = saved_global_position
 		
 
 func save_global_position() -> void:

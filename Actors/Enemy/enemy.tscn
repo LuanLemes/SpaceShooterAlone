@@ -25,7 +25,7 @@ shader_param/damaged = false
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
-"loop": true,
+"loop": false,
 "name": "Normal",
 "speed": 5.0
 } ]
@@ -99,9 +99,9 @@ __meta__ = {
 }
 
 [node name="EnemyArea" type="Area2D" parent="."]
-monitoring = false
 collision_layer = 0
 collision_mask = 0
+monitoring = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="EnemyArea"]
 shape = SubResource( 4 )

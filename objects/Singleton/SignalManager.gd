@@ -1,6 +1,9 @@
 extends Node
 
 
+signal transition_ended
+signal warning_ended
+signal _on_collectable_request(this_position)
 signal camera_shake_requested
 signal upgrade_activated(upgrade)
 signal enemy_died
@@ -164,7 +167,6 @@ func disconnect_all_signals() -> void:
 			disconnect(cur_coon.signal, cur_coon.target, cur_coon.method)
 
 
-
 func _on_hero_death_started() -> void:
 	emit_signal("hero_death_started")
 
@@ -175,4 +177,17 @@ func on_upgrade_activated(upgrade) -> void:
 
 func _on_collectable_picked(collectable_name) -> void:
 	emit_signal("collectable_picked", collectable_name)
+
+
+func _on_collectable_request(this_position) -> void:
+	emit_signal("_on_collectable_request", this_position)
+
+
+func _on_warning_ended() -> void:
+	emit_signal("warning_ended")
+
+
+func _on_transition_ended() -> void:
+	emit_signal("transition_ended")
+
 

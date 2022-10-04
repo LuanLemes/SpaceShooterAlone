@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Actors/Enemy/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/Resources/DamagedShader.gdshader" type="Shader" id=2]
 [ext_resource path="res://objects/weapons/EnemyWeapons/BasicEnemyWeapon/BasicEnemyWeapon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/projectiles/bullets/EnemyBullets/BasicEnemyBullet/PipeBullet/PipeBullet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/StraightPipeEnemy/StraightPipeEnemyShootState.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Enemies/Standard/enemy1.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/StraightPipeEnemy/StraightPipeEnemyIdleState.gd" type="Script" id=8]
 
@@ -24,52 +23,6 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 40, 40 )
 
-[sub_resource type="Animation" id=4]
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "shoot"
-}, {
-"args": [  ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=5]
-resource_name = "ShootUpgrade"
-length = 1.4
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "shoot"
-}, {
-"args": [  ],
-"method": "shoot"
-}, {
-"args": [  ],
-"method": "shoot"
-}, {
-"args": [  ],
-"method": "shoot"
-} ]
-}
-
 [node name="StraightPipeEnemy" instance=ExtResource( 1 )]
 base_hp = 125.0
 
@@ -87,13 +40,6 @@ visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]
 script = ExtResource( 8 )
-
-[node name="Shoot" type="Node" parent="StateMachine" index="1"]
-script = ExtResource( 5 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Shoot" index="0"]
-anims/Shoot = SubResource( 4 )
-anims/ShootUpgrade = SubResource( 5 )
 
 [node name="Weapon" type="Node2D" parent="." index="10"]
 rotation = 1.57079

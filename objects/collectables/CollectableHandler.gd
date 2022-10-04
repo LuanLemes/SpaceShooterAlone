@@ -26,6 +26,7 @@ func _ready():
 	_timer.wait_time = effect_duration
 	SignalManager.connect("collectable_picked", self, "_on_collectable_picked")
 	SignalManager.connect("enemy_death_started", self, "_on_enemy_death_started")
+	SignalManager.connect("_on_collectable_request", self, "_on_collectable_request")
 
 
 func stack_effect_start() -> void:
@@ -78,3 +79,6 @@ func _unexecute_all() -> void:
 
 func _on_Timer_timeout():
 	stack_effect_end()
+
+func _on_collectable_request(this_position) -> void:
+		spawn_colectable("Blue", this_position)

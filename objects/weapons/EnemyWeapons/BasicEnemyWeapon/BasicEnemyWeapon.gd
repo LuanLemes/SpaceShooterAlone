@@ -16,7 +16,7 @@ func _ready():
 		all_cannons = get_node(canons_path).get_children()
 
 
-func shoot () -> void:
+func shoot() -> void:
 	var this_position
 	if !all_cannons.empty():
 		if selected_cannon == all_cannons.size()-1:

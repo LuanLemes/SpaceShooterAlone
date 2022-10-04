@@ -127,7 +127,6 @@ __meta__ = {
 position = Vector2( 910.786, 23.2269 )
 
 [node name="TransitionRect" parent="CanvasLayer/Ui" instance=ExtResource( 7 )]
-visible = false
 color = Color( 0.211765, 0.211765, 0.211765, 1 )
 
 [node name="UpgradeHandler" parent="CanvasLayer/Ui" instance=ExtResource( 3 )]
