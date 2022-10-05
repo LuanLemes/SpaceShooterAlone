@@ -32,6 +32,7 @@ var is_transition_ended: bool = false
 
 
 func _ready():
+	SignalManager.connect("hero_entered_level", self, "_on_hero_entered_level")
 	SignalManager.connect("transition_ended", self, "on_transition_ended")
 	connect("wave_ended", SignalManager, "_on_wave_ended")
 	connect("hero_left", SignalManager, "_on_hero_left")
@@ -42,25 +43,13 @@ func _ready():
 		hero = all_heroes_nodes[0]
 	get_floor_without_walls()
 	init_walkable_cells()
-	yield(get_tree().create_timer(1),"timeout")
-	if is_transition_ended == true:
-		pass
-	else:
-		yield(SignalManager, "transition_ended")
-#	yield(get_tree().create_timer(1),"timeout")
-	initialize_wave_system()
-	_on_wave_entered()
+		
 
 
 func initialize_enemy(enemy) -> void:
-
 	if !enemy.is_movement_enemy:
 		_on_enemy_moved_on_tile(Vector2(-5,-5), enemy.global_position)
 	enemy.wave = self
-
-#	enemy.on_wave_ready()
-#	enemy.connect("death_started",self,"_on_enemy_started_to_die")
-#	enemy.connect("moved", self, "_on_enemy_moved_on_tile")
 
 
 func add_enemy(enemy) -> void:
@@ -213,4 +202,16 @@ func define_and_connect_all_enemies() -> void:
 
 
 func on_transition_ended() -> void:
+	SignalManager.player_can_enter()
 	is_transition_ended = true
+
+
+func _on_hero_entered_level() -> void:
+		initialize_wave_system()
+		_on_wave_entered()
+		_activate_hero()
+
+
+func _activate_hero() -> void:
+	SingletonManager.hero.is_active = true
+

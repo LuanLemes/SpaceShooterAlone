@@ -14,7 +14,7 @@ func _ready():
 
 
 func enter(msg: Dictionary = {}) -> void:
-	_state_machine.transition_without_delay("Move")
+	_state_machine.transition_without_delay("Aim")
 
 
 func exit() -> void:

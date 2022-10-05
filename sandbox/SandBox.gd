@@ -1,5 +1,13 @@
 extends Node2D
+class_name Father
 
 func _ready():
-	for i in 10:
-		print(i)
+	method()
+
+
+func method() -> void:
+#	.method()
+	print("father_method")
+
+
+

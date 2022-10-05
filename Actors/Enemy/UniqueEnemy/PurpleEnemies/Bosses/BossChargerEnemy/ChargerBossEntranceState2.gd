@@ -15,7 +15,7 @@ func physics_process(delta):
 	if character.path_follow.unit_offset == 1:
 			path_ended = true
 #			character.shine()
-			_state_machine.transition_without_delay("Entrance2")
+			_state_machine.transition_without_delay("Entrance3")
 			return
 	character.path_follow.offset += character.path_follow_speed*1.5
 	character.global_position = character.path_follow.global_position
@@ -23,12 +23,9 @@ func physics_process(delta):
 
 
 func enter(msg: Dictionary = {}) -> void:
-	character.trail.visible = true
-	character.remove_from_group("enemies")
-	character.global_position = character.point1.global_position
 	character.can_be_damaged = false
-	curve2d.add_point(character.point1.global_position)
-	curve2d.add_point(character.point2.global_position)
+	curve2d.add_point(character.global_position)
+	curve2d.add_point(character.point3.global_position)
 	character.path.curve = curve2d.duplicate()
 	character.path_follow.unit_offset = 0
 

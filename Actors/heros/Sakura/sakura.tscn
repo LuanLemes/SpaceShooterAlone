@@ -108,7 +108,8 @@ color_ramp = SubResource( 16 )
 
 [node name="Sakura" instance=ExtResource( 1 )]
 collision_mask = 34
-base_shield = 0.0
+shield_regen_base = 0.5
+shield_recharge_cd = 2.0
 
 [node name="CollisionShape2D2" parent="." index="1"]
 shape = SubResource( 1 )

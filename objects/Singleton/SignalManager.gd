@@ -1,6 +1,8 @@
 extends Node
 
 
+signal player_can_enter
+signal hero_entered_level
 signal transition_ended
 signal warning_ended
 signal _on_collectable_request(this_position)
@@ -191,3 +193,8 @@ func _on_transition_ended() -> void:
 	emit_signal("transition_ended")
 
 
+func _on_hero_entered_level(object, key) -> void:
+	emit_signal("hero_entered_level")
+
+func player_can_enter() -> void:
+	emit_signal("player_can_enter")

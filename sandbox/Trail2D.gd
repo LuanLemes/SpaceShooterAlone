@@ -3,11 +3,14 @@ extends Line2D
 
 export var lenght = 5
 var point = Vector2()
+
+
 func _ready():
 	global_position = Vector2(0,0)
 	global_rotation = 0
+	
+	
 func _process(delta):
-
 	global_position = Vector2(0,0)
 	global_rotation = 0
 	
@@ -16,4 +19,8 @@ func _process(delta):
 	while get_point_count()>lenght:
 		remove_point(0)
 
-	
+func set_trail_off() -> void:
+	set_process(false)
+
+func set_trail_on() -> void:
+	set_process(true)

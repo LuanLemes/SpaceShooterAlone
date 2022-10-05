@@ -34,7 +34,8 @@ environment = SubResource( 1 )
 [node name="HeroContainer" type="Node2D" parent="."]
 
 [node name="Sakura" parent="HeroContainer" instance=ExtResource( 1 )]
-position = Vector2( 346, 1854 )
+position = Vector2( 540, 1960 )
+rotation = -1.5708
 z_index = 1
 
 [node name="FloorLight" type="Light2D" parent="HeroContainer/Sakura"]

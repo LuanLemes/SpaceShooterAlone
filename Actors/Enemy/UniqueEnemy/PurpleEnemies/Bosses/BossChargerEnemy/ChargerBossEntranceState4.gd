@@ -14,39 +14,40 @@ func physics_process(delta):
 		return
 	if character.path_follow.unit_offset == 1:
 			path_ended = true
-#			character.shine()
-			_state_machine.transition_without_delay("Entrance2")
+			character.shine()
 			return
-	character.path_follow.offset += character.path_follow_speed*1.5
+	character.path_follow.offset += character.path_follow_speed/4
 	character.global_position = character.path_follow.global_position
 	character.global_rotation = character.path_follow.global_rotation
 
 
 func enter(msg: Dictionary = {}) -> void:
-	character.trail.visible = true
-	character.remove_from_group("enemies")
-	character.global_position = character.point1.global_position
+	character.trail.visible = false
 	character.can_be_damaged = false
-	curve2d.add_point(character.point1.global_position)
-	curve2d.add_point(character.point2.global_position)
+	curve2d.add_point(character.point5.global_position)
+	curve2d.add_point(character.point6.global_position)
 	character.path.curve = curve2d.duplicate()
 	character.path_follow.unit_offset = 0
-
+	
 
 func exit() -> void:
+	character.add_to_group("enemies")
+	character.can_be_damaged = true
+	character.trail.visible = true
 	curve2d.clear_points()
 	character.path.curve.clear_points()
 	character.path_follow.unit_offset = 0
 	character.can_be_damaged = true
 	path_ended = false
+	SingletonManager.hero.is_active = true
 
 
 func _on_timer_timeout() -> void:
 	pass
 
 
-#func initialize() -> void:
-#	character.entrance_animation_player.connect("animation_finished", self, "_on_shine_animation_finished")
+func initialize() -> void:
+	character.entrance_animation_player.connect("animation_finished", self, "_on_shine_animation_finished")
 
 
 func _on_warning_ended() -> void:

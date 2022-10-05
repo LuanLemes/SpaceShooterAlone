@@ -121,7 +121,7 @@ func _on_reward_handler_activated(reward_name: String) -> void:
 
 
 func reset_hero_position() -> void:
-	_hero.global_position = _wave_spawner.spawned_wave._player_start_position.global_position
+	_hero.player_reset_position()
 
 
 func _on_Spawner_hero_left() -> void:
@@ -197,4 +197,8 @@ func _update_level_label() -> void:
 		_level_label.text = "Level " + String(_wave_spawner.folder_number) + " - " + String(_wave_spawner.wave_to_spawn)
 	else: 
 		_level_label.text = _wave_spawner.level_label
+
+
+
+
 

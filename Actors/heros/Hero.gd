@@ -42,6 +42,7 @@ var is_active:bool = true setget _set_is_active
 var dash_cooldown: float = 0.63
 
 
+onready var hero_tween: Tween = $HeroTween
 onready var _hurt_box: HurtBoxArea2D = $HurtBoxArea2D
 onready var shield_recharge_action: = $ShieldRechargeAction
 onready var hero_weapon: HeroWeapon = $HeroWeapon
@@ -66,7 +67,11 @@ onready var _inside_wall_checker: RayCast2D = $IndiseWallChecker/RayCast2D
 onready var _inside_wall_checker2: RayCast2D = $IndiseWallChecker/RayCast2D2
 onready var _foward_wall_checker: RayCast2D = $IndiseWallChecker/FowardDashWallChecker
 var saved_global_position
+
+
 func _ready():
+	hero_tween.connect("tween_completed", SignalManager, "_on_hero_entered_level")
+	SignalManager.connect("player_can_enter", self, "player_enter")
 	SingletonManager.hero = self
 	connect("total_shield_changed", self, "_on_total_shield_changed")
 	connect("shield_changed", self, "_on_shield_changed" )
@@ -238,9 +243,9 @@ func _on_HurtBoxArea2D_hit_landed(damage):
 
 
 func set_shield_recharge_cd(value):
-		shield_recharge_cd = value
-		shield_recharge_action.shield_regen_cooldown.wait_time = shield_recharge_cd
-
+#		shield_recharge_cd = value
+#		shield_recharge_action.shield_regen_cooldown.wait_time = shield_recharge_cd
+	pass
 
 func update_target() -> void:
 	
@@ -320,15 +325,9 @@ func _set_is_active(value) -> void:
 	is_active = value
 
 
-#func _input(event):
-#	if event.is_action_pressed("test_input_1"):
-#		save_global_position()
-#	if event.is_action_pressed("ui_accept"):
-#		global_position = saved_global_position
-		
-
 func save_global_position() -> void:
 	saved_global_position = self.global_position
+
 
 func check_if_can_wall_dash() -> int:
 	if !check_foward_wall():
@@ -358,3 +357,18 @@ func check_foward_wall() -> bool:
 	_foward_wall_checker.force_raycast_update()
 	return _foward_wall_checker.is_colliding()
 	 
+
+func move_to_location(final_position) -> void:
+
+	var time = global_position.distance_to(final_position)/540
+	hero_tween.interpolate_property(self, "global_position", global_position, final_position, time, Tween.TRANS_LINEAR )
+	hero_tween.start()
+
+
+func player_enter() -> void:
+	self.is_active = false
+	move_to_location(Vector2(540, 1736))
+
+
+func player_reset_position() -> void:
+	global_position = Vector2(540, 2000)
