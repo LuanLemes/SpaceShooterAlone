@@ -19,7 +19,8 @@ signal before_hurt(damage)
 signal hurt(damage)
 
 
-
+var dashs_left = 1
+var max_dashs = 1
 var target setget set_target
 
 export var base_hp: float = 1
@@ -28,22 +29,22 @@ var bonus_percent_hp: float = 0 setget set_bonus_percent_hp
 var _total_hp: int = 0
 var _hp : float = 0 setget set_hp
 
-export var base_shield: float = 0 setget set_base_shield
 var bonus_shield: float = 0 setget set_bonus_shield
 var bonus_percent_shield: float = 0 setget set_bonus_percent_shield
 var _total_shield: int = 0
 var shield: float = 0 setget set_shield
-export var shield_regen_base: float = 0.5
-export var shield_recharge_cd: float = 2 setget set_shield_recharge_cd
+export var base_shield: float = 0 setget set_base_shield
+export var shield_regen_base: float = 0
 
 
 var can_be_hurt: bool = false
 var is_active:bool = true setget _set_is_active
-var dash_cooldown: float = 0.63
+export var dash_cooldown: float = 0.1
 
 
 onready var hero_tween: Tween = $HeroTween
 onready var _hurt_box: HurtBoxArea2D = $HurtBoxArea2D
+export onready var shield_recharge_cd: float = 2 setget set_shield_recharge_cd
 onready var shield_recharge_action: = $ShieldRechargeAction
 onready var hero_weapon: HeroWeapon = $HeroWeapon
 onready var status_storage = $StatusStorage
@@ -133,7 +134,8 @@ func update_total_shield() -> void:
 	var percentage_of_total_shield = (base_shield + bonus_shield)/100 * bonus_percent_shield
 	_total_shield = percentage_of_total_shield + new_total_shield
 	emit_signal("total_shield_changed")
-	self.shield = self.shield
+#	self.shield = self.
+	self.shield = 0
 
 
 func set_shield(value) -> void:
@@ -233,7 +235,8 @@ func get_heal(heal_value) -> void:
 
 
 func get_percentage_heal(heal_value_percentage) -> void:
-	self._hp += heal_value_percentage/100 * self._total_hp
+	var value = round((heal_value_percentage/100) * _total_hp)
+	self._hp += value
 	emit_signal("heal")
 
 
@@ -243,9 +246,11 @@ func _on_HurtBoxArea2D_hit_landed(damage):
 
 
 func set_shield_recharge_cd(value):
-#		shield_recharge_cd = value
-#		shield_recharge_action.shield_regen_cooldown.wait_time = shield_recharge_cd
-	pass
+	if !shield_recharge_action:
+		return
+	shield_recharge_cd = value
+	shield_recharge_action.shield_regen_cooldown.wait_time = shield_recharge_cd
+
 
 func update_target() -> void:
 	
@@ -360,15 +365,26 @@ func check_foward_wall() -> bool:
 
 func move_to_location(final_position) -> void:
 
-	var time = global_position.distance_to(final_position)/540
+	var time = global_position.distance_to(final_position)/(540*2)
 	hero_tween.interpolate_property(self, "global_position", global_position, final_position, time, Tween.TRANS_LINEAR )
 	hero_tween.start()
 
 
 func player_enter() -> void:
+	self.rotation_degrees = -90
 	self.is_active = false
 	move_to_location(Vector2(540, 1736))
 
 
 func player_reset_position() -> void:
 	global_position = Vector2(540, 2000)
+
+
+func _on_dash_time_out() -> void:
+	if dashs_left >= max_dashs:
+		return
+	dashs_left = max_dashs
+	_dash_timer.start()
+
+func _on_DashTimer_timeout():
+	_on_dash_time_out()

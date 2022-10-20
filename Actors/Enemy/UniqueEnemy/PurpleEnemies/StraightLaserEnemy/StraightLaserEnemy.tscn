@@ -31,26 +31,25 @@ extents = Vector2( 40, 40 )
 
 [node name="LaserPipeEnemy" instance=ExtResource( 6 )]
 script = ExtResource( 12 )
-base_hp = 470.0
-_rotation_speed = 3.0
+base_hp = 370.0
+_rotation_speed = 3.4
 
 [node name="AnimatedSprite" parent="." index="1"]
+self_modulate = Color( 1.4, 1.4, 1.4, 1 )
 material = SubResource( 1 )
 rotation = -1.57079
-scale = Vector2( 0.798911, 0.795663 )
+scale = Vector2( 1.1, 1.1 )
 frames = SubResource( 2 )
 
 [node name="CollisionShape2D" parent="HurtBoxArea2D" index="2"]
 shape = SubResource( 3 )
 
-[node name="Button" parent="." index="3"]
-visible = false
-
-[node name="Label" parent="." index="4"]
+[node name="Label" parent="." index="3"]
 visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]
 script = ExtResource( 3 )
+max_wait = 1.0
 
 [node name="Rotate" type="Node" parent="StateMachine" index="1"]
 script = ExtResource( 1 )
@@ -77,7 +76,7 @@ position = Vector2( 6.86646e-05, -58 )
 [node name="Sprite" type="Sprite" parent="Weapon/BasicEnemyWeapon" index="3"]
 position = Vector2( 22, 1.00044e-11 )
 rotation = -1.57079
-scale = Vector2( 0.262444, 0.262444 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 10 )
 
 [node name="LaserBeam" parent="Weapon/BasicEnemyWeapon" index="4" instance=ExtResource( 11 )]
@@ -87,6 +86,4 @@ position = Vector2( 58, 0 )
 [node name="AntecipationRayCast2D" parent="Weapon/BasicEnemyWeapon" index="5" instance=ExtResource( 7 )]
 position = Vector2( 58, 0 )
 collision_mask = 34
-
-[node name="SupportControl" parent="." index="11"]
-position = Vector2( 0, 12 )
+width_of_the_line = 4

@@ -8,7 +8,8 @@ signal status_setted(original_status)
 
 
 enum Teams{PLAYER, ENEMY, HAZARD}
-export (Teams) var team := Teams.ENEMY
+export (Teams) var team 
+#:= Teams.ENEMY
 export var damage:= 1.0
 
 export var max_number_of_hits = 0
@@ -86,6 +87,7 @@ func apply_chossen_status(hurt_box: HurtBoxArea2D) -> void:
 func set_chossen_status(new_chossen_status) -> void:
 	chossen_status = new_chossen_status
 	emit_signal("status_setted", status_storage.get_node(chossen_status))
+
 
 func _on_HitBoxArea2D_area_entered(area):
 	apply_hit(area)

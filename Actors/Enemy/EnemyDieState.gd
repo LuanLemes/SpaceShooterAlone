@@ -13,6 +13,7 @@ func physics_process(delta):
 
 
 func enter(msg: Dictionary = {}) -> void:
+	character.weapon.destroy_all_bullets()
 	character.set_collision_layer_bit(2, 0)
 	character.emit_signal("death_started",character.global_position)
 	character.activated = false

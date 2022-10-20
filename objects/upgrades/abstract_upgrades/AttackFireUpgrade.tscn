@@ -5,4 +5,4 @@
 
 [node name="AttackFireUpgrade" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-rarity = 2
+rarity = 1

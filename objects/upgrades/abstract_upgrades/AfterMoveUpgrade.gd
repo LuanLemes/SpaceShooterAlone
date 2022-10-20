@@ -2,10 +2,10 @@ extends Upgrade
 
 var is_effect_active: bool = false
 #var bullet_bonus_scale = 0.5
-var percent_bonus_damage := 20.0
+var percent_bonus_damage := 15.0
 
 func _ready():
-	_up_name = "After Move UPgrade"
+	_up_name = "After Move Upgrade"
 	_up_effect = "First Shoot after player move is a special bullet with bigger damage"
 
 #	_signal_connect = "hero_shield_full"

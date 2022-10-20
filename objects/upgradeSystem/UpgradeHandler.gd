@@ -19,10 +19,10 @@ onready var big_cards_tween = $Tween
 onready var small_left_button = $ColorRect/VBoxContainer/SmallButtons/ButtonLeft/Button
 onready var small_middle_button = $ColorRect/VBoxContainer/SmallButtons/ButtonMiddle/Button
 onready var small_right_button = $ColorRect/VBoxContainer/SmallButtons/ButtonRight/Button
-onready var big_button_left:UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonLeft
-onready var big_button_middle:UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonMiddle
-onready var big_button_right:UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonRight
-
+onready var big_button_left :UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonLeft
+onready var big_button_middle: UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonMiddle
+onready var big_button_right: UpgradeButton = $ColorRect/VBoxContainer/BigButtons/BigButtonRight
+onready var all_big_buttons: = $ColorRect/VBoxContainer/BigButtons.get_children()
 var all_upgrades = []
 var non_bought_upgrades: Array
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -48,10 +48,15 @@ func _ready():
 	all_upgrades.append_array(unsorted_container)
 	non_bought_upgrades = all_upgrades
 	set_containers()
-
+	
+	
 	for button in all_buttons_container.get_children():
 		button.connect("upgrade_button_pressed", self, "upgrade_button_pressed")
-
+	
+	for button in all_big_buttons:
+		button.connect("upgrade_button_pressed", self, "upgrade_button_pressed")
+	
+	
 
 func chosse_upgrades_to_buy() -> void:
 	set_current_state(BUY)
@@ -205,9 +210,9 @@ func set_current_state(new_value) -> void:
 	current_state = new_value
 	
 
-func _unhandled_input(event):
-	if event.is_action_pressed("test_input_4"):
-		chosse_upgrades_to_upgrade()
+#func _unhandled_input(event):
+#	if event.is_action_pressed("test_input_4"):
+#		chosse_upgrades_to_upgrade()
 
 
 func _on_upgrade_duplicated(upgrade_duplicated) -> void:
@@ -260,7 +265,6 @@ func _on_right_focus() -> void:
 
 func update_bigger_cards() -> void:
 	var i = 0
-	var all_big_buttons = $ColorRect/VBoxContainer/BigButtons.get_children()
 	for button in all_buttons:
 		all_big_buttons[i].upgrade = button.upgrade
 		i += 1

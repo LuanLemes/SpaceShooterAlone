@@ -32,7 +32,7 @@ func calculate_trajectory() -> void:
 	var x_component = (cos(deg2rad(angle)) *speed)
 	var y_component = (sin(deg2rad(angle)) *speed)
 	
-#	var total_time = x_dis / x_component
+	if x_dis == 0: x_dis = 1
 	total_time = x_dis / x_component
 
 	var curve2d : = Curve2D.new()

@@ -5,4 +5,3 @@
 
 [node name="SpeedPlusUpgrade" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-_number_of_cards = 2

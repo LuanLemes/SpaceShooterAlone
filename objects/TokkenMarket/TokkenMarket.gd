@@ -24,7 +24,8 @@ var shuffle_price: int = 50
 
 
 func _ready():
-	update_shuffle_price()
+	close_left_button()
+	close_right_button()
 	left_button.grab_focus()
 	control.set_as_toplevel(true)
 	left_button.connect("focus_entered", self, "left_focus_entered")
@@ -43,7 +44,7 @@ func _ready():
 	middle_button.connect("mouse_entered", self, "middle_mouse_entered")
 	middle_button.connect("mouse_exited", self, "middle_mouse_exited")
 	middle_button.connect("button_up", self, "on_middle_button_up")
-
+	
 
 func left_mouse_exited() -> void:
 	left_button.release_focus()
@@ -106,6 +107,8 @@ func on_middle_button_up() -> void:
 	if !player_can_pay(shuffle_price):
 		return
 	shuffle_selected_products()
+	shuffle_price += 10
+	update_shuffle_price()
 
 
 func update_shuffle_price() -> void:
@@ -113,8 +116,6 @@ func update_shuffle_price() -> void:
 
 
 func shuffle_selected_products() -> void:
-	shuffle_price += 10
-	update_shuffle_price()
 
 	selected_product_1 = null
 	selected_product_2 = null

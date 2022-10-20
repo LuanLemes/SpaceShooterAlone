@@ -161,9 +161,6 @@ text = "Neon Strike"
 align = 1
 autowrap = true
 uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0

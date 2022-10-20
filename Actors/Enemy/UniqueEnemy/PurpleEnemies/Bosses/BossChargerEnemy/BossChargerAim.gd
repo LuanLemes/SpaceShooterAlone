@@ -23,7 +23,7 @@ func exit() -> void:
 
 
 func _on_timer_timeout() -> void:
-	pass
+	_state_machine.transition_without_delay("PathShoot")
 
 
 func aim_handler(delta) -> void:

@@ -4,7 +4,7 @@ class_name Bullet
 export var speed: = 10
 var direction = Vector2.RIGHT setget set_direction
 var velocity: = Vector2.ZERO
-var is_piercing: bool = false
+var is_piercing: bool = true
 var max_wall_bounces: = 0
 var walls_bounced: = 0
 var enemies_bounced: = 0
@@ -42,15 +42,18 @@ func _physics_process(delta):
 
 
 func find_next_target(last_enemy_hurt_box) -> void:
-	if !enemies_bounced < max_enemies_bounces and !is_piercing:
+	if !enemies_bounced < max_enemies_bounces or !is_piercing:
 		destroy()
 		return
 	
 	instance_explosion_particle()
-	damage_reduction(hitbox.damage/100*50)
+	damage_reduction(hitbox.damage/100*77)
 	var last_enemy = last_enemy_hurt_box.character
 	raycast2d.add_exception(last_enemy)
 	var enemies_detected = enemy_detector.get_overlapping_areas()
+	if enemies_detected.size() == 1 and !is_piercing:
+		destroy()
+		return
 	for enemy_area in enemies_detected:
 		if enemy_area.get_parent() == last_enemy:
 			continue
@@ -84,8 +87,6 @@ func addapt_size(scale_variation) -> void:
 		$Trail2D.visible = false
 	else:
 		self.scale *= scale_variation
-#		var new_scale = 1 / scale_variation
-#		$Trail2D.scale = Vector2(new_scale, new_scale)
 		$Trail2D.scale /= self.scale
 		$Trail2D.lenght = 7
 		

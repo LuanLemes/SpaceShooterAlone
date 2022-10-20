@@ -18,7 +18,9 @@ func destroy_explosion_after_time() -> void:
 	set_as_toplevel(true)
 	self.global_position = this_global_position
 	emitting = true
-	timer.start()
+	if timer:
+		timer.start()
+	else: queue_free()
 
 
 func _on_Timer_timeout():

@@ -1,8 +1,13 @@
 extends Upgrade
 
+var is_active: bool = false
+onready var timer: Timer = $Timer
+var cooldown: float = 2
+
 func _ready():
+	timer.wait_time = cooldown
 	_up_name = "Enemy Ricochet"
-	_up_effect = "Your bullets ricochet when hit Enemys"
+	_up_effect = "After pick code fragment Your bullets ricochet from one enemy to another for a short period of time"
 	_bonus_1 = ""
 	_bonus_2 = ""
 	_bonus_3 = ""
@@ -11,11 +16,15 @@ func _ready():
 	
 
 func _execute(value = 0):
-	print(name)
+	if !is_active:
+		is_active = true
+		hero.hero_weapon.max_enemies_bounces += 1
+		timer.start()
 
 
 func _unexecute():
-	pass
+	hero.hero_weapon.max_enemies_bounces -= 1
+	
 
 
 func _initialize() -> void:
@@ -23,7 +32,7 @@ func _initialize() -> void:
 
 
 func on_buy_effect():
-	hero.hero_weapon.max_enemies_bounces += 1
+	SignalManager.connect("collectable_picked", self, "_execute")
 
 
 func on_signal_received(value = 0):
@@ -40,3 +49,9 @@ func _execute_bonus_2() -> void:
 
 func _execute_bonus_3() -> void:
 	pass
+
+
+func _on_Timer_timeout():
+	if is_active:
+		is_active = false
+		_unexecute()

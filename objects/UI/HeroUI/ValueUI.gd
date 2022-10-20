@@ -6,7 +6,6 @@ onready var label: Label = $Label
 onready var tween: Tween = $Tween
 onready var timer: Timer = $Timer
 var label_value: int setget set_label_value
-#var active: bool setget set_active
 export var duration: float = 2.5
 export var value_change_duration: float = 0.5
 
@@ -27,15 +26,6 @@ func tween_label_value(new_value) -> void:
 	tween.start()
 
 
-func _input(event):
-	if event.is_action_pressed("test_input_1"):
-		tween_label_value(label_value + 10)
-	if event.is_action_pressed("test_input_2"):
-		appear()
-	if event.is_action_pressed("test_input_3"):
-		disappear()
-
-
 func appear() -> void:
 	timer.start()
 	tween.interpolate_property(self, "modulate", self.modulate, Color(1,1,1,1), duration/3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -47,20 +37,8 @@ func disappear() -> void:
 	tween.start()
 
 
-#func set_active(new_state) -> void:
-#	active = new_state
-#
-#	if active == false:
-#		disappear()
-#		return
-#
-#	if active == true:
-#		appear()
-#		timer.start()
-#		return
-
-
 func on_timer_time_out() -> void:
-	disappear()
+	if SingletonManager.hero._hp > SingletonManager.hero._total_hp/2:
+		disappear()
 
 

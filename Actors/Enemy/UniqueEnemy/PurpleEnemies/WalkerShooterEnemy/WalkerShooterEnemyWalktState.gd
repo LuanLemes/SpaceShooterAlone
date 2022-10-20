@@ -35,7 +35,7 @@ func exit() -> void:
 
 
 func _on_timer_timeout() -> void:
-	_state_machine.transition_to("RotateAndShoot")
+	_state_machine.transition_without_delay("RotateAndShoot")
 
 
 func move_along_path() -> void:

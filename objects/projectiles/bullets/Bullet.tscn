@@ -105,7 +105,7 @@ modulate = Color( 0.4, 0.937255, 1, 1 )
 light_mask = 128
 scale = Vector2( 1.63, 1.63 )
 frames = SubResource( 14 )
-frame = 7
+frame = 9
 playing = true
 
 [node name="HitBoxArea2D" parent="." instance=ExtResource( 1 )]

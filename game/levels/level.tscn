@@ -147,9 +147,6 @@ margin_bottom = 66.5
 custom_fonts/font = SubResource( 2 )
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = -2

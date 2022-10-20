@@ -9,7 +9,7 @@ var update_direction_inputs: bool = true
 var character setget set_character
 var direction = Vector2.ZERO
 var velocity = Vector2.ZERO
-var speed_improve_modifier = 140
+var speed_improve_modifier = 210
 export var dash_speed = 1500
 export var base_speed: float = 300
 export var _rotation_speed: = 10
@@ -123,7 +123,7 @@ func clamp_position() -> void:
 
 
 func improve_speed() -> void:
-	self.base_speed += speed_improve_modifier 
+	self.bonus_speed += speed_improve_modifier 
 	speed_improve_modifier = speed_improve_modifier - float(speed_improve_modifier)/100 * 28
 
 

@@ -1,8 +1,8 @@
 extends Upgrade
 
 func _ready():
-	_up_name = "Speed Plus"
-	_up_effect = "Improves The Speed of your ship"
+	_up_name = "Speedster"
+	_up_effect = "Improves The Speed and rotation speed of your ship "
 	_bonus_1 = ""
 	_bonus_2 = ""
 	_bonus_3 = ""
@@ -24,6 +24,7 @@ func _initialize() -> void:
 
 func on_buy_effect():
 	hero.hero_movement_handler.improve_speed()
+	hero.hero_movement_handler._rotation_speed += 10
 
 
 func on_signal_received(value = 0):

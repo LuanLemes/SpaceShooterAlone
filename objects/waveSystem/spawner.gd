@@ -82,12 +82,6 @@ func delete_last_wave() -> void:
 	spawned_wave = null
 
 
-func _input(event):
-	if event.is_action_pressed("test_input_2"):
-		delete_last_wave()
-		instance_next_wave()
-
-
 func _connect_signals() -> void:
 	spawned_wave.connect("wave_ended", self, "_on_wave_ended")
 	spawned_wave.connect("hero_left", self, "_on_wave_hero_left")

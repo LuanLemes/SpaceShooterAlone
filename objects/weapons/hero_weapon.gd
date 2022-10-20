@@ -6,6 +6,7 @@ signal hero_shooted
 var array_of_status_names: Array
 var spawned_projectile
 export var projectile_scene: PackedScene
+export var back_projectile_scene: PackedScene
 var character
 export var total_cooldown_time: float
 var base_cooldown: float = 0.30 setget set_base_cooldown
@@ -14,11 +15,14 @@ export var _base_damage: int = 25 setget set_base_damage
 var _total_damage: int = 2
 var _bonus_damage = 0 setget set_bonus_damage
 var _percent_bonus_damage = 0 setget set_percent_damage
+var is_back_fire: bool = false
 
+var shoot_counter: int = 0
 var status_chance: float
 var base_status_chance: float = 5
 var bonus_status_chance: float = 0 setget set_bonus_status_chance
 var percent_status_chance: float = 0 setget set_percent_status_chance
+export var shoot_counter_back_fire: int = 15
 
 onready var cooldown_timer_node: Timer = $Cooldown
 onready var front_cannons = $FrontCannons
@@ -41,6 +45,8 @@ var bonus_critical_chance: float = 0 setget set_bonus_critical
 var percent_critical_chance: float = 0 setget set_percent_critical
 var total_critical_chance: float 
 var is_special_bullet: bool = false
+var extra_cannons = 0
+
 
 func set_bonus_critical(new_value) -> void:
 	bonus_critical_chance = new_value
@@ -58,12 +64,14 @@ func update_total_critical_chance() -> void:
 
 
 func _ready():
+	SignalManager.connect("on_enemy_hit_landed", self, "on_enemy_hit_landed")
 	update_status_chance()
 	splash_animated_sprite = get_node(splash_path)
 	update_total_damage()
 	update_total_cooldown()
 	add_front_cannon()
 	self.connect("hero_shooted", SignalManager, "_on_hero_shooted")
+	connect("hero_shooted", self, "")
 	update_total_critical_chance()
 
 
@@ -77,6 +85,13 @@ func add_diagonal_cannons1() -> void:
 	var cannons_to_add = diagonal_cannons1.get_children()
 	for cannon in cannons_to_add:
 		all_cannons.append(cannon)
+		extra_cannons += 1
+
+
+func remove_extra_cannons() -> void:
+	while extra_cannons > 0:
+		all_cannons.remove(all_cannons.size()-1)
+		extra_cannons -= 1
 
 
 func add_diagonal_cannons2() -> void:
@@ -110,6 +125,8 @@ func shoot() -> void:
 
 	for cannon in all_cannons:
 		SoundEffects.instance_sound("PlayerShoot1")
+#		SoundEffects.instance_sound("Laser Zap 3")
+
 		spawned_projectile = projectile_scene.instance() 
 		var spawned_projectile_hitbox = spawned_projectile.get_node("HitBoxArea2D")
 		if is_status_bullet and self.array_of_status_names.size() > 0:
@@ -136,7 +153,7 @@ func shoot() -> void:
 
 func _input(event):
 	if event.is_action_pressed("test_input_4"):
-		improve_cooldown()
+		back_fire()
 
 
 func update_total_damage() -> void:
@@ -176,7 +193,7 @@ func set_wall_bounces(value) -> void:
 
 
 func update_total_cooldown() -> void:
-	total_cooldown_time  = base_cooldown - bonus_cooldown
+	total_cooldown_time  = max(0, base_cooldown - bonus_cooldown)
 	if !cooldown_timer_node:
 		return
 	cooldown_timer_node.wait_time = total_cooldown_time
@@ -213,7 +230,27 @@ func update_status_chance() -> void:
 	status_chance = raw_percent_status_chance + raw_status_chance
 
 
+func back_fire() -> void:
+	var new_projectile:GuidedMissle = back_projectile_scene.instance()
+	new_projectile.set_as_toplevel(true)
+	new_projectile.global_position = rear_cannon.global_position
+	new_projectile.global_rotation = rear_cannon.get_child(0).global_rotation + Rng.rng.randf_range(-1, 1)
+	add_child(new_projectile)
 
+
+func on_enemy_hit_landed() -> void:
+	if !is_back_fire:
+		return
+	shoot_counter = wrapi(shoot_counter + 1, 0, shoot_counter_back_fire)
+	if shoot_counter != shoot_counter_back_fire-1:
+		return
+	else:
+		back_fire()
+	if Rng.rng.randi_range(0,100) < 99:
+		back_fire()
+		
+	
+	
 
 
 

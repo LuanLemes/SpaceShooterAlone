@@ -25,7 +25,6 @@ func apply_hit() -> void:
 		return
 	for area in hit_box.get_overlapping_areas():
 		hit_box.apply_hit(area)
-#	animation_player.play
 	timer.start()
 
 
@@ -45,6 +44,8 @@ func _on_HitBoxArea2D_area_exited(area):
 	if hit_box.get_overlapping_areas().size() == 0:
 		self.is_colliding = false
 		hazard_particles.emitting = false
+		timer.start()
+		timer.wait_time = timer.wait_time
 		animation_player.play("BackToNormal")
 
 

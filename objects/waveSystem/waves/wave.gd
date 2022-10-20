@@ -51,7 +51,6 @@ func initialize_enemy(enemy) -> void:
 		_on_enemy_moved_on_tile(Vector2(-5,-5), enemy.global_position)
 	enemy.wave = self
 
-
 func add_enemy(enemy) -> void:
 	number_of_enemies += 1
 
@@ -59,13 +58,12 @@ func add_enemy(enemy) -> void:
 		_on_enemy_moved_on_tile(Vector2(-5,-5), enemy.global_position)
 	enemy.wave = self
 
-#	enemy.on_wave_ready()
-#	enemy.connect("death_started",self,"_on_enemy_started_to_die")
-#	enemy.connect("moved", self, "_on_enemy_moved_on_tile")
 
 
 func _on_enemy_started_to_die(enemy_global_position):
 	number_of_enemies -= 1
+	if number_of_enemies == 1:
+		collectable_handler.is_last_one = true
 	if number_of_enemies == 0:
 		emit_signal("wave_ended")
 	if number_of_enemies <= -1:
@@ -130,10 +128,11 @@ func _on_enemy_moved_on_tile(last_position: Vector2,new_position: Vector2) -> vo
 				walkable_tilemap.set_cell(last_position_on_tile.x,last_position_on_tile.y, 0)
 
 		if this_cell == new_position_on_tile:
-			var walkable_cells_size = walkable_cells.size()
+#			var walkable_cells_size = walkable_cells.size()
 			walkable_cells[i] += 1
 			if walkable_cells[i] > 0:
 				walkable_tilemap.set_cell(new_position_on_tile.x, new_position_on_tile.y, 1)
+				return
 		i += 1
 
 

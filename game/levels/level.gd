@@ -7,7 +7,7 @@ signal _hero_hurt
 signal enemy_died
 signal object_destroyed
 signal _hero_shield_full
-signal _hero_shield_depleted
+signal _hero_shield_depleteda
 signal _enemy_critical_landed
 signal _level_started
 signal token_count_changed(current_tokens)
@@ -29,11 +29,11 @@ onready var _level_label := $CanvasLayer/Ui/LevelLabel
 onready var _token_label_container:= $CanvasLayer/Ui/TokenLabelContainer
 
 var _level_count: int = 0
-var _min_wait_time_between_levels: int = 3.5
-var _tokens_count: int = 900 setget _set_tokens_counter
+var _min_wait_time_between_levels: int = 1.4
+var _tokens_count: int = 0 setget _set_tokens_counter
 
 export var _reward_levels: int = 5
-export var _flame_levels: int = 5
+export var _flame_levels: int = 15
 
 
 func _ready():
@@ -88,7 +88,7 @@ func _on_upgrade_handler_upgrade_finished():
 
 func _on_wave_spawner_wave_ended():
 	print(_wave_spawner.wave_to_spawn)
-	if _level_count % _reward_levels == 0:
+	if _level_count % _reward_levels == 0 or _level_count == 1:
 		_reward_handler.spawn_reward("BuyReward", _hero.global_position)
 	_wave_spawner.open_wave_front_door()
 
@@ -135,7 +135,7 @@ func call_next_level() -> void:
 	_level_count += 1
 	count_timer()
 	_transition_rect.transition_out()
-	yield(_transition_rect, "transition_ended")
+	yield(_transition_rect, "transition_out_ended")
 	_hero.is_active = false
 	_wave_spawner.call_next_wave()
 	reset_hero_position()
@@ -151,7 +151,7 @@ func call_market() -> void:
 	_level_count += 1
 	count_timer()
 	_transition_rect.transition_out()
-	yield(_transition_rect, "transition_ended")
+	yield(_transition_rect, "transition_out_ended")
 	_hero.is_active = false
 	_wave_spawner.call_market()
 	reset_hero_position()
@@ -179,6 +179,8 @@ func start_level() -> void:
 func _input(event):
 	if event.is_action_pressed("test_input_3"):
 		_on_reward_handler_activated("BuyReward")
+	if event.is_action_pressed("test_input_2"):
+		call_next_level()	
 
 
 func screen_shake() -> void:

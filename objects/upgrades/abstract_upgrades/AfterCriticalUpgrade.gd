@@ -1,7 +1,6 @@
 extends Upgrade
 
 var is_effect_active: bool = false
-#var critical_bonus_chance := 13.5
 var wait_time:= 5
 var is_active: = false
 var temporary_damage_percent_bonus = 15

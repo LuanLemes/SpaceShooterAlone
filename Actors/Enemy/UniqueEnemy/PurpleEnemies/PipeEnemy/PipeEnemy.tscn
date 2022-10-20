@@ -125,11 +125,13 @@ tracks/0/keys = {
 }
 
 [node name="PipeEnemy" instance=ExtResource( 1 )]
-base_hp = 550.0
-_rotation_speed = 5.0
+base_hp = 352.0
+_rotation_speed = 7.0
+speed = 400
 crosshair_scale = 0.7
 
 [node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( -12, -1 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]

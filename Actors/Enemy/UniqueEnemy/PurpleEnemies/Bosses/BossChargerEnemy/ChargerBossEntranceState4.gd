@@ -15,6 +15,7 @@ func physics_process(delta):
 	if character.path_follow.unit_offset == 1:
 			path_ended = true
 			character.shine()
+			character.show_health()
 			return
 	character.path_follow.offset += character.path_follow_speed/4
 	character.global_position = character.path_follow.global_position
@@ -50,11 +51,10 @@ func initialize() -> void:
 	character.entrance_animation_player.connect("animation_finished", self, "_on_shine_animation_finished")
 
 
-func _on_warning_ended() -> void:
-	pass
-
 
 func _on_shine_animation_finished(animation_name) -> void:
+	if !_state_machine.state == self:
+		return
 	if animation_name == "ShineEntrance":
 		_state_machine.transition_without_delay("Phase1")
 

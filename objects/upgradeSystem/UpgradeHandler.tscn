@@ -12,10 +12,9 @@
 [ext_resource path="res://objects/upgrades/abstract_upgrades/WeakPointUpgrade.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/DiagonalShootsUpgrade.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/LifeStealUpgrade.tscn" type="PackedScene" id=12]
-[ext_resource path="res://objects/upgrades/abstract_upgrades/AttackSpeedPlusUpgrade.tscn" type="PackedScene" id=13]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/AfterMoveUpgrade.tscn" type="PackedScene" id=14]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/10FirstSecondsAttackPlusUpgrade.tscn" type="PackedScene" id=15]
-[ext_resource path="res://objects/upgrades/abstract_upgrades/OfenseIsTheBestDefenseUpgrade.tscn" type="PackedScene" id=16]
+[ext_resource path="res://objects/upgrades/abstract_upgrades/CritSteal.tscn" type="PackedScene" id=16]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/DangerousGameUpgrade.tscn" type="PackedScene" id=17]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/DieHardUpgrade.tscn" type="PackedScene" id=18]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/CatastrophicMoraleUpgrade.tscn" type="PackedScene" id=19]
@@ -27,6 +26,7 @@
 [ext_resource path="res://objects/upgrades/abstract_upgrades/AfterMoveCriticalUpgrade.tscn" type="PackedScene" id=25]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/HopeUpgrade.tscn" type="PackedScene" id=26]
 [ext_resource path="res://objects/upgradeSystem/ButtonsHBoxContainer.gd" type="Script" id=27]
+[ext_resource path="res://objects/upgrades/abstract_upgrades/DashPlus.tscn" type="PackedScene" id=28]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Show Cards"
@@ -127,6 +127,9 @@ animate_on_focus = true
 [node name="Button" parent="ColorRect/VBoxContainer/SmallButtons/ButtonLeft" index="0"]
 focus_neighbour_right = NodePath("../../ButtonMiddle/Button")
 focus_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ButtonMiddle" parent="ColorRect/VBoxContainer/SmallButtons" instance=ExtResource( 2 )]
 position = Vector2( 674.728, 308 )
@@ -136,6 +139,9 @@ animate_on_focus = true
 focus_neighbour_left = NodePath("../../ButtonLeft/Button")
 focus_neighbour_right = NodePath("../../ButtonRight/Button")
 focus_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ButtonRight" parent="ColorRect/VBoxContainer/SmallButtons" instance=ExtResource( 2 )]
 position = Vector2( 2320.15, 309 )
@@ -144,6 +150,9 @@ animate_on_focus = true
 [node name="Button" parent="ColorRect/VBoxContainer/SmallButtons/ButtonRight" index="0"]
 focus_neighbour_left = NodePath("../../ButtonMiddle/Button")
 focus_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="UpgradeContainer" type="Node2D" parent="."]
 
@@ -160,8 +169,6 @@ focus_mode = 2
 [node name="AttackFireUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 5 )]
 
 [node name="EnemyRicochetUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 8 )]
-
-[node name="SpeedPlusUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 9 )]
 
 [node name="HpUpUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 3 )]
 
@@ -183,8 +190,6 @@ focus_mode = 2
 
 [node name="ElementalChancePlusUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 22 )]
 
-[node name="AttackSpeedUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 13 )]
-
 [node name="LifeStealUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 12 )]
 
 [node name="RepairsUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 23 )]
@@ -196,6 +201,10 @@ focus_mode = 2
 [node name="HopeUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 26 )]
 
 [node name="WeakPointUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 10 )]
+
+[node name="SpeedPlusUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 9 )]
+
+[node name="DashResetUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 28 )]
 
 [node name="UpgradesActive" type="Node" parent="UpgradeContainer"]
 

@@ -20,7 +20,7 @@ func exit() -> void:
 
 
 func _on_timer_timeout() -> void:
-	_state_machine.transition_to("Rotate")
+	_state_machine.transition_without_delay("Rotate")
 
 
 

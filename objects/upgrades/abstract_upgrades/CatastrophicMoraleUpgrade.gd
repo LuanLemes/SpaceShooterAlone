@@ -12,7 +12,7 @@ func _ready():
 	_timer.wait_time = effect_duration
 	_timer.connect("timeout", self, "_unexecute")
 	_up_name = "Catastrophic Morale!"
-	_up_effect = "After you Kill an enemy add 1 enemy ricochet and 2 wall ricochet for 5 seconds"
+	_up_effect = "After you Kill an enemy add 1 enemy ricochet and 1 wall ricochet for 5 seconds"
 	_scene_path = "res://objects/status/status.tscn"
 
 

@@ -45,3 +45,5 @@ position = Vector2( -20, -146 )
 position = Vector2( 546.352, 1446.7 )
 
 [node name="TokenMarket" parent="." index="15" instance=ExtResource( 2 )]
+
+[node name="Node2D" type="Node2D" parent="." index="18"]

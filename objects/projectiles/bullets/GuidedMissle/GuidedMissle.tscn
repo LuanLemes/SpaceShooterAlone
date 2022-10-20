@@ -1,0 +1,122 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Assets/Shoots/path454.png" type="Texture" id=1]
+[ext_resource path="res://objects/LineTrail/Trail2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/HitBox2D/HitBoxArea2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/projectiles/bullets/GuidedMissle/GuidedMissle.gd" type="Script" id=4]
+[ext_resource path="res://Assets/EffectsSprites/glowing_circle_gray.png" type="Texture" id=5]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 7.0
+height = 3.0
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.774194, 0.922581 )
+colors = PoolColorArray( 1, 0.84375, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.414773 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+trail_divisor = 2
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 20.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 777.0
+initial_velocity_random = 0.4
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 70.0
+damping = 770.0
+damping_random = 0.7
+scale = 14.0
+scale_random = 1.0
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 280.0
+initial_velocity_random = 0.4
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 70.0
+damping = 770.0
+damping_random = 0.7
+scale = 7.0
+scale_random = 1.0
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 9 )
+
+[node name="Missle" type="KinematicBody2D"]
+position = Vector2( 292, 1349 )
+rotation = 3.14159
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 0.654902, 0, 1 )
+self_modulate = Color( 1.7, 1.7, 1.7, 1 )
+rotation = -4.71238
+scale = Vector2( 0.111584, 0.111584 )
+texture = ExtResource( 1 )
+
+[node name="time_before_start" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="HitBoxArea2D2" parent="." instance=ExtResource( 3 )]
+damage = 3.0
+max_number_of_hits = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBoxArea2D2"]
+position = Vector2( -8, 0 )
+rotation = -1.5794
+shape = SubResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+self_modulate = Color( 1.7, 1.7, 1.7, 1 )
+position = Vector2( 17, 0 )
+emitting = false
+amount = 14
+lifetime = 0.4
+one_shot = true
+process_material = SubResource( 7 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+self_modulate = Color( 1.77, 1.77, 1.77, 1 )
+position = Vector2( 17, 0 )
+emitting = false
+amount = 28
+lifetime = 0.4
+one_shot = true
+process_material = SubResource( 10 )
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 14, 0 )
+
+[node name="Trail2D2" parent="Node2D" instance=ExtResource( 2 )]
+modulate = Color( 1, 1, 1, 0.898039 )
+self_modulate = Color( 1.77, 1.77, 1.77, 1 )
+position = Vector2( 30, 8.00012 )
+rotation = 1.5708
+lenght = 15
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 5 )
+texture_scale = 7.0
+range_item_cull_mask = 32
+
+[connection signal="timeout" from="time_before_start" to="." method="_on_time_before_start_timeout"]
+[connection signal="area_entered" from="HitBoxArea2D2" to="." method="_on_HitBoxArea2D2_area_entered"]
+[connection signal="hit_applied" from="HitBoxArea2D2" to="." method="_on_HitBoxArea2D2_hit_applied"]

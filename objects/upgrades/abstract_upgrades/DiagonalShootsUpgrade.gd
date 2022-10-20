@@ -2,24 +2,34 @@ extends Upgrade
 
 
 var _damage_cost = 5
+var _is_active: bool = false
+var _cooldown: float = 1
+onready var timer:= $Timer
 
 
 func _ready():
 	_up_name = "Diagonal Shoot"
-	_up_effect = "Your Gun Shoots Diagonal Shoots but you lose 5 damage"
+	_up_effect = "After pick code fragment gain Diagonal Shoots for a short time"
 	_bonus_1 = ""
 	_bonus_2 = ""
 	_bonus_3 = ""
-#	_signal_connect = "hero_shield_full"
 	_scene_path = "res://objects/status/status.tscn"
+	timer.wait_time = _cooldown
 	
 
 func _execute(value = 0):
-	print(name)
+	if _is_active == true:
+		return
+	_is_active = true
+	hero.hero_weapon.add_diagonal_cannons1()
+	timer.start()
 
 
 func _unexecute():
-	pass
+	if _is_active == false:
+		return
+	hero.hero_weapon.remove_extra_cannons()
+	_is_active = false
 
 
 func _initialize() -> void:
@@ -27,8 +37,7 @@ func _initialize() -> void:
 
 
 func on_buy_effect():
-	hero.hero_weapon.add_diagonal_cannons1()
-	hero.hero_weapon._bonus_damage -= _damage_cost
+	SignalManager.connect("collectable_picked", self, "_execute")
 
 
 func _execute_bonus_1() -> void:
@@ -45,3 +54,7 @@ func _execute_bonus_3() -> void:
 
 func update_labels() -> void:
 	_atribute_description = "your damage is: " + String(hero.hero_weapon._base_damage)
+
+
+func _on_Timer_timeout():
+	_unexecute()

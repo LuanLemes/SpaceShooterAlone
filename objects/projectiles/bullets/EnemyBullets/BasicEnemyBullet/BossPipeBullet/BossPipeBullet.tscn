@@ -7,7 +7,6 @@
 modulate = Color( 1.5, 1.5, 1.5, 1 )
 scale = Vector2( 1, 1 )
 collision_layer = 128
-collision_mask = 288
 speed = 25.0
 
 [node name="Sprite" parent="." index="1"]

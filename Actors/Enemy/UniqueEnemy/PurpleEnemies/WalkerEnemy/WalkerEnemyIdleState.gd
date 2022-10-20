@@ -12,8 +12,6 @@ func physics_process(delta):
 	pass
 
 func enter(msg: Dictionary = {}) -> void:
-	min_wait = 3
-	max_wait = 5
 	start_timer()
 
 

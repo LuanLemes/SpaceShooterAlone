@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Actors/Enemy/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/Resources/DamagedShader.gdshader" type="Shader" id=2]
 [ext_resource path="res://objects/weapons/EnemyWeapons/BasicEnemyWeapon/BasicEnemyWeapon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/projectiles/bullets/EnemyBullets/BasicEnemyBullet/PipeBullet/PipeBullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/StraightPipeEnemy/StraightPipeEnemyShootState.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Enemies/Standard/enemy1.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Enemy/UniqueEnemy/PurpleEnemies/StraightPipeEnemy/StraightPipeEnemyIdleState.gd" type="Script" id=8]
+
+[sub_resource type="CircleShape2D" id=6]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -23,8 +26,63 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 40, 40 )
 
+[sub_resource type="Animation" id=4]
+resource_name = "Shoot"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath("../../Weapon/BasicEnemyWeapon")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "ShootUpgrade"
+length = 1.5
+tracks/0/type = "method"
+tracks/0/path = NodePath("../../Weapon/BasicEnemyWeapon")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+
 [node name="StraightPipeEnemy" instance=ExtResource( 1 )]
-base_hp = 125.0
+collision_layer = 0
+collision_mask = 0
+base_hp = 115.0
+_rotation_speed = 2.5
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( -20, -1 )
+shape = SubResource( 6 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 material = SubResource( 1 )
@@ -40,6 +98,13 @@ visible = false
 
 [node name="Idle" parent="StateMachine" index="0"]
 script = ExtResource( 8 )
+
+[node name="Shoot" type="Node" parent="StateMachine" index="4"]
+script = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Shoot" index="0"]
+anims/Shoot = SubResource( 4 )
+anims/ShootUpgrade = SubResource( 5 )
 
 [node name="Weapon" type="Node2D" parent="." index="10"]
 rotation = 1.57079

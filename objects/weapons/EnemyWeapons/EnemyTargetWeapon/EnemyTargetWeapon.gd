@@ -1,6 +1,7 @@
 extends Node2D
 class_name TargetBasicWeapon
 
+onready var bullets_container = $BulletsContainer
 export var bullet: PackedScene
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 export var aim_error_margin: = 10
@@ -32,23 +33,14 @@ func shoot_at_target (target_position: Vector2) -> void:
 	instanced_bullet.start = this_position
 	instanced_bullet.end = target_position
 	instanced_bullet.global_position = this_position
-	add_child(instanced_bullet)
+	bullets_container.add_child(instanced_bullet)
 	instanced_bullet.set_as_toplevel(true)
 	instanced_bullet.rotation_degrees = 0
-#	var new_rotation
-#	if !rotation_to_cannon:
-#		new_rotation = self.global_rotation
-#	else:
-#		new_rotation = all_cannons[selected_cannon].global_rotation
-#
-#	if random_rotation:
-#		new_rotation = new_rotation + new_rotation/100 * rng.randi_range(-aim_error_margin, aim_error_margin)
-#	instanced_bullet.global_rotation = new_rotation
-#	instanced_bullet.direction = Vector2.UP.rotated(new_rotation)
+
 	instanced_bullet.calculate_trajectory()
 
 
-#func _input(event):
-#	if event.is_action_pressed("test_input_3"):
-#		shoot()
-
+func destroy_all_bullets() -> void:
+	for bullet in bullets_container:
+		bullet.explode()
+	

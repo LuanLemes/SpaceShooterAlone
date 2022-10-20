@@ -6,6 +6,7 @@ export var stinger_sprite_path: NodePath
 var stinger_sprite: AnimatedSprite
 var stored_target_position: Vector2
 export var threshold: int =1
+var line: Line2D = Line2D.new()
 
 func _ready():
 	max_wait = 0.1
@@ -44,10 +45,11 @@ func move_along_path() -> void:
 		
 	if character.global_position.distance_to(path[0]) < threshold:
 		path.remove(0)
+		return
 	
-	if character.global_position.distance_to(path[0]) < 10:
+	if character.global_position.distance_to(path[0]) < minimum_distance:
 		path.remove(0)
-		
+		return
 	else:
 		character.direction = character.global_position.direction_to(path[0])
 		character.velocity = character.direction * character.speed
@@ -66,6 +68,9 @@ func set_path() -> void:
 	if path:
 		set_process(true)
 	start_timer()
+	character.add_child(line)
+	line.set_point_position(0, character.global_position)
+	line.set_point_position(1, path[path.size()-1])
 
 
 func rotate(delta) -> void:

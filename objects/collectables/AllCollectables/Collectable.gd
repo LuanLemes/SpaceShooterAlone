@@ -10,6 +10,7 @@ export var duration: float = 2.5
 onready var timer: Timer = $Timer
 var hero: Hero
 
+
 func _ready():
 	set_physics_process(false)
 	connect("collectable_picked", SignalManager, "_on_collectable_picked")
@@ -63,3 +64,5 @@ func _go_to_player() -> void:
 
 func _on_PlayerMagneticArea_body_entered(body):
 	set_physics_process(true)
+
+

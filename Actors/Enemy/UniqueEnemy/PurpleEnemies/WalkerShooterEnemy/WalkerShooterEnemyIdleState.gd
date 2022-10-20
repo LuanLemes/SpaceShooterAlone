@@ -20,7 +20,7 @@ func physics_process(delta):
 	
 
 func enter(msg: Dictionary = {}) -> void:
-	start_timer()
+	start_timer(0.5)
 
 
 func exit() -> void:

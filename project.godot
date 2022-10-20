@@ -94,10 +94,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/weapons/EnemyWeapons/PipeWeapon/PipeWeapon.gd"
 }, {
-"base": "Node2D",
-"class": "Father",
+"base": "KinematicBody2D",
+"class": "GuidedMissle",
 "language": "GDScript",
-"path": "res://sandbox/SandBox.gd"
+"path": "res://objects/projectiles/bullets/GuidedMissle/GuidedMissle.gd"
 }, {
 "base": "Node2D",
 "class": "HazardFollow",
@@ -183,11 +183,6 @@ _global_script_classes=[ {
 "class": "PopLabelSpawner2D",
 "language": "GDScript",
 "path": "res://objects/PopLabelSpawner2D/PopLabelSpawner2D.gd"
-}, {
-"base": "Node",
-"class": "Sandbox3",
-"language": "GDScript",
-"path": "res://sandbox/sandbox3.gd"
 }, {
 "base": "TextureRect",
 "class": "SceneTransition",
@@ -292,7 +287,7 @@ _global_script_class_icons={
 "EnemyNova": "",
 "EnemySupport": "",
 "EnemyWeapon": "",
-"Father": "",
+"GuidedMissle": "",
 "HazardFollow": "",
 "HazardPath": "",
 "Hero": "",
@@ -310,7 +305,6 @@ _global_script_class_icons={
 "PipeBullet": "",
 "PopLabel": "",
 "PopLabelSpawner2D": "",
-"Sandbox3": "",
 "SceneTransition": "",
 "ShieldSource": "",
 "State": "",

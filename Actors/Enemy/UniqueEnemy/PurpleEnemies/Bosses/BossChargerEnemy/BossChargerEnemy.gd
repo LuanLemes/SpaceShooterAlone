@@ -7,14 +7,16 @@ export var path_follow_speed = 3
 
 
 var phase: int = 1
-var hp_phase2_threshold: int = 2000
-var hp_phase3_threshold: int = 1000
+var hp_phase2_threshold: int = 4500
+var hp_phase3_threshold: int = 3500
+var hp_phase4_threshold: int = 1500
 var number_of_charges_left: int = 0
 var current_number_of_charges: int = 0
 var number_of_shoots: int = 1
 var _shoot_on_charge: bool = true
 var aim_time: float = 1
 var hp_to_next_token = hp
+var tokens_to_spawn = 0
 onready var move_positions_container = $move_positions_container
 onready var move_location_2d = $move_positions_container/move_location
 onready var down_location = $move_positions_container/down
@@ -26,25 +28,38 @@ onready var point4: Position2D = $move_positions_container/point4
 onready var point5: Position2D = $move_positions_container/point5
 onready var point6: Position2D = $move_positions_container/point6
 onready var trail: Line2D = $trailcontainer/Trail2D
+onready var ui_control: Control = $UIControl
+onready var ui_animation: AnimationPlayer = $UIAnimationPlayer
+onready var progress_bar: ProgressBar = $UIControl/ProgressBar
+
 
 func _ready():
-	trail.visible = false
+
+	trail.visible = true
 	global_position = point1.global_position
 	path_follow.set_as_toplevel(true)
 	line2d.set_as_toplevel(true)
 	path_follow.global_position = self.global_position
 	move_positions_container.set_as_toplevel(true)
 	move_positions_container.global_position = Vector2.ZERO
-	hp_to_next_token = hp -250
+	hp_to_next_token = total_hp -250
 	connect("enemy_hit_landed", self, "_on_enemy_hit_landed")
 
 
 func check_phase() -> void:
-	return
-	if hp <= hp_phase2_threshold:
-		_state_machine.transition_without_delay("Phase2")
-	if hp <= hp_phase3_threshold:
-		_state_machine.transition_without_delay("Phase3")
+	match phase:
+		1:
+			if hp <= hp_phase2_threshold:
+				_state_machine.transition_without_delay("Phase2")
+				phase = 2
+		2:
+			if hp <= hp_phase3_threshold:
+				_state_machine.transition_without_delay("Phase3")
+				phase = 3
+		3:
+			if hp <= hp_phase4_threshold:
+				_state_machine.transition_without_delay("Phase4")
+				phase = 4
 
 
 func _on_enemy_hit_landed() -> void:
@@ -58,8 +73,8 @@ func _physics_process(delta):
 
 func check_if_token() -> void:
 	if hp <= hp_to_next_token:
-		hp_to_next_token -= 280
-		SignalManager.emit_signal("_on_collectable_request", global_position)
+		hp_to_next_token -= 150
+		tokens_to_spawn += 1
 
 
 func shine() -> void:
@@ -80,3 +95,11 @@ func set_wave(new_wave) -> void:
 	on_wave_ready()
 	
 	visible = true
+
+func show_health() -> void:
+	ui_animation.play("show_health")
+
+
+func hide_health() -> void:
+	ui_animation.play_backwards("show_health")
+

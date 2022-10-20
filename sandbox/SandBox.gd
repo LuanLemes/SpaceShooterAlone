@@ -1,13 +1,12 @@
 extends Node2D
-class_name Father
 
-func _ready():
-	method()
+var wrapednumber :int = wrapi(0, 0, 10)
 
+#func _ready():
 
-func method() -> void:
-#	.method()
-	print("father_method")
-
+func _process(delta):
+	wrapednumber = wrapi(wrapednumber + 1, 0, 10)
+	print(wrapednumber)
+	
 
 

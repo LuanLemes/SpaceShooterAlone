@@ -1,6 +1,8 @@
 extends Node2D
 class_name BasicWeapon
 
+
+onready var bullet_container: Node2D = $bulletcontainer
 export var bullet: PackedScene
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 export var aim_error_margin: = 10
@@ -29,7 +31,7 @@ func shoot() -> void:
 	
 	var instanced_bullet = bullet.instance()
 	
-	add_child(instanced_bullet)
+	bullet_container.add_child(instanced_bullet)
 	instanced_bullet.set_as_toplevel(true)
 	instanced_bullet.global_position = this_position
 	
@@ -45,8 +47,7 @@ func shoot() -> void:
 	instanced_bullet.direction = Vector2.UP.rotated(new_rotation)
 
 
-
-#func _input(event):
-#	if event.is_action_pressed("test_input_3"):
-#		shoot()
-
+func destroy_all_bullets() -> void:
+	for bullet in bullet_container.get_children():
+		if bullet.is_in_group("bullet"):
+			bullet.explode()

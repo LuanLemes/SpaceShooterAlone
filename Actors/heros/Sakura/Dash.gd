@@ -21,13 +21,14 @@ func physics_process(delta):
 	self.is_inside_wall = character.check_if_is_in_wall()
 	_spawn_trail()
 	character.hero_movement_handler.dash()
-#	character.hero_movement_handler.fast_rotate_to_movement()
 
 
 func enter(msg: Dictionary = {}) -> void:
+	character.dashs_left -= 1
+	if character.dashs_left < 0:
+		pass
 	character.hero_movement_handler.fast_rotate_to_movement()
 	_checker = character.check_if_can_wall_dash()
-	print(_checker)
 	if _checker == -1:
 		dash_duration = 0.15
 		pass
@@ -39,14 +40,9 @@ func enter(msg: Dictionary = {}) -> void:
 	
 	character._hurt_box.set_deferred("monitorable", false)
 	character._dash_timer.start()
-#	character._dash_particles.emitting = true
-#	character.hero_movement_handler._rotation_speed += _bonus_rotation_speed
 	character.hero_movement_handler.update_direction_inputs = false
 	emit_signal("hero_started_dashing")
 	initial_position = character.global_position
-#	timer.start(dash_duration)
-#	start_timer(dash_duration)
-	print("dash_duration_is" , String(dash_duration))
 	_state_machine._timer.start(dash_duration)
 
 
@@ -58,7 +54,6 @@ func exit() -> void:
 	dash_duration = 0.15
 	is_inside_wall = false
 	character.set_collision_mask_bit(1, 1)
-	print(initial_position.distance_to(character.global_position))
 	character._hurt_box.set_deferred("monitorable", true)
 	character.hero_movement_handler.update_direction_inputs = true
 #	character.hero_movement_handler._rotation_speed -= _bonus_rotation_speed

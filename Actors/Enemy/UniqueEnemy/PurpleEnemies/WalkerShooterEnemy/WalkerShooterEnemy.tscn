@@ -32,7 +32,7 @@ extents = Vector2( 40, 40 )
 
 [node name="WalkerShooterEnemy" instance=ExtResource( 1 )]
 collision_mask = 0
-base_hp = 630.0
+base_hp = 210.0
 speed = 110
 is_movement_enemy = true
 

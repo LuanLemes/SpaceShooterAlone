@@ -15,7 +15,7 @@ func _ready():
 	set_process(false)
 	_reset_lines()
 	_line_2d.set_as_toplevel(true)
-	set_line_activated(true)
+	set_line_activated(false)
 
 
 func set_line_activated(value) -> void:

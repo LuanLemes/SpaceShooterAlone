@@ -1,6 +1,6 @@
 extends TokenUpgrade
 
-var heal_percentage: int = 70
+var heal_percentage: int = 100
 
 
 func _ready():

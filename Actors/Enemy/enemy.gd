@@ -8,6 +8,9 @@ signal critical_landed
 signal camera_shake_requested
 signal death_started(enemy_global_position)
 signal enemy_hit_landed
+signal hp_changed(hp)
+signal total_hp_changed(total_hp)
+
 
 var is_active: bool = true
 var can_be_damaged: bool = true setget set_can_be_damaged
@@ -38,7 +41,8 @@ export var crosshair_scale: float = 0.54
 export var max_support: int = 1
 export var support_number: int = 0
 var dying = false
-onready var appear_particle: Particles2D = $AppearNode/Particles2D2
+#onready var appear_particle: Particles2D = $AppearNode/Particles2D2
+onready var appear_animation: AnimationPlayer = $AppearNode/AnimationPlayer
 onready var _state_machine: StateMachine = $StateMachine
 
 
@@ -63,19 +67,20 @@ func _ready():
 
 
 func set_wave(new_wave) -> void:
-	appear_particle.emitting = true
+	visible = true
+	appear_animation.play("Appear")
 	set_collision_layer_bit(2, true)
 	set_collision_mask_bit(1, true)
 	set_collision_mask_bit(2, true)
-	hurt_box.set_collision_layer_bit(0, true)
 	enemy_area.set_collision_layer_bit(2, true)
-	add_to_group("enemies")
 	wave = new_wave
+	yield(appear_animation,"animation_finished")
+	hurt_box.set_collision_layer_bit(0, true)
+	add_to_group("enemies")
 	set_process(true)
 	set_physics_process(true)
 	on_wave_ready()
 	
-	visible = true
 
 
 func set_hp(value) -> void:
@@ -85,7 +90,8 @@ func set_hp(value) -> void:
 		if dying != true: 
 			dying = true
 			_die()
-	
+	emit_signal("hp_changed", hp)
+
 
 func set_bonus_hp(value) -> void:
 	bonus_percent_hp = value
@@ -95,7 +101,7 @@ func set_bonus_hp(value) -> void:
 func set_total_hp() -> void:
 	total_hp = base_hp + (base_hp / 100 * bonus_percent_hp) 
 	total_hp = round(float(total_hp) * DifficultParameters.enemy_health_factor)
-	
+	emit_signal("total_hp_changed", total_hp)
 
 func get_hurt(damage) -> void:
 	self.hp -= damage
