@@ -6,9 +6,6 @@ var shooted: bool = false
 export var death_particle: PackedScene
 
 
-func unhandled_input(event):
-	return
-
 
 func physics_process(delta):
 	if path_ended == true:

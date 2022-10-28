@@ -8,8 +8,7 @@ func _ready():
 	min_wait = 4
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

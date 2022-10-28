@@ -5,6 +5,7 @@ class_name HeroMovementHandler
 signal stopped
 
 var is_pressing_dash: bool = false
+var mobile_dash_input: bool = false
 var update_direction_inputs: bool = true
 var character setget set_character
 var direction = Vector2.ZERO
@@ -13,6 +14,8 @@ var speed_improve_modifier = 210
 export var dash_speed = 1500
 export var base_speed: float = 300
 export var _rotation_speed: = 10
+var mobile_direction_vector: Vector2 = Vector2.ZERO
+var old_direction
 
 var up: = Vector2.ZERO
 
@@ -22,6 +25,7 @@ var final_speed = 0
 var screen_size
 
 
+
 func set_character(new_character):
 	character = new_character
 	screen_size = character.get_viewport_rect().size
@@ -29,6 +33,7 @@ func set_character(new_character):
 
 
 func _ready():
+	SignalManager.connect("use_move_vector", self, "_on_TouchScreenButton_use_move_vector")
 	set_final_speed()
 	set_physics_process(false)
 
@@ -94,11 +99,18 @@ func fast_rotate_to_movement() -> void:
 func update_direction() -> void:
 	if !update_direction_inputs:
 		return
-	var old_direction = direction
+	if direction != Vector2.ZERO:
+		old_direction = direction
+	var this_old_direction = direction
 	direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	direction = direction.normalized()
-	if old_direction != Vector2.ZERO and direction == Vector2.ZERO:
+	
+	if mobile_direction_vector != Vector2.ZERO:
+		direction = mobile_direction_vector.normalized()
+	else:
+		direction = direction.normalized()
+	
+	if this_old_direction != Vector2.ZERO and direction == Vector2.ZERO:
 		emit_signal("stopped")
 
 
@@ -129,4 +141,11 @@ func improve_speed() -> void:
 
 func _input(event):
 	
-	is_pressing_dash = event.is_action_pressed("dash") 
+	if event.is_action_pressed("dash") or mobile_dash_input:
+		is_pressing_dash = true
+	else:
+		is_pressing_dash = false
+
+
+func _on_TouchScreenButton_use_move_vector(direction_vector):
+	mobile_direction_vector = direction_vector

@@ -71,7 +71,7 @@ func _ready():
 	update_total_cooldown()
 	add_front_cannon()
 	self.connect("hero_shooted", SignalManager, "_on_hero_shooted")
-	connect("hero_shooted", self, "")
+#	connect("hero_shooted", self, "")
 	update_total_critical_chance()
 
 
@@ -246,8 +246,9 @@ func on_enemy_hit_landed() -> void:
 		return
 	else:
 		back_fire()
-	if Rng.rng.randi_range(0,100) < 99:
-		back_fire()
+	if Rng.rng.randi_range(0,100) < 30:
+		for i in Rng.rng.randi_range(1, 3):
+			back_fire()
 		
 	
 	

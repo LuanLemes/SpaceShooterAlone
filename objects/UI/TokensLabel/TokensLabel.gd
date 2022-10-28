@@ -6,6 +6,8 @@ var current_tokens: int setget _set_current_tokens
 var max_stacks: int = SingletonManager.max_stacks
 onready var _label: Label = $Label
 onready var _label2: Label = $Label2
+onready var _tween: Tween = $Tween
+onready var _texture_progress: TextureProgress = $TextureProgress
 
 
 func _ready():
@@ -31,8 +33,14 @@ func _on_token_count_changed(value) -> void:
 
 func _set_current_stacks(value) -> void:
 	_label2.text = String(String(value) + "/" + String(max_stacks))
+	if value > 0:
+		_cooldown()
+	else:
+		_texture_progress.value = 0
 
-
+func _cooldown() -> void:
+	_tween.interpolate_property(_texture_progress, "value", 100, 0, SingletonManager.stack_effect_duration)
+	_tween.start()
 
 
 

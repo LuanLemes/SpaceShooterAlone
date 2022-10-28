@@ -5,8 +5,6 @@ var path_ended: bool = false
 var curve2d: Curve2D = Curve2D.new()
 
 
-func unhandled_input(event):
-	return
 
 
 func physics_process(delta):

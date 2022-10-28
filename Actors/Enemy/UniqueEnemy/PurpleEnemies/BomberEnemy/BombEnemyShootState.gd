@@ -11,8 +11,6 @@ func _ready():
 	min_wait = 2
 
 
-func unhandled_input(event):
-	return
 
 
 func physics_process(delta):

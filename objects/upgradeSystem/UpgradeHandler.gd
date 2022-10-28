@@ -210,9 +210,6 @@ func set_current_state(new_value) -> void:
 	current_state = new_value
 	
 
-#func _unhandled_input(event):
-#	if event.is_action_pressed("test_input_4"):
-#		chosse_upgrades_to_upgrade()
 
 
 func _on_upgrade_duplicated(upgrade_duplicated) -> void:

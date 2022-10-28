@@ -14,8 +14,7 @@ func _ready():
 		shoot_animation_name = "ShootUpgrade"
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

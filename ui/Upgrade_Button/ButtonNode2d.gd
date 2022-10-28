@@ -4,7 +4,7 @@ signal upgrade_button_pressed(button)
 signal upgrade_animation_ended
 signal upgrade_animation_started
 signal upgrade_animation_finished
-
+signal second_click
 
 #onready var label_name = $Button/Button/VBoxContainer/Name
 onready var label_name = $Button/VBoxContainer/MarginContainer/Name
@@ -23,6 +23,9 @@ onready var rarity_label: Label = $Button/Rarity
 var upgrade: Upgrade
 var index_of_upgrade: int
 export var animate_on_focus: = false
+export var selected: bool = false
+export var is_big_button = false
+var first_click = false
 
 func _ready():
 	animation_player.connect("animation_finished", self, "upgrade_animation_finished")
@@ -76,8 +79,11 @@ func clean_button() -> void:
 	upgrade_description.text = ""
 
 
-func _on_Button_button_up():
-	emit_signal("upgrade_button_pressed", self)
+#func _on_Button_button_up():
+#	if _button.has_focus():
+#		emit_signal("upgrade_button_pressed", self)
+#	else:
+#		_button.grab_focus()
 
 
 func _play_upgrade_animation():
@@ -95,7 +101,8 @@ func _on_Button_focus_entered():
 func _on_Button_mouse_entered():
 	_button.grab_focus()
 	_get_bigger_animation()
-
+	first_click = true
+	pass
 
 func _get_bigger_animation() -> void:
 	if !animate_on_focus:
@@ -115,9 +122,20 @@ func _return_to_original_size() -> void:
 
 func _on_Button_focus_exited():
 	_return_to_original_size()
+	first_click = false
 
 
 func _on_Button_mouse_exited():
 	_return_to_original_size()
-#	_button.set_focus_mode = 0
 
+
+func _on_Button_button_down():
+	if is_big_button:
+		emit_signal("upgrade_button_pressed", self)
+		return
+	if _button.has_focus():
+		emit_signal("upgrade_button_pressed", self)
+	else:
+		_button.grab_focus()
+		
+		first_click = true

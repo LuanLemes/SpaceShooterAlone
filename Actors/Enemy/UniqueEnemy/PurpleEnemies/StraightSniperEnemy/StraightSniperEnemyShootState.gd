@@ -13,8 +13,7 @@ func _ready():
 	_damage_cooldown.wait_time = cooldown_damage
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

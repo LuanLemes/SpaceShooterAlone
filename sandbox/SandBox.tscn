@@ -2,5 +2,5 @@
 
 [ext_resource path="res://sandbox/SandBox.gd" type="Script" id=3]
 
-[node name="SandBox" type="Node2D"]
+[node name="SandBox" type="Button"]
 script = ExtResource( 3 )

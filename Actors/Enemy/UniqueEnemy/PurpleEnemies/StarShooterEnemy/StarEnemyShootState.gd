@@ -12,8 +12,7 @@ func _ready():
 	_animation_player.connect("animation_finished", self, "_on_animation_player_animation_finished")
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

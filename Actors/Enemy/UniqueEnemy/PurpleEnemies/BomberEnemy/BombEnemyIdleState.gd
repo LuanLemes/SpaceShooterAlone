@@ -2,9 +2,6 @@ extends State
 
 
 
-func unhandled_input(event):
-	return
-
 
 func enter(msg: Dictionary = {}) -> void:
 	start_timer()

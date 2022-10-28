@@ -14,7 +14,7 @@ func _physics_process(delta):
 		collider.set_modulate(154)
 
 
-func _input(event):
-	if event.is_action_pressed("click"):
-		look_at(get_global_mouse_position())
-		rotation_degrees -= 90
+#func _input(event):
+#	if event.is_action_pressed("click"):
+#		look_at(get_global_mouse_position())
+#		rotation_degrees -= 90

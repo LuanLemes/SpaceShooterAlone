@@ -27,16 +27,21 @@ onready var _restart_button = $CanvasLayer/RestartButton
 onready var _timer: Timer = $Timer
 onready var _level_label := $CanvasLayer/Ui/LevelLabel
 onready var _token_label_container:= $CanvasLayer/Ui/TokenLabelContainer
+onready var _mobile_ui: Node2D = $MobileUI
+
 
 var _level_count: int = 0
 var _min_wait_time_between_levels: int = 1.4
 var _tokens_count: int = 0 setget _set_tokens_counter
 
 export var _reward_levels: int = 5
-export var _flame_levels: int = 15
+export var _flame_levels: int = 1
 
 
 func _ready():
+#	SingletonManager.update_os()
+	print("is_android = ", SingletonManager.is_mobile)
+	print( SingletonManager.os_name)
 	self._tokens_count = _tokens_count
 	SingletonManager.level = self
 	_upgrade_handler.hero = self._hero
@@ -51,6 +56,7 @@ func _ready():
 	_restart_button.connect("restart_button_pressed", self, "_on_restart_button_pressed")
 	_reward_handler.connect("reward_activated", self, "_on_reward_handler_activated")
 	start_level()
+	check_mobile_ui()
 	
 func _on_collectable_picked(collectable_name) -> void:
 	self._tokens_count += 1
@@ -76,6 +82,7 @@ func _hide_upgrade_ui() -> void:
 
 
 func _show_upgrade() -> void:
+	yield(get_tree().create_timer(0.7),"timeout")
 	_show_upgrade_ui()
 	_upgrade_handler._show_cards_animation()
 	upgrade_pause()
@@ -174,6 +181,8 @@ func start_level() -> void:
 	_level_label.visible = false
 	_hero.is_active = true
 	emit_signal("_level_started")
+	_upgrade_handler.chosse_upgrades_to_buy()
+	_show_upgrade()
 
 
 func _input(event):
@@ -201,6 +210,9 @@ func _update_level_label() -> void:
 		_level_label.text = _wave_spawner.level_label
 
 
+func check_mobile_ui() -> void:
+	if ! SingletonManager.is_mobile:
+		_mobile_ui.visible = false
 
 
 

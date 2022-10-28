@@ -6,8 +6,7 @@ export var min_wait: float = 3
 export var max_wait: float = 5
 var character
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

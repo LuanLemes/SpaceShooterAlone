@@ -76,7 +76,7 @@ one_shot = true
 autostart = true
 
 [node name="HitBoxArea2D2" parent="." instance=ExtResource( 3 )]
-damage = 3.0
+damage = 15.0
 max_number_of_hits = 1
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBoxArea2D2"]

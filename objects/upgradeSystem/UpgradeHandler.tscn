@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://objects/upgradeSystem/UpgradeHandler.gd" type="Script" id=1]
 [ext_resource path="res://ui/Upgrade_Button/ButtonNode2d.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://objects/upgrades/abstract_upgrades/WeakPointUpgrade.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/DiagonalShootsUpgrade.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/LifeStealUpgrade.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/upgrades/abstract_upgrades/MissleLauncherUpgrade.tscn" type="PackedScene" id=13]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/AfterMoveUpgrade.tscn" type="PackedScene" id=14]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/10FirstSecondsAttackPlusUpgrade.tscn" type="PackedScene" id=15]
 [ext_resource path="res://objects/upgrades/abstract_upgrades/CritSteal.tscn" type="PackedScene" id=16]
@@ -94,9 +95,6 @@ anchor_bottom = 1.0
 margin_right = 1080.0
 margin_bottom = 1920.0
 color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="Node2D" parent="ColorRect"]
 
@@ -106,14 +104,20 @@ scale = Vector2( 0.2, 0.2 )
 [node name="BigButtonLeft" parent="ColorRect/VBoxContainer/BigButtons" instance=ExtResource( 2 )]
 position = Vector2( -1438.64, 3550.04 )
 scale = Vector2( 2.2, 2.2 )
+selected = true
+is_big_button = true
 
 [node name="BigButtonMiddle" parent="ColorRect/VBoxContainer/BigButtons" instance=ExtResource( 2 )]
 position = Vector2( 2696.36, 3550.04 )
 scale = Vector2( 2.2, 2.2 )
+selected = true
+is_big_button = true
 
 [node name="BigButtonRight" parent="ColorRect/VBoxContainer/BigButtons" instance=ExtResource( 2 )]
 position = Vector2( 6831.36, 3540.6 )
 scale = Vector2( 2.2, 2.2 )
+selected = true
+is_big_button = true
 
 [node name="SmallButtons" type="Node2D" parent="ColorRect/VBoxContainer"]
 position = Vector2( 404.712, 1652.47 )
@@ -205,6 +209,8 @@ __meta__ = {
 [node name="SpeedPlusUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 9 )]
 
 [node name="DashResetUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 28 )]
+
+[node name="MissleLauncherUpgrade" parent="UpgradeContainer/UnsortedContainer" instance=ExtResource( 13 )]
 
 [node name="UpgradesActive" type="Node" parent="UpgradeContainer"]
 

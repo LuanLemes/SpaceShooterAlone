@@ -8,7 +8,7 @@ onready var magnetic_area: Area2D = $PlayerMagneticArea
 var picked = false
 export var duration: float = 2.5
 onready var timer: Timer = $Timer
-var hero: Hero
+var hero: Hero = SingletonManager.hero
 
 
 func _ready():

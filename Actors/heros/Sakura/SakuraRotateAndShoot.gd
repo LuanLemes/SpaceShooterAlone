@@ -1,8 +1,7 @@
 extends State
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

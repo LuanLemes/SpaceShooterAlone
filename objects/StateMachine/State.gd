@@ -8,8 +8,7 @@ var character
 var time_before_next_action : = 1
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

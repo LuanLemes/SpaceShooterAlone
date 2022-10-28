@@ -13,8 +13,6 @@ func _ready():
 	pass
 
 
-func unhandled_input(event):
-	pass
 
 
 #func physics_process(delta):

@@ -1,6 +1,6 @@
 extends Node
 
-
+signal dash_request
 signal player_can_enter
 signal hero_entered_level
 signal transition_ended
@@ -38,6 +38,8 @@ signal upgrade_duplicated(upgrade_duplicated)
 signal hero_death_started
 signal collectable_picked(collectable_name)
 signal current_stacks_changed(value)
+signal use_move_vector(vector)
+
 
 #var _hero: Hero setget _set_hero
 
@@ -196,9 +198,20 @@ func _on_transition_ended() -> void:
 func _on_hero_entered_level(object, key) -> void:
 	emit_signal("hero_entered_level")
 
+
 func player_can_enter() -> void:
 	emit_signal("player_can_enter")
 
 
 func _on_current_stacks_changed(value) -> void:
 	emit_signal("current_stacks_changed", value)
+
+
+func _use_move_vector(this_vector) -> void:
+	emit_signal("use_move_vector", this_vector)
+
+
+func _dash_requested() -> void:
+	emit_signal("dash_request")
+
+

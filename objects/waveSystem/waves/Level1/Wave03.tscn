@@ -78,16 +78,16 @@ position = Vector2( 820, 560 )
 [node name="SubWave3" parent="SubWaves" index="2" instance=ExtResource( 4 )]
 
 [node name="EnemiesStraightPipeEnemy7" parent="SubWaves/SubWave3" index="0" instance=ExtResource( 3 )]
-position = Vector2( 780, 800 )
+position = Vector2( 900, 700 )
 
 [node name="EnemiesStraightPipeEnemy4" parent="SubWaves/SubWave3" index="1" instance=ExtResource( 3 )]
-position = Vector2( 820, 560 )
+position = Vector2( 880, 500 )
 
 [node name="EnemiesStraightPipeEnemy5" parent="SubWaves/SubWave3" index="2" instance=ExtResource( 3 )]
 position = Vector2( 720, 380 )
 
 [node name="EnemiesStraightPipeEnemy3" parent="SubWaves/SubWave3" index="3" instance=ExtResource( 3 )]
-position = Vector2( 560, 300 )
+position = Vector2( 580, 240 )
 
 [node name="EnemiesStraightPipeEnemy6" parent="SubWaves/SubWave3" index="4" instance=ExtResource( 3 )]
 position = Vector2( 380, 140 )

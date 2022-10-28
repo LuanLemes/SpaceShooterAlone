@@ -12,8 +12,7 @@ func _ready():
 	laser_cooldown.connect("timeout", self, "on_cooldown_timeout")
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

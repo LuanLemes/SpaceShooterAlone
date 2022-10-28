@@ -7,6 +7,7 @@ onready var animator: AnimationPlayer = $AnimationPlayer
 
 
 func _ready():
+	SingletonManager.update_os()
 #	yield(get_tree().create_timer(7.0), "timeout")
 	BackgroundMusic.crossfade_to(theme_music)
 

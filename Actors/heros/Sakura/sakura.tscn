@@ -109,7 +109,7 @@ color_ramp = SubResource( 16 )
 
 [node name="Sakura" instance=ExtResource( 1 )]
 collision_mask = 34
-base_hp = 9100.0
+base_hp = 120.0
 dash_cooldown = 0.63
 
 [node name="CollisionShape2D2" parent="." index="1"]

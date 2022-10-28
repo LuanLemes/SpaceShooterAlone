@@ -81,13 +81,25 @@ position = Vector2( 0, -720 )
 [node name="StraightPipeEnemy6" parent="SubWaves/SubWave3" index="0" instance=ExtResource( 3 )]
 position = Vector2( 720, 1120 )
 
-[node name="StraightPipeEnemy7" parent="SubWaves/SubWave3" index="1" instance=ExtResource( 3 )]
+[node name="StraightPipeEnemy10" parent="SubWaves/SubWave3" index="1" instance=ExtResource( 3 )]
+position = Vector2( 880, 1320 )
+
+[node name="StraightPipeEnemy11" parent="SubWaves/SubWave3" index="2" instance=ExtResource( 3 )]
+position = Vector2( 240, 1320 )
+
+[node name="StraightPipeEnemy12" parent="SubWaves/SubWave3" index="3" instance=ExtResource( 3 )]
+position = Vector2( 560, 960 )
+
+[node name="StraightPipeEnemy13" parent="SubWaves/SubWave3" index="4" instance=ExtResource( 3 )]
+position = Vector2( 560, 1680 )
+
+[node name="StraightPipeEnemy7" parent="SubWaves/SubWave3" index="5" instance=ExtResource( 3 )]
 position = Vector2( 360, 1120 )
 
-[node name="StraightPipeEnemy8" parent="SubWaves/SubWave3" index="2" instance=ExtResource( 3 )]
+[node name="StraightPipeEnemy8" parent="SubWaves/SubWave3" index="6" instance=ExtResource( 3 )]
 position = Vector2( 760, 1480 )
 
-[node name="StraightPipeEnemy9" parent="SubWaves/SubWave3" index="3" instance=ExtResource( 3 )]
+[node name="StraightPipeEnemy9" parent="SubWaves/SubWave3" index="7" instance=ExtResource( 3 )]
 position = Vector2( 360, 1480 )
 
 [node name="LeaveArea" parent="." index="9"]

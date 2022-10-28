@@ -8,8 +8,7 @@ func _ready():
 	connect("hero_stopped_moving", SignalManager, "_on_hero_stopped_moving")
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

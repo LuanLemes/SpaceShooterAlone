@@ -15,10 +15,10 @@ export var instance_collectable_chance: int = 100
 var speed_modifier = 50
 var heal_modifier = 1
 var cooldown_modifier: float = 0.07
-var effect_duration: int = 3
+var effect_duration: int = SingletonManager.stack_effect_duration
 var is_heal_modifier: bool = true
 var is_weapon_cooldown_modifier: bool = true
-var max_stacks:int = 3 
+var max_stacks:int = SingletonManager.max_stacks
 var current_stacks: int = 0 setget set_current_stacks
 onready var hero: Hero = SingletonManager.hero
 
@@ -33,15 +33,13 @@ func _ready():
 
 
 func stack_effect_start() -> void:
+	_timer.start()
 	if is_heal_modifier:
 		hero.get_heal(heal_modifier)
-	if current_stacks >= max_stacks:
-		_timer.start()
-		return
+	if current_stacks < max_stacks:
+		if is_weapon_cooldown_modifier:
+			hero.hero_weapon.bonus_cooldown += cooldown_modifier
 	self.current_stacks+= 1
-	_timer.start()
-	if is_weapon_cooldown_modifier:
-		hero.hero_weapon.bonus_cooldown += cooldown_modifier
 
 
 func stack_effect_end() -> void:
@@ -92,13 +90,13 @@ func _on_collectable_request(this_position) -> void:
 
 
 func set_current_stacks(value) -> void:
-	current_stacks = value
+	current_stacks = min(value, 3)
 	emit_signal("current_stacks_changed", current_stacks)
 
 
 func _input(event):
 	if event.is_action_pressed("click"):
-		for i in 100:
+		for i in 1:
 			spawn_colectable("Blue", get_global_mouse_position())
 		
 

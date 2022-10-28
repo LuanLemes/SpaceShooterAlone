@@ -19,8 +19,7 @@ func _ready():
 	set_process(false)
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

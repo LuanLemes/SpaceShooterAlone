@@ -4,8 +4,7 @@ export var max_shoots: = 4
 var shoot_count := 0
 export var shoot_cooldown: = 0.35
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):

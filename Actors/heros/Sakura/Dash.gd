@@ -13,8 +13,7 @@ func _ready():
 	timer.connect("timeout", self, "_on_dash_timeout")
 
 
-func unhandled_input(event):
-	return
+
 
 
 func physics_process(delta):
